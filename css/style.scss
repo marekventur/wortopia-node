@@ -1,38 +1,34 @@
-$base03:    #002b36;
-$base02:    #073642;
-$base01:    #586e75;
-$base00:    #657b83;
-$base0:     #839496;
-$base1:     #93a1a1;
-$base2:     #eee8d5;
-$base3:     #fdf6e3;
-$yellow:    #b58900;
-$orange:    #cb4b16;
-$red:       #dc322f;
-$magenta:   #d33682;
-$violet:    #6c71c4;
-$blue:      #268bd2;
-$cyan:      #2aa198;
-$green:     #859900;
-$font:      Arial;
-$width:     1000px;
-$col1:      280px;
-$col2:      400px;
-$col3:      280px;
+$bg3:#ccc;
+$bg2:#eee;
+$bg1:#fff;
+
+$fg3:#999;
+$fg2:#666;
+$fg1:#000;
+
+$hi1: blue;
+$hi2: red;
+$hi3: green;
+
+$font: Arial;
+
+$width: 1000px;
+$col1:  220px;
+$col2:  450px;
+$col3:  280px;
 
 
 body {
-    background:     $base3;
-    color:          $base03;
+    background:     $bg1;
+    color:          $fg1;
     font-family:    $font;
 }
 
 a {
-    color:      $blue;
+    color:      $hi1;
 
     &:hover {
-        color:  $magenta;
-        sbackground: $magenta;
+        color:  $hi2;
     }
 }
 
@@ -42,8 +38,8 @@ a {
 
 #header {
     display:block;
-    background-color:   $base2;
-    color:              $base03;
+    background-color:   $bg2;
+    color:              $fg2;
     padding: 10px 0px;
 
     a {
@@ -105,8 +101,8 @@ a {
 
 .field {
     table {
-        background-color:   $base02;
-        color:              $base2;
+        background-color:   $bg2;
+        color:              $fg2;
         width: 100%;
 
         -webkit-border-radius: 0.02em;
@@ -116,13 +112,13 @@ a {
         border-spacing: 0.01em;
 
         .field_path {
-            background: $green;
-            color: $base02;
+            background: $bg3;
+            color: $hi1;
         }
 
         .field_path_start {
-            background: $red;
-            color: $base02;
+            background: $bg3;
+            color: $hi2;
         }
 
         td {
@@ -161,8 +157,8 @@ a {
 
         width: 180px;
 
-        background-color:   $base02;
-        color:              $base2;
+        background-color:   $bg2;
+        color:              $fg2;
 
         -webkit-border-top-right-radius: 3px;
         -webkit-border-bottom-right-radius: 3px;
@@ -170,9 +166,6 @@ a {
         -moz-border-radius-bottomright: 3px;
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
-
-        background: $base01;
-        color: $base1;
 
         .last_game_info_label {
             padding-left: 20px;
@@ -188,7 +181,7 @@ a {
         border-top-right-radius: 0;
         border-bottom-right-radius: 0;
 
-        background: $base01;
+        background: $bg2;
     }
 
     ul#last_words {
