@@ -1,1 +1,21 @@
 Wortopia implementation in node.js
+
+# Library
+* GameTimer
+* Language
+* Size (4 or 5)
+* Field
+
+* User
+* UserField
+
+# Server 
+## Requirements
+$ npm install mysql
+$ npm install -g coffee-script
+$ npm install winston
+
+# Workers
+## fieldGenerator
+## updateWordlist
+

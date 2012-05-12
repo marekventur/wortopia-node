@@ -4,17 +4,27 @@
     This is a singleton
 ###
 winston = require 'winston'
+mysql   = require 'mysql'
 
-# This is different, so watch out!
-module.exports =  
-    initiate: (@config) =>
-        winston.info 'Database successfuly instantiated'
+class WortopiaDatabase
+	constructor: (@config) ->
+		@mysql = mysql.createClient @config.mysql
 
-        # Those functions are in here to make sure they can't be called before it's instantiated
+		winston.info 'Database successfuly instantiated'
 
-        # Return a player object for a given id
-        @getPlayerForId: (id) =>
-            return false
+	getPlayerForId: (id) =>
+		return false
 
+	getAllWords: (callback) =>
+		
+		@mysql.query 'SELECT word FROM words LIMIT 100000;',
+			(err, results, fields) =>
+				if err
+					throw err
 
+				callback results
 
+	end: =>
+		@mysql.end()
+
+module.exports = WortopiaDatabase
