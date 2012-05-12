@@ -9,3 +9,4 @@ class Field
 			when 25 then @size = 5
 			else throw "Invalid size for field #{@field}"
 		
+module.exports = Field

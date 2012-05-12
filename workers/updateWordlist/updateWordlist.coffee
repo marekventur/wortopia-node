@@ -1,5 +1,5 @@
 Database = require '../../lib/WortopiaDatabase'
-config   = require '../../server/config'
+config   = require '../../config'
 fs       = require 'fs' 
 
 database = new Database config

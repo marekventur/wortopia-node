@@ -17,7 +17,7 @@ class WortopiaDatabase
 
 	getAllWords: (callback) =>
 		
-		@mysql.query 'SELECT word FROM words LIMIT 100000;',
+		@mysql.query 'SELECT word FROM words;',
 			(err, results, fields) =>
 				if err
 					throw err
