@@ -5,14 +5,16 @@
 
 winston = require 'winston'
 
-config             = require './config'
-WortopiaHttp       = require './lib/WortopiaHttp'
-WortopiaWebsockets = require './lib/WortopiaWebsockets'
-db                 = require './lib/WortopiaDatabase'
+config             = require '../config'
+WortopiaHttp       = require '../lib/WortopiaHttp'
+WortopiaWebsockets = require '../lib/WortopiaWebsockets'
+db                 = require '../lib/WortopiaDatabase'
+GameTimer          = require '../lib/GameTimer.class'
 
-
-# Welcome the person that starts it
 winston.info 'Starting wortopia...'
+
+# GameTimer
+gameTimer = new GameTimer()
 
 # Make sure the database is initiated
 db.initiate config
@@ -21,7 +23,7 @@ db.initiate config
 http = new WortopiaHttp config
 
 # Let's start the websockets server
-websockets = new config, http
+websockets = new WortopiaWebsockets config, http.app, gameTimer
 
 # We are done with our initalization
 winston.info 'Wortopia started successful'

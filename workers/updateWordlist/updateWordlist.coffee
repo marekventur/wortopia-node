@@ -1,9 +1,10 @@
-Database = require '../../lib/WortopiaDatabase'
-config   = require '../../config'
-fs       = require 'fs' 
+db     = require '../../lib/WortopiaDatabase'
+config = require '../../config'
+fs     = require 'fs' 
 
-database = new Database config
-database.getAllWords (list) =>
+db.initiate config
+
+db.getAllWords (list) =>
 	stream = fs.createWriteStream '../../'+config.wordlist
 	stream.once 'open', (fd) =>
 
@@ -26,4 +27,4 @@ database.getAllWords (list) =>
 
 		console.log 'done'
 
-		database.end()
+		db.end()
