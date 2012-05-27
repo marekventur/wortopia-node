@@ -1,9 +1,9 @@
 Helpers = require './Helpers'
+WordList = require './WordList.class'
+Word = require './Word.class'
 
 class Field
-	###
-	@param field String
-	###
+	
 	constructor: (@field) ->
 		switch @field.length
 			when 16 then @size = 4
@@ -20,10 +20,18 @@ class Field
 			result.push row
 		return result
 
-	findWords: (wordlist) =>
-		return []
+	findWords: (wordList, minLength=0) =>
+		result = new WordList()
+		for word in wordList.list
+			if word.getLength() >= minLength 
+				if @isOnField word
+					result.add word
+		return result
 
-	isOnField: (wordAsString) =>
+	isOnField: (word) =>
+		if word instanceof Word
+			word = word.word
+
 		# I don't want to use the fatarrow here
 		size = @size;
 
@@ -68,7 +76,7 @@ class Field
 		# Try every starting point
 		for y in [0...@size]
 			for x in [0...@size]
-				if checkOnField wordAsString, fieldArray, x, y
+				if checkOnField word, fieldArray, x, y
 					return true
 
 		return false

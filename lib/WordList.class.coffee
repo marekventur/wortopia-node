@@ -16,10 +16,14 @@ class WordList
 		return @list.length
 
 	add: (word) =>
-		@listPlain.push word
-		@list.push(new Word(word))
+		if word instanceof Word
+			@listPlain.push word.word
+			@list.push word
+		else
+			@listPlain.push word
+			@list.push(new Word(word))
 
-	isWord: (word) =>
-		return @list.indexOf(word.toUpperCase()) != -1
+	includes: (word) =>
+		return @listPlain.indexOf(word.toUpperCase()) != -1
 	
 module.exports = WordList
