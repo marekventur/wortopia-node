@@ -15,6 +15,9 @@ $ npm install mysql
 $ npm install -g coffee-script
 $ npm install winston
 
+## Testing requirements
+$ npm install jasmine-node
+
 # Workers
 ## fieldGenerator
 ## updateWordlist
