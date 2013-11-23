@@ -1,0 +1,29 @@
+{
+  "name": "wortopia-node",
+  "version": "0.0.0",
+  "description": "Wortopia",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/marekventur/wortopia-node.git"
+  },
+  "author": "Marek Ventur <marekventur@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marekventur/wortopia-node/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  },
+  "dependencies": {
+    "express": "~3.4.4",
+    "bunyan": "~0.22.0",
+    "redis": "~0.9.0"
+  }
+}
