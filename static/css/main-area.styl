@@ -1,0 +1,57 @@
+$fields = {
+    "4": {
+        cellSize: 70px,
+        fontSize: 35px
+    }
+};
+
+.main-area>* {
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+.main-area table.field {
+
+    td {
+        text-align: center; 
+        border-right: 2px solid #ddd;
+        border-bottom: 2px solid #ddd;
+        padding: 0px;
+    }
+
+    td:last-child {
+        border-right: none;
+    }
+
+    tr:last-child td {
+        border-bottom: none;
+    }
+
+    for $size, $data in $fields {
+        &.field--{$size} {
+
+            td {
+                width: $data.cellSize;
+                font-size: $data.fontSize;
+                height: $data.cellSize;
+            }
+        }
+    }
+}
+
+
+for $size, $data in $fields {
+    .size-{$size} .input-area {
+        width: (($data.cellSize + 1px) * $size) ;
+    }
+}
+
+.input-area {
+
+    margin-top: 30px;
+    
+    input {
+        width: 100%;
+    }
+}

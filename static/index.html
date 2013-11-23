@@ -1,32 +1,185 @@
 <!DOCTYPE html>
 <html ng-app="wortopia">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Wortopia</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8" />
+    <title>Wortopia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
-        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-        <link href="css/main.css" rel="stylesheet">
-    </head>
-    <body ng-cloak>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+</head>
+<body ng-cloak class="size-4">
+    <div class="container">
 
-        <!-- Javascript - Libs -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-        <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
-        <script src="/js/lib/jquery.cookie.js"></script>
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Wortopia</a>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">4x4</a></li>
+                    <li><a href="#">5x5</a></li>
+                    <li><a href="#">Rules</a></li>
+                    <!--
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li class="dropdown-header">Nav header</li>
+                            <li><a href="#">Separated link</a></li>
+                            <li><a href="#">One more separated link</a></li>
+                        </ul>
+                    </li>
+                    -->
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p class="navbar-text playing-as">Playing as Guest123</p></li>
+                    <li><button type="button" class="btn btn-default navbar-btn pull-right">Sign in</button></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div>
 
-        <!-- Javascript - Controllers -->
-        <script src="/js/controllers/MainController.js"></script>
+        <div class="row">
+            <div class="col-md-6 col-md-push-3 main-area">
+                <table class="field field--4">
+                    <tr>
+                        <td>A</td>
+                        <td>B</td>
+                        <td>C</td>
+                        <td>D</td>
+                    </tr>
+                    <tr>
+                        <td>E</td>
+                        <td>F</td>
+                        <td>G</td>
+                        <td>H</td>
+                    </tr>
+                    <tr>
+                        <td>I</td>
+                        <td>J</td>
+                        <td>K</td>
+                        <td>L</td>
+                    </tr>
+                    <tr>
+                        <td>M</td>
+                        <td>N</td>
+                        <td>O</td>
+                        <td>P</td>
+                    </tr>
+                </table>
 
-        <!-- Javascript - Services -->
-        <script src="/js/services/Socket.js"></script>
+                <div class="input-area">
+                    <input type="text" class="input" />
+                </div>
+            </div>
 
-        <!-- Start services -->
-        <script src="/js/services.js"></script>
-        <script>initWortopia('/sockjs');</script>
-    </body>
+            <div class="col-md-3 col-md-pull-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        4 Players
+                    </div>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <span class="badge">53 <small>(74%)</small></span>
+                            marekventur
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">53 <small>(74%)</small></span>
+                            Team Beatles
+                            <ul>
+                                <li>
+                                    <span class="badge badge--transparent pull-right">53 <small>(74%)</small></span>
+                                    User345
+                                </li>
+                                <li>
+                                    <span class="badge badge--transparent pull-right">53 <small>(74%)</small></span>
+                                    User567
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="list-group-item">
+                            <span class="badge">53 <small>(74%)</small></span>
+                            User123
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="panel panel-default last-round last-round--4">
+                    <div class="panel-heading">
+                        <table class="field field--4">
+                            <tr>
+                                <td>A</td>
+                                <td>B</td>
+                                <td>C</td>
+                                <td>D</td>
+                            </tr>
+                            <tr>
+                                <td>E</td>
+                                <td>F</td>
+                                <td>G</td>
+                                <td>H</td>
+                            </tr>
+                            <tr>
+                                <td>I</td>
+                                <td>J</td>
+                                <td>K</td>
+                                <td>L</td>
+                            </tr>
+                            <tr>
+                                <td>M</td>
+                                <td>N</td>
+                                <td>O</td>
+                                <td>P</td>
+                            </tr>
+                        </table>
+
+                        <div>
+                            <p>Last round</p>
+
+                            <small>
+                                87 points <br>
+                                43 words
+                            </small>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        ADERNDE DUE DAUERND NUR CANNA URD NUANCE DURRA IRE DIA EIRUNDEN URE RUNDE RED NUN RUNDA URNEN RUN DUNE DAUER DAUERN DUNEN RUDERN EIRUND NUER DENN ERD ENNUI DAUNE NARDEN RUNDEN AIDE END DUR DAURE
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- /container -->
+
+    <!-- Javascript - Libs -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+    <!-- <script src="/js/lib/jquery.cookie.js"></script> -->
+
+    <!-- Javascript - Controllers -->
+    <!-- <script src="/js/controllers/MainController.js"></script> -->
+
+    <!-- Javascript - Services -->
+    <!-- <script src="/js/services/Socket.js"></script> -->
+
+    <!-- Start services -->
+    <script src="/js/services.js"></script>
+    <script>initWortopia();</script>
+</body>
 </html>

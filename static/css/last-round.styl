@@ -1,0 +1,40 @@
+$fields = {
+    "4": {
+        cellSize: 20px
+    }
+};
+
+.last-round .panel-heading p{
+    margin-bottom: 5px;
+}
+
+
+.last-round table.field {
+    float: right;
+    margin-top: -10px;
+    margin-right: -14px;
+
+    td {
+        text-align: center; 
+        padding: 0px;
+        background-color: #fff;
+        border-left: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
+    }
+
+    for $size, $data in $fields {
+        &.field--{$size} {
+
+            td {
+                width: $data.cellSize;
+                height: $data.cellSize;
+            }
+        }
+    }
+}
+
+for $size, $data in $fields {
+    .size-{$size} .last-round .panel-heading {
+        height: (($data.cellSize + 1px) * $size) ;
+    }
+}
