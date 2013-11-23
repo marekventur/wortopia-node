@@ -1,1 +1,32 @@
-index.html
+<!DOCTYPE html>
+<html ng-app="wortopia">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Wortopia</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
+    </head>
+    <body ng-cloak>
+
+        <!-- Javascript - Libs -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
+        <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+        <script src="/js/lib/jquery.cookie.js"></script>
+
+        <!-- Javascript - Controllers -->
+        <script src="/js/controllers/MainController.js"></script>
+
+        <!-- Javascript - Services -->
+        <script src="/js/services/Socket.js"></script>
+
+        <!-- Start services -->
+        <script src="/js/services.js"></script>
+        <script>initWortopia('/sockjs');</script>
+    </body>
+</html>
