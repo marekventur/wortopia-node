@@ -19,10 +19,10 @@ var socket = new Socket(config, logger);
 var httpServer = new HttpServer(expressWrapper, socket, config, logger);
 var wordListUpdater = new WordListUpdater(redis, config, logger, redisKeyGenerator)
 
-wordListUpdater.start();
+//wordListUpdater.start();
 expressWrapper.start();
 httpServer.start();
-
+/*
 fieldGenerator.createField(5, 'de', function(err, data) {
     if (err) {
         throw err;
@@ -30,4 +30,5 @@ fieldGenerator.createField(5, 'de', function(err, data) {
 
     logger.info(data);
 });
+*/
 

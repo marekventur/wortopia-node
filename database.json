@@ -1,0 +1,9 @@
+{
+    "dev": {
+        "driver": "pg",
+        "user": "wortopia",
+        "password": "wortopia",
+        "database": "wortopia"
+    }
+
+}
