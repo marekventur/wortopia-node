@@ -1,9 +1,3 @@
 {
-    "dev": {
-        "driver": "pg",
-        "user": "wortopia",
-        "password": "wortopia",
-        "database": "wortopia"
-    }
-
+    "dev": "postgres://wortopia:wortopia@localhost/wortopia"
 }

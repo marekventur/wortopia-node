@@ -1,0 +1,12 @@
+{
+  "name": "EventEmitter",
+  "version": "1.0.1",
+  "main": "EventEmitter.js",
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "Gruntfile.js",
+    "package.json"
+  ]
+}

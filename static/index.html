@@ -5,49 +5,43 @@
     <title>Wortopia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.no-icons.min.css" rel="stylesheet">
-    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <link href="/lib.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
 </head>
 <body ng-cloak class="size-4">
     <div class="container">
 
         <!-- Static navbar -->
-        <div class="navbar navbar-default" role="navigation">
+        <div class="navbar navbar-default" role="navigation" ng-controller="HeaderController">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
+                    <span class="sr-only" translate="header.toggle_navigation"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">Wortopia</a>
+                <a class="navbar-brand" translate="header.title" href="/"></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">4x4</a></li>
-                    <li><a href="#">5x5</a></li>
-                    <li><a href="#">Rules</a></li>
-                    <!--
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
-                        </ul>
-                    </li>
-                    -->
+                    <li class="active"><a href="#" translate="header.4x4"></a></li>
+                    <li><a href="#" translate="header.5x5"></a></li>
+                    <li><a href="#" translate="header.rules"></a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><p class="navbar-text playing-as">Playing as Guest123</p></li>
-                    <li><button type="button" class="btn btn-default navbar-btn pull-right">Sign in or sign up</button></li>
+                    <li ng-show="isLoading()">
+                        <p class="navbar-text"><i class="fa fa-spinner fa-spin"></i></p>
+                    </li>
+                    <li ng-hide="isLoading()">
+                        <p class="navbar-text playing-as" translate="header.playing_as" translate-values="user" ></p>
+                    </li>
+                    <li ng-hide="isLoading()" class="btn-group pull-right ">
+                        <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#modal--login">Login</button>
+                        <button type="button" class="btn btn-default navbar-btn" data-toggle="modal" data-target="#modal--signup">Sign up</button>
+                    </li>
                 </ul>
-            </div><!--/.nav-collapse -->
+            </div>
         </div>
 
         <div class="row">
@@ -162,24 +156,51 @@
             </div>
         </div>
 
+        <!-- Modal Dialog: Sign up -->
+        <div class="modal fade" id="modal--signup" ng-controller="SignUpController">
+            <div class="modal-dialog modal-sm">
+                <form role="form" class="modal-content" ng-submit="signup()">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" translate="signup.title">Sign up</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group {{errors.username?'has-error':''}}">
+                            <label for="exampleInputUsername" translate="signup.username.label"></label>
+                            <p class="text-danger" ng-show="errors.username">{{'signup.username.error.' + errors.username |translate}}</p>
+                            <input type="text" class="form-control" ng-model="input.username" name="username" placeholder="{{'signup.username.placeholder'|translate}}" ng-disabled="loading">
+                        </div>
+                        <div class="form-group {{errors.email?'has-error':''}}">
+                            <label for="exampleInputEmail1" translate="signup.email.label"></label>
+                            <p class="text-danger" ng-show="errors.email">{{'signup.email.error.' + errors.email |translate}}</p>
+                            <input type="email" class="form-control" ng-model="input.email" name="email" placeholder="{{'signup.email.placeholder'|translate}}" ng-disabled="loading">
+                        </div>
+                        <div class="form-group {{errors.password1?'has-error':''}}">
+                            <label for="exampleInputPassword1" translate="signup.password1.label"></label>
+                            <p class="text-danger" ng-show="errors.password1">{{'signup.password1.error.' + errors.password1 |translate}}</p>
+                            <input type="password" class="form-control" ng-model="input.password1" name="password1" placeholder="{{'signup.password1.placeholder'|translate}}" ng-disabled="loading">
+                        </div>
+                        <div class="form-group {{errors.password2?'has-error':''}}">
+                            <label for="exampleInputPassword2" translate="signup.password2.label"></label>
+                            <p class="text-danger" ng-show="errors.password2">{{'signup.password2.error.' + errors.password2 |translate}}</p>
+                            <input type="password" class="form-control" ng-model="input.password2" name="password2" placeholder="{{'signup.password2.placeholder'|translate}}" ng-disabled="loading">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" ng-disabled="loading">
+                            <span translate="signup.button.confirm" ng-hide="loading"></span>
+                            <i class="fa fa-spinner fa-spin" ng-show="loading"></i>
+                        </button>
+                    </div>
+                </form><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
     </div> <!-- /container -->
 
-    <!-- Javascript - Libs -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js"></script>
-    <script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
-    <!-- <script src="/js/lib/jquery.cookie.js"></script> -->
+    <script src="/lib.js"></script>
+    <script src="/all.js"></script>
 
-    <!-- Javascript - Controllers -->
-    <!-- <script src="/js/controllers/MainController.js"></script> -->
-
-    <!-- Javascript - Services -->
-    <!-- <script src="/js/services/Socket.js"></script> -->
-
-    <!-- Start services -->
-    <script src="/js/services.js"></script>
     <script>initWortopia();</script>
 </body>
 </html>

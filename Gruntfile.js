@@ -5,41 +5,103 @@ module.exports = function(grunt) {
         stylus: {
             compile: {
                 files: {
-                    'static-build/css/main.css': ['static/css/*'] 
+                    'static-build/css/main.css': ['static/css/*']
                 }
             }
         },
 
         copy: {
-            static: {
+            img: {
                 files: [
                     {
-                        expand: true, 
-                        cwd: 'static/img/', 
-                        src: ['**'], 
+                        expand: true,
+                        cwd: 'static/img/',
+                        src: ['**'],
                         dest: 'static-build/img/'
-                    },
+                    }
+                ]
+            },
+            index: {
+                files: [
                     {
                         expand: true,
-                        cwd: 'static/js/', 
-                        src: ['**'], 
-                        dest: 'static-build/js/'
-                    },
-                    {
-                        expand: true,
-                        cwd: 'static/', 
-                        src: ['index.html'], 
+                        cwd: 'static/',
+                        src: ['index.html'],
                         dest: 'static-build/'
+                    },
+                ]
+            },
+            languages: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'static/languages',
+                        src: ['**'],
+                        dest: 'static-build/languages'
                     },
                 ]
             }
         },
 
-        watch: {
-            files: ['static/**'],
-            tasks: ['default']
+        concat_sourcemap: {
+            options: {},
+            lib_css: {
+                files: {
+                    'static-build/lib.css': [
+                        'static/lib/bootstrap/dist/css/bootstrap.css',
+                        'static/lib/bootstrap/dist/css/bootstrap-theme.css',
+                    ]
+                }
+            },
+            lib_js: {
+                files: {
+                    'static-build/lib.js': [
+                        'static/lib/jquery/dist/jquery.js',
+                        'static/lib/bootstrap/dist/js/bootstrap.js',
+                        'static/lib/angular/angular.js',
+                        'static/lib/angular-translate/angular-translate.js',
+                        'static/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
+                        'static/lib/underscore/underscore.js',
+                        'static/lib/q/q.js',
+                        'static/lib/EventEmitter/EventEmitter.js',
+                        'static/lib/sockjs/sockjs.js',
+                        'static/lib/polyfills/localStorage.js',
+                    ]
+                }
+            },
+            js: {
+                files: {
+                    'static-build/all.js': [
+                        'static/js/controllers/*.js',
+                        'static/js/services/*.js',
+                        'static/js/*.js'
+                    ]
+                }
+            }
         },
 
+        watch: {
+            css: {
+                files: ['static/css/**'],
+                tasks: ['stylus']
+            },
+            languages: {
+                files: ['static/languages/**'],
+                tasks: ['copy:languages']
+            },
+            index: {
+                files: ['static/index.html'],
+                tasks: ['copy:index']
+            },
+            js: {
+                files: ['static/js/**'],
+                tasks: ['concat_sourcemap:js']
+            },
+            lib: {
+                files: ['static/lib/**'],
+                tasks: ['concat_sourcemap:lib_js', 'concat_sourcemap:lib_css']
+            }
+        },
 
 
     });
@@ -47,6 +109,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-concat-sourcemap');
 
-    grunt.registerTask('default', ['stylus', 'copy']);
+    grunt.registerTask('default', ['stylus', 'concat_sourcemap', 'copy']);
 }

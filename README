@@ -1,1 +1,25 @@
 Wortopia implementation in node.js
+
+Set up DB
+```
+sudo -u postgres createuser wortopia
+sudo -u postgres createdb wortopia -O wortopia
+```
+
+```
+sudo -u postgres psql wortopia
+CREATE EXTENSION IF NOT EXISTS citext;
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+```
+
+```
+db-migrate up
+```
+
+Run grunt
+
+```
+grunt
+```
+
