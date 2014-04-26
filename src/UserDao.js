@@ -64,14 +64,14 @@ module.exports = function(db, logger) {
         )
         .then(function(row) {
             if (row.user_id) {
-                return that.getUserById(row.user_id);
+                return that.getById(row.user_id);
             } else {
-                return that.createGuestById(row.guest_id);
+                throw new Error('Session token invalid');
             }
         })
         .then(function(user) {
             if (!user) {
-                return Q.reject(new Error('Session token or user not found'));
+                throw new Error('Session token or user not found');
             }
             user.sessionToken = sessionToken;
             return decorateUser(user);
@@ -80,12 +80,13 @@ module.exports = function(db, logger) {
 
     that.getViaLogin = function(username, password) {
         return db.queryOne("SELECT pw_hash = crypt($1, pw_hash) as valid, id, name, team FROM users WHERE name = $2", [password, username])
-        .then(function(row) {
-            if (!row || !row.valid) {
+        .then(function(user) {
+            if (!user || !user.valid) {
                 var error = new Error('Username or password incorrect');
                 error.invalidUsernameOrPassword = true;
                 return Q.reject(error);
             }
+            delete user.valid;
             return decorateUser(user);
         })
     }

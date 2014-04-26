@@ -5,12 +5,20 @@ function Session() {
 
     that.setUser = function(user) {
         that.user = user;
-        window.localStorage.setItem('sessionToken', user.sessionToken);
+        if (user.sessionToken) {
+            window.localStorage.setItem('sessionToken', user.sessionToken);
+        }
         that.emit('update', that.user);
     }
 
     that.getSessionToken = function() {
         return window.localStorage.getItem('sessionToken');
+    }
+
+    that.logout = function() {
+        window.localStorage.removeItem('sessionToken');
+        that.user = null;
+        that.loginViaSessionToken();
     }
 
     that.loginViaSessionToken = function() {
@@ -23,6 +31,24 @@ function Session() {
         })
         .then(function() {
             that.emit('update', that.user);
+        });
+    }
+
+    that.loginWithCredentials = function(username, password) {
+        return Q($.post('/loginWithCredentials', {username: username, password: password}))
+        .then(function(response) {
+            if (response.error) {
+                var error = new Error('Username or Password invalid');
+                error.reason = 'invalid_credentials'
+                throw error;
+            } else {
+                that.setUser(response.user);
+            }
+        },
+        function(err) {
+            var error = new Error(err);
+            error.reason = 'unknown'
+            throw error;
         });
     }
 }

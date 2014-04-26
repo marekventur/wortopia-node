@@ -37,23 +37,63 @@ module.exports = function(user, db, logger) {
 
     // What a users see about themselves
     that.getExternalPrivateRepresentation = function() {
-        return {
-            id: user.id,
-            name: user.name,
-            team: user.team,
-            sessionToken: user.sessionToken
-        };
+        return user.loadEmail();
+    }
 
+    that.loadEmail = function() {
+        if (user.email) {
+            return Q.resolve(user);
+        }
+
+        // Guests have no email address
+        if (user.id < 0) {
+            return Q.resolve(user);
+        }
+
+        return db.queryOne('SELECT email FROM user_emails WHERE user_id = $1', [user.id])
+        .then(function(row) {
+            if (!row) {
+                throw new Error('No email address for user ' + user.id + ' found');
+            }
+            user.email = row.email;
+            return user;
+        });
     }
 
     // What users see about each other
     that.getExternalPublicRepresentation = function() {
-        return {
-            id: user.id,
-            name: user.name,
-            team: user.team
-        }
+        var copy = JSON.parse(JSON.stringify(user));
+        delete copy.sessionToken;
+        return copy;
     };
+
+    that.setName = function(name) {
+        return db.queryOne('UPDATE users SET name = $1 WHERE id = $2', [name, user.id])
+        .then(function() {
+            return user;
+        });
+    }
+
+    that.setEmail = function(email) {
+        return db.queryOne('UPDATE user_emails SET email = $1 WHERE user_id = $2', [email, user.id])
+        .then(function() {
+            return user;
+        });
+    }
+
+    that.setTeam = function(team) {
+        return db.queryOne('UPDATE users SET team = $1 WHERE id = $2', [team, user.id])
+        .then(function() {
+            return user;
+        });
+    }
+
+    that.setPassword = function(password) {
+        return db.queryOne("UPDATE users SET pw_hash = crypt($1, gen_salt('bf')) WHERE id = $2", [password, user.id])
+        .then(function() {
+            return user;
+        });
+    }
 
     return user;
 }

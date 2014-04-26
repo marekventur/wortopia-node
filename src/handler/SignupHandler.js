@@ -18,7 +18,7 @@ module.exports = function(expressWrapper, userDao, logger) {
                 errors.username = 'too_short';
             } else if (username.length > 15) {
                 errors.username = 'too_long';
-            } else if (!username.match(/^[a-zA-Z0-9-_]*$/)) {
+            } else if (!username.match(/^[a-zA-Z0-9-_äÄöÖüÜß]*$/)) {
                 errors.username = 'invalid';
             }
 
@@ -59,9 +59,12 @@ module.exports = function(expressWrapper, userDao, logger) {
                     return user.createSessionToken();
                 })
                 .then(function(user) {
+                    return user.getExternalPrivateRepresentation();
+                })
+                .then(function(externalPrivateRepresentation) {
                     res.send({
                         success: true,
-                        user: user.getExternalPrivateRepresentation()
+                        user: externalPrivateRepresentation
                     });
                 })
                 .fail(function(err) {

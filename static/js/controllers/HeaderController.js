@@ -1,11 +1,22 @@
 function HeaderController($scope, $element, session) {
-
-    $scope.getUser = function() {
+    $scope.login = function() {
         return session.user;
     }
 
     $scope.isLoading = function() {
         return !session.user;
+    }
+
+    $scope.isGuest = function() {
+        return session.user && session.user.guest;
+    }
+
+    $scope.getUser = function() {
+        return session.user;
+    }
+
+    $scope.logout = function() {
+        session.logout();
     }
 
     session.on('update', function() {

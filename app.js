@@ -9,6 +9,7 @@ var Db = require('./src/Db');
 var UserDao = require('./src/UserDao');
 var SignupHandler = require('./src/handler/SignupHandler');
 var LoginHandler = require('./src/handler/LoginHandler');
+var AccountHandler = require('./src/handler/AccountHandler');
 
 var config = require('./config.json');
 var databaseConfig = require('./database.json');
@@ -27,12 +28,14 @@ var httpServer = new HttpServer(expressWrapper, socket, config, logger);
 var wordListUpdater = new WordListUpdater(redis, config, logger, redisKeyGenerator);
 var signupHandler = new SignupHandler(expressWrapper, userDao, logger);
 var loginHandler = new LoginHandler(expressWrapper, userDao, logger);
+var accountHandler = new AccountHandler(expressWrapper, userDao, logger);
 
 //wordListUpdater.start();
 expressWrapper.start();
 httpServer.start();
 signupHandler.start();
 loginHandler.start();
+accountHandler.start();
 /*
 fieldGenerator.createField(5, 'de', function(err, data) {
     if (err) {
