@@ -1,7 +1,4 @@
 function AccountController($scope, session, $element) {
-
-    $element.modal('show');
-
     $scope.input = {};
     $scope.errors = {};
     $scope.loading = false;
