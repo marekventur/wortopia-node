@@ -15,6 +15,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 ```
 db-migrate up
+db-migrate -e test up
 ```
 
 Run grunt

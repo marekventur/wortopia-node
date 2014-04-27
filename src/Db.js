@@ -3,7 +3,11 @@ var pg = require('pg');
 module.exports = function(databaseConfig) {
     var that = this;
 
-    var connectionString = databaseConfig[process.env.NODE_ENV || 'dev'];
+    if (typeof databaseConfig == 'string') {
+        var connectionString = databaseConfig;
+    } else {
+        var connectionString = databaseConfig[process.env.NODE_ENV || 'dev'];
+    }
 
     that.query = function(sql, params) {
         var deferred = Q.defer();
