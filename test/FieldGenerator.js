@@ -1,12 +1,12 @@
-var assert = require('chai').assert;
-var FieldGenerator = require('../src/game/FieldGenerator');
+require('./setup')
 
 describe('FieldGenerator', function() {
+    var fieldGenerator;
 
-    var mockLogger = require('./helpers/mockLogger');
-    var testDb = require('./helpers/testDb');
-    var config = require('../config.json');
-    var fieldGenerator = new FieldGenerator(config, testDb, mockLogger);
+    beforeEach(function() {
+        setUpDi();
+        fieldGenerator = di.get('fieldGenerator');
+    });
 
     it('creates 4 letter field', function() {
         var field = fieldGenerator.createField(4);

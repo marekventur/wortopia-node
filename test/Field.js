@@ -1,20 +1,18 @@
-var assert = require('chai').assert;
-var Field = require('../src/decorator/Field');
+require('./setup')
 
 describe('Field', function() {
 
-
-    var mockLogger = require('./helpers/mockLogger');
-    var testDb = require('./helpers/testDb');
     var field;
     beforeEach(function() {
+        setUpDi();
+
         field = [
             ['n', 'r', 'u', 'd'],
             ['e', 't', 'e' ,'m'],
             ['a', 's', 'e', 'n'],
             ['m', 'r', 't', 'n']
         ];
-        field = Field(field, testDb, mockLogger);
+        di.get('fieldDecorator').decorate(field);
     });
 
     it('return size', function() {
