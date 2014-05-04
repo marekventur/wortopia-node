@@ -44,6 +44,6 @@
     "body-parser": "~1.0.2",
     "iz": "~0.4.1",
     "sinon": "~1.9.1",
-    "no-configuration-di": "~0.2.0"
+    "no-configuration-di": "~0.2.1"
   }
 }

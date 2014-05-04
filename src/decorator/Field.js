@@ -15,15 +15,34 @@ module.exports = function(field, db, logger) {
         if (words === null) {
             var startingCombinations = field.getAllStartingCombinations();
             var inStatement = _.map(startingCombinations, function(letter) { return "'" + letter.toLowerCase() + "'"}).join(',');
-            var sql = "SELECT word FROM words WHERE substring(replace(word, 'qu', 'q') for 2) IN (" + inStatement + ") AND accepted = true;"
+            var sql = "SELECT word FROM words WHERE substring(replace(word, 'qu', 'q') for 2) IN (" + inStatement + ") AND word ~ '^[" + that.getAllLetters() + "]*$' AND accepted = true;"
+            var start = new Date().getTime();
+            var afterQuery = null;
+            var afterChecks = null;
             return db.query(sql)
             .then(function(rows) {
-                words = _.chain(rows).pluck('word').filter(field.contains).value();
+                afterQuery = new Date().getTime();
+                words = _.chain(rows).pluck('word').filter(field.allowed).filter(field.contains).value();
+                afterCheck = new Date().getTime();
+                logger.info('Timing: Database %d ms; Node %d ms', afterQuery - start, afterCheck - afterQuery);
                 return words;
             })
 
+
         } else {
             return Q.resolve(words);
+        }
+    }
+
+    that.getAllLetters = function() {
+        return _.uniq(_.flatten(that)).join('');
+    }
+
+    that.allowed = function(word) {
+        if (size == 4) {
+            return word.length > 2;
+        } else {
+            return word.length > 3;
         }
     }
 
@@ -38,6 +57,12 @@ module.exports = function(field, db, logger) {
         }
 
         return found;
+    }
+
+    that.toString = function() {
+        return _.map(that, function(row) {
+            return row.join('')
+        }).join('|');
     }
 
     function cloneField(field) {
@@ -69,32 +94,32 @@ module.exports = function(field, db, logger) {
     that.getAllStartingCombinations = function() {
         // Find all two-letter combinations
         var twoLetterStartings = [];
-        for (var y = 0; y < field.getSize(); y++) {
-            for (var x = 0; x < field.getSize(); x++) {
+        for (var y = 0; y < size; y++) {
+            for (var x = 0; x < size; x++) {
                 var c1 = field[y][x];
                 if (x > 0) {
                     twoLetterStartings.push(c1 + field[y][x - 1]);
-                    if (y < 0) {
+                    if (y > 0) {
                         twoLetterStartings.push(c1 + field[y - 1][x - 1]);
                     }
-                    if (y > field.getSize() - 1) {
-                        twoLetterStartings.push(c1 + filed[y + 1][x - 1]);
+                    if (y < size - 1) {
+                        twoLetterStartings.push(c1 + field[y + 1][x - 1]);
                     }
                 }
-                if (x < field.getSize() - 1) {
+                if (x < size - 1) {
                     twoLetterStartings.push(c1 + field[y][x + 1]);
-                    if (y < 0) {
+                    if (y > 0) {
                         twoLetterStartings.push(c1 + field[y - 1][x + 1]);
                     }
-                    if (y > field.getSize() - 1) {
-                        twoLetterStartings.push(c1 + filed[y + 1][x + 1]);
+                    if (y < size - 1) {
+                        twoLetterStartings.push(c1 + field[y + 1][x + 1]);
                     }
                 }
-                if (y < 0) {
+                if (y > 0) {
                     twoLetterStartings.push(c1 + field[y - 1][x]);
                 }
-                if (y > field.getSize() - 1) {
-                    twoLetterStartings.push(c1 + filed[y + 1][x]);
+                if (y < size - 1) {
+                    twoLetterStartings.push(c1 + field[y + 1][x]);
                 }
             }
         }

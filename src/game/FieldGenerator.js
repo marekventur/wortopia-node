@@ -1,7 +1,6 @@
-var async = require('async');
 var _ = require('underscore');
-var fieldDecorator = require('../decorator/Field');
-module.exports = function(config, db, logger) {
+
+module.exports = function(config, fieldDecorator) {
     var that = this;
 
     that.createField = function(size) {
@@ -11,7 +10,7 @@ module.exports = function(config, db, logger) {
         var distribution = JSON.parse(JSON.stringify(languageConfig.distribution));
         var distributionString = "";
         _.each(distribution, function(occurence, letter) {
-            distributionString += Array(occurence + 1).join(letter);
+            distributionString += Array(occurence + 1).join(letter.toLowerCase());
         });
         var randomLetters = _.sample(distributionString.split(''), size * size);
         var fieldAsString = randomLetters.join('');
@@ -38,7 +37,7 @@ module.exports = function(config, db, logger) {
             }
         }
 
-        return fieldDecorator(field, db, logger);
+        return fieldDecorator.decorate(field);
     }
 
 }
