@@ -22,6 +22,7 @@ module.exports = function(config, fieldGenerator, logger, socket) {
             currentField: currentFields ? currentFields[size] : null,
             lastField: lastFields ? lastFields[size] : null,
             lastWords: lastFields ? lastFields[size].getWordsSync() : null,
+            lastStats: lastFields ? lastFields[size].getStatsSync() : null,
             remaining: (nextEventTimestamp - now())
         };
     }

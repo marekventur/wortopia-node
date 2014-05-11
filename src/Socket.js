@@ -11,6 +11,7 @@ module.exports = function(config, logger, userDao) {
         socket = sockjs.createServer();
         socket.on('connection', handleConnection);
         internalEventEmitter = new EventEmitter();
+        internalEventEmitter.setMaxListeners(0);
     }
 
     function handleConnection(connection) {
@@ -72,6 +73,10 @@ module.exports = function(config, logger, userDao) {
             that.emit()
         });
         internalEventEmitter.on('broadcast_' + size, send);
+
+        connection.once('close', function() {
+            internalEventEmitter.removeListener('broadcast_' + size, send)
+        })
 
         that.emit('connected', user, size, send);
     }

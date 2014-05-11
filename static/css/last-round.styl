@@ -4,36 +4,43 @@ $fields = {
     }
 };
 
-.last-round .panel-heading p{
-    margin-bottom: 5px;
-}
+.last-round {
+    .panel-heading {
+        p {
+            margin-bottom: 5px;
+        }
 
-
-.last-round table.field {
-    float: right;
-    margin-top: -10px;
-    margin-right: -14px;
-
-    td {
-        text-align: center; 
-        padding: 0px;
-        background-color: #fff;
-        border-left: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
-    }
-
-    for $size, $data in $fields {
-        &.field--{$size} {
+        table.field {
+            float: right;
+            margin-top: -10px;
+            margin-right: -14px;
 
             td {
-                width: $data.cellSize;
-                height: $data.cellSize;
+                text-align: center;
+                padding: 0px;
+                background-color: #fff;
+                border-left: 1px solid #ddd;
+                border-bottom: 1px solid #ddd;
             }
+        }
+    }
+
+    .panel-body {
+        word-spacing: 4px;
+        text-align: justify;
+
+        .word {
+            text-transform: uppercase;
         }
     }
 }
 
 for $size, $data in $fields {
+    .last-round table.field td {
+        width: $data.cellSize;
+        height: $data.cellSize;
+    }
+
     .size-{$size} .last-round .panel-heading {
         height: (($data.cellSize + 1px) * $size) ;
     }

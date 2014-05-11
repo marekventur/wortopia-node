@@ -1,4 +1,5 @@
-function CurrentFieldController($scope, game, size) {
+function CurrentFieldController($scope, game, size, $element) {
+    var $input = $element.find('#word-input');
     $scope.getCurrentField = function() {
         return game.getCurrentField();
     }
@@ -14,4 +15,10 @@ function CurrentFieldController($scope, game, size) {
     $scope.getSize = function() {
         return size.size;
     }
+
+    game.on('gameOngoing', function() {
+        setTimeout(function() {
+            $input.focus();
+        }, 250);
+    });
 };

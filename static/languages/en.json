@@ -66,5 +66,9 @@
     "account.password2.error.not_identical": "Passwords don't match",
     "account.button.confirm": "Save settings",
 
-    "please_wait_timer": "Please wait - "
+    "please_wait_timer": "Please wait - ",
+
+    "last_field.last_round": "Last round",
+    "last_field.points": "{{points}} points",
+    "last_field.words": "{{words}} words"
 }

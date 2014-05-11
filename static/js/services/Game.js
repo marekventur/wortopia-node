@@ -4,6 +4,7 @@ function Game(socket) {
     var currentField = null;
     var lastField = null;
     var lastWords = null;
+    var lastStats = null;
     var nextEvent = null;
     that.ready = false;
 
@@ -14,13 +15,20 @@ function Game(socket) {
         currentField = data.currentField;
         lastField = data.lastField;
         lastWords = data.lastWords;
+        lastStats = data.lastStats;
         nextEvent = now() + data.remaining;
+        console.log(lastWords);
 
         that.ready = true;
 
         that.emit('updateCurrentField');
         that.emit('updateLastField');
         that.emit('switchBetweenPauseAndGame');
+        if (currentField) {
+            that.emit('gameOngoing');
+        } else {
+            that.emit('gamePaused');
+        }
     });
 
     that.getCurrentField = function() {
@@ -33,6 +41,10 @@ function Game(socket) {
 
     that.getLastWords = function() {
         return lastWords;
+    }
+
+    that.getLastStats = function() {
+        return lastStats;
     }
 
     that.getRemaining = function() {
