@@ -1,0 +1,21 @@
+<div class="col-md-6 col-md-push-3 main-area" ng-controller="CurrentFieldController">
+
+    <table class="field" ng-show="getCurrentField()">
+        <tr ng-repeat="(y, row) in getCurrentField() track by y">
+            <td ng-repeat="(x, cell) in row track by x + '.' + y">{{cell.toUpperCase()}}</td>
+        </tr>
+    </table>
+
+    <!-- On small screens the chat won't be visible. This will display the time until the next round instead -->
+    <h2 class="pause-timer show-xs show-sm" ng-hide="getCurrentField()" ng-controller="TimerController">
+        <span translate="please_wait_timer"></span> {{remainingTime}}
+    </h2>
+
+    <div class="input-area" ng-show="getCurrentField()">
+        <input type="text" class="input form-control" id="word-input" />
+        <label for="word-input" ng-controller="TimerController">{{remainingTime}}</label>
+    </div>
+
+
+</div>
+

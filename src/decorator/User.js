@@ -95,5 +95,13 @@ module.exports = function(user, db, logger) {
         });
     }
 
+    that.toString = function() {
+        if (user.name) {
+            return user.name
+        } else {
+            return "Guest " + user.guestId;
+        }
+    }
+
     return user;
 }

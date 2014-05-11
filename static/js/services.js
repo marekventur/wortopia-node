@@ -5,7 +5,14 @@ function initWortopia() {
         $translateProvider.preferredLanguage('en');
     })
     .service('session', Session)
-    .value('SOCKJS_URL', '/sockjs')
-
-    ;
+    .service('socket', Socket)
+    .service('size', Size)
+    .service('game', Game)
+    .service('timer', Timer)
+    .service('chat', Chat)
+    .run(function($templateCache) {
+        if (templateCache) {
+            templateCache($templateCache);
+        }
+    });
 }

@@ -3,9 +3,9 @@ module.exports = function(expressWrapper, socket, config, logger) {
 
     that.start = function() {
         var httpServer = require('http').createServer(expressWrapper.app);
-        //socket.sockjs().installHandlers(httpServer , {prefix:'/sockjs'});
+        socket.getSocket().installHandlers(httpServer , {prefix:'/socket'});
         httpServer.listen(config.port);
         logger.info('Listening on port %d', config.port);
     }
-    
+
 }

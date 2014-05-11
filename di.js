@@ -6,6 +6,7 @@ module.exports = function() {
     di.add('databaseConfig', require('./database.json'));
     di.add('logger', require('bunyan').createLogger({name: "main"}));
 
+    di.load('Clock');
     di.load('Db');
     di.load('UserDao');
     di.loadDecorator('decorator/Field');
@@ -13,6 +14,7 @@ module.exports = function() {
     di.load('game/FieldGenerator');
     di.load('ExpressWrapper');
     di.load('Socket');
+    di.load('Chat');
     di.load('HttpServer');
     di.load('game/GameServer')
     di.load('handler/SignupHandler');

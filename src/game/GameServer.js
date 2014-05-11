@@ -1,16 +1,36 @@
 var _ = require('underscore');
 var Q = require('q');
 
-module.exports = function(config, fieldGenerator, logger) {
+module.exports = function(config, fieldGenerator, logger, socket) {
     var that = this;
-    var currentFields, nextFields;
+    var currentFields, nextFields, lastFields;
+    var nextEventTimestamp;
 
     that.start = function() {
         return calculateNextFields()
         .then(function() {
+            socket.on('connected', function(user, size, send) {
+                send('fields', getFieldsPayload(size));
+            });
+
             startRound();
         });
     };
+
+    function getFieldsPayload(size) {
+        return {
+            currentField: currentFields ? currentFields[size] : null,
+            lastField: lastFields ? lastFields[size] : null,
+            lastWords: lastFields ? lastFields[size].getWordsSync() : null,
+            remaining: (nextEventTimestamp - now())
+        };
+    }
+
+    function broadcastFields() {
+        [4, 5].forEach(function(size) {
+            socket.broadcast('fields', size, getFieldsPayload(size));
+        });
+    }
 
     function calculateNextFields() {
         nextFields = {4: null, 5: null};
@@ -27,29 +47,27 @@ module.exports = function(config, fieldGenerator, logger) {
 
     function startRound() {
         currentFields = nextFields;
+        nextEventTimestamp = now() + config.gameTime;
+        setTimeout(startPause, config.gameTime);
+        broadcastFields();
 
-        var promises = _.map(nextFields, function(currentField, size) {
-            return nextFields[size].getWords();
-        });
-
-        Q.all(promises)
-        .then(function(words) {
-            logger.info('Starting round with field %s (%d words) and %s (%d words)', currentFields[4], words[0].length, currentFields[5], words[1].length);
-        })
-        .then(function() {
-            setTimeout(startPause, 3 * 1  * 1000);
-        })
-        .fail(function(err) {
-            logger.error('Error while trying to start round:', err);
-            // ToDo Try again?
-        })
+        logger.info('Starting round with field %s (%d words) and %s (%d words)',
+            currentFields[4], currentFields[4].getWordsSync().length,
+            currentFields[5], currentFields[5].getWordsSync().length);
     }
 
     function startPause() {
+        lastFields = currentFields;
+        currentFields = null;
+        nextEventTimestamp = now() + config.pauseTime;
+        broadcastFields();
         logger.info('Round over, calculating points...');
+
+        // Onlys start next round when both 30 seconds have passed
+        // and the next field has been calculated
         Q.all([
             calculateNextFields(),
-            Q.delay(3 * 1000)
+            Q.delay(config.pauseTime)
         ])
         .then(function() {
             startRound();
@@ -58,6 +76,10 @@ module.exports = function(config, fieldGenerator, logger) {
             logger.error('Error while trying to calculate next fields:', err);
             // ToDo Try again?
         });
+    }
+
+    function now() {
+        return Date.now();
     }
 
 }

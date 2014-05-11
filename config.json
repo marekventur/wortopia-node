@@ -1,5 +1,8 @@
 {
     "port": 3000,
+    "gameTime": 180000,
+    "pauseTime": 30000,
+    "chatRetentionTime": 3600000,
     "language": {
         "quReplacement": true,
         "longestWord": 16,
@@ -51,5 +54,8 @@
             "4": 3,
             "5": 4
         }
+    },
+    "chatMessages": {
+        "started": "Server has been (re-)started. Sorry for any inconvenienve caused."
     }
 }

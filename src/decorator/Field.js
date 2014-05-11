@@ -34,6 +34,10 @@ module.exports = function(field, db, logger) {
         }
     }
 
+    that.getWordsSync = function() {
+        return words;
+    }
+
     that.getAllLetters = function() {
         return _.uniq(_.flatten(that)).join('');
     }

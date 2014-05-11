@@ -11,47 +11,73 @@ $fields = {
 
 }
 
-.main-area table.field {
+.main-area {
+    margin-bottom: 20px;
 
-    td {
-        text-align: center; 
-        border-right: 2px solid #ddd;
-        border-bottom: 2px solid #ddd;
-        padding: 0px;
-    }
+    table.field {
 
-    td:last-child {
-        border-right: none;
-    }
-
-    tr:last-child td {
-        border-bottom: none;
-    }
-
-    for $size, $data in $fields {
-        &.field--{$size} {
-
-            td {
-                width: $data.cellSize;
-                font-size: $data.fontSize;
-                height: $data.cellSize;
-            }
+        td {
+            text-align: center;
+            border-right: 2px solid #ddd;
+            border-bottom: 2px solid #ddd;
+            padding: 0px;
         }
+
+        td:last-child {
+            border-right: none;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+    }
+
+    .input-area {
+        margin-top: 30px;
+        position: relative;
+
+        input {
+            top: 0px;
+            width: 100%;
+            display: block;
+            height: 30px;
+            padding-left: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+            font-size: 18px;
+            line-height: 30px;
+            letter-spacing: 1px;
+        }
+
+        label {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            color: #999;
+            margin: 0px;
+            text-align: right;
+            font-size:19px;
+            line-height: 30px;
+            margin-right: 5px;
+        }
+    }
+
+    h2 {
+        text-align: center;
     }
 }
 
-
+/* Sizing for different field sizes */
 for $size, $data in $fields {
+    .size-{$size} .main-area table.field td {
+        width: $data.cellSize;
+        font-size: $data.fontSize;
+        height: $data.cellSize;
+    }
+
     .size-{$size} .input-area {
         width: (($data.cellSize + 1px) * $size) ;
     }
 }
 
-.input-area {
 
-    margin-top: 30px;
-    
-    input {
-        width: 100%;
-    }
-}

@@ -2,8 +2,26 @@ module.exports = function(grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
+        ngtemplates: {
+            partials: {
+                cwd: 'static/',
+                src: ['partials/*.html', 'partials/*/*.html'],
+                dest: 'static-build/partials.js',
+                options: {
+                    bootstrap:  function(module, script) {
+                        return 'var templateCache = function($templateCache) {' + script + '};';
+                    },
+                    url: function(url) { return '/' + url; }
+                }
+            }
+        },
+
         stylus: {
             compile: {
+                options: {
+                    paths: ['node_modules/nib/index.styl'],
+                    compress: false
+                },
                 files: {
                     'static-build/css/main.css': ['static/css/*']
                 }
@@ -66,6 +84,7 @@ module.exports = function(grunt) {
                         'static/lib/EventEmitter/EventEmitter.js',
                         'static/lib/sockjs/sockjs.js',
                         'static/lib/polyfills/localStorage.js',
+                        'static/lib/sockjs/sockjs.js',
                     ]
                 }
             },
@@ -100,12 +119,17 @@ module.exports = function(grunt) {
             lib: {
                 files: ['static/lib/**'],
                 tasks: ['concat_sourcemap:lib_js', 'concat_sourcemap:lib_css']
+            },
+            partials: {
+                files: ['static/partials/**'],
+                tasks: ['ngtemplates:partials']
             }
         },
 
 
     });
 
+    grunt.loadNpmTasks('grunt-angular-templates');
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');

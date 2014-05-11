@@ -64,5 +64,7 @@
     "account.password2.label": "Password (confirm)",
     "account.password2.placeholder": "Password",
     "account.password2.error.not_identical": "Passwords don't match",
-    "account.button.confirm": "Save settings"
+    "account.button.confirm": "Save settings",
+
+    "please_wait_timer": "Please wait - "
 }

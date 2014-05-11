@@ -1,0 +1,14 @@
+<div class="row chat hidden-xs hidden-sm" ng-controller="ChatController">
+    <div class="col-md-6 col-md-push-3">
+        <div class="panel panel-default">
+            <div class="panel-body chat-content"></div>
+            <div class="panel-footer">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-addon">{{getUser().name}}</span>
+                    <input type="text" class="form-control chat-input" ng-keyup="onKeyUp()" id="chat-input">
+                    <label for="chat-input" ng-hide="isGameOngoing()" ng-controller="TimerController">{{remainingTime}}</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

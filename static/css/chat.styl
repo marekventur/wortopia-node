@@ -1,0 +1,107 @@
+@import 'nib'
+
+.chat {
+    position: fixed;
+    top: 440px;
+    bottom: 5px;
+    left: 0px;
+    right: 0px;
+    transition: top 0.5s;
+    display: none;
+
+    &>div, .panel {
+        height: 100%;
+    }
+
+    .chat-content {
+        overflow-y: scroll;
+        padding-right: 5px;
+
+        top: 0;
+        bottom: 51px;
+        right: 15px;
+        left: 0px;
+        padding-top: 0px;
+        position: absolute;
+
+        /* Enforce border radius */
+        border-radius: 4px;
+        border: 1px solid transparent;
+
+        .chat-line {
+            clear:left;
+        }
+
+        .chat-time {
+            color: #888;
+            float: left;
+            font-size: 10px;
+            padding: 4px 0px 0px 5px;
+            height: 100;
+        }
+
+        .chat-name {
+            font-weight: bold;
+
+        }
+        .chat-name {
+            font-weight: bold;
+            color: #222;
+        }
+
+        .chat-text {
+            margin-left: 55px;
+        }
+
+        .chat-line--sys {
+            font-style: italic;
+        }
+
+        .chat-line--sys .chat-time {
+            font-style: normal;
+        }
+
+        .chat-line--me .chat-name:before {
+            content:"— ";
+            color: #888;
+            font-weight: normal;
+        }
+
+        .chat-line--sys {
+            color: #bbb;
+        }
+
+        .chat-line--sys .chat-name {
+            color: #bbb;
+        }
+    }
+
+    .panel-footer {
+        position: absolute;
+        margin-right: 16px;
+        bottom: 1px;
+
+        label {
+            z-index: 2;
+            position: absolute;
+            top: 0px;
+            right: 3px;
+            color: #999;
+            margin: 0px;
+            text-align: right;
+            font-size:19px;
+            line-height: 30px;
+            margin-right: 5px;
+        }
+    }
+
+}
+
+.game-paused .chat {
+    top: 72px;
+}
+
+.game-ready .chat {
+    display: block;
+
+}

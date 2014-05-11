@@ -11,10 +11,6 @@ function HeaderController($scope, $element, session) {
         return session.user && session.user.guest;
     }
 
-    $scope.getUser = function() {
-        return session.user;
-    }
-
     $scope.logout = function() {
         session.logout();
     }
