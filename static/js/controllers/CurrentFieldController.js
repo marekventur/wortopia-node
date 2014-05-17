@@ -18,4 +18,45 @@ function CurrentFieldController($scope, game, size, $element) {
             $input.focus();
         }, 250);
     });
+
+    $scope.submitWord = function(word) {
+        $scope.wordEntered = "";
+        $scope.dehighlightWord();
+    }
+
+    // Hightlighting
+    $scope.wordEnteredClass = [];
+    var cells = [];
+    $scope.$watch('getCurrentField()', function(field) {
+        _.defer(function() {
+            cells = _.map(field, function(row, y) {
+                return _.map(row, function(cell, x) {
+                    return $element.find('.field .cell--' + x + '-' + y);
+                });
+            });
+        });
+    })
+
+    $scope.highlightWord = function(word) {
+        $scope.dehighlightWord();
+        var chain = $scope.getCurrentField().contains(word);
+        if (chain) {
+            _.each(chain, function(element, index) {
+                var $cell = cells[element.y][element.x];
+                console.log($cell);
+                $cell.css('background', 'rgba(0, 0, 0, ' + (0.5 - 0.4 / chain.length * index) + ')');
+            });
+        } else if (word.length > 0) {
+            $scope.wordEnteredClass = ['has-error'];
+        }
+    }
+
+    $scope.dehighlightWord = function() {
+        $scope.wordEnteredClass = [];
+        _.each(cells, function(row) {
+            _.each(row, function(cell) {
+                cell.css('background', 'white');
+            });
+        });
+    }
 };

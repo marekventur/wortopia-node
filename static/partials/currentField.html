@@ -2,14 +2,14 @@
 
     <table class="field">
         <tr ng-repeat="(y, row) in getCurrentField() track by y">
-            <td ng-repeat="(x, cell) in row track by x + '.' + y">{{cell.toUpperCase()}}</td>
+            <td ng-repeat="(x, cell) in row track by x + '.' + y" class="cell cell--{{x}}-{{y}}">{{cell.toUpperCase()}}</td>
         </tr>
     </table>
 
-    <div class="input-area">
-        <input type="text" class="input form-control" id="word-input" />
+    <form class="input-area" ng-submit="submitWord(wordEntered)" ng-class="wordEnteredClass">
+        <input type="text" class="input form-control" id="word-input" ng-model="wordEntered" ng-change="highlightWord(wordEntered)" />
         <label for="word-input" ng-controller="TimerController">{{remainingTime}}</label>
-    </div>
+    </form>
 
 </div>
 

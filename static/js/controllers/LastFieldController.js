@@ -1,26 +1,10 @@
-function LastFieldController($scope, game, size, $element) {
-    $scope.getLastField = function() {
-        return game.getLastField();
-    }
-
+function LastFieldController($scope, size, $element) {
     $scope.getCell = function(x, y) {
-        var field = game.getLastField();
+        var field = $scope.getLastField();
         if (!field || !field[y]) {
             return null;
         }
         return field[y][x];
-    }
-
-    $scope.getSize = function() {
-        return size.size;
-    }
-
-    $scope.getStats = function() {
-        return game.getLastStats();
-    }
-
-    $scope.getWords = function() {
-        return game.getLastWords();
     }
 
     // Hightlighting
@@ -29,7 +13,7 @@ function LastFieldController($scope, game, size, $element) {
         _.defer(function() {
             cells = _.map(field, function(row, y) {
                 return _.map(row, function(cell, x) {
-                    return $element.find('.field .cell--' + y + '-' + x);
+                    return $element.find('.field .cell--' + x + '-' + y);
                 });
             });
             console.log(cells);
@@ -39,11 +23,10 @@ function LastFieldController($scope, game, size, $element) {
     $scope.highlightWord = function(word) {
         $scope.dehighlightWord();
         var chain = $scope.getLastField().contains(word.word)
-        console.log(word.word, chain);
         _.each(chain, function(element, index) {
             var $cell = cells[element.y][element.x];
             console.log($cell);
-            $cell.css('background', 'rgba(0, 0, 0, ' + (0.1 + 0.4 / chain.length * index) + ')');
+            $cell.css('background', 'rgba(0, 0, 0, ' + (0.5 - 0.4 / chain.length * index) + ')');
         });
     }
 

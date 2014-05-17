@@ -26,7 +26,8 @@ function fieldContainsFactoryMethod(field) {
         if (restField[y][x] !== word.charAt(positionInWord)) {
             return null;
         }
-        var chainToHere = lastChain.splice(0);
+
+        var chainToHere = lastChain.slice(0);
         chainToHere.push({x: x, y: y});
 
         if (word.length === positionInWord + 1) {

@@ -75,4 +75,22 @@ describe('Field', function() {
         });
     });
 
+    context('(specific 2)', function() {
+        beforeEach(function() {
+            setUpDi();
+
+            field = [
+                ['e', 'u', 'r', 'i'],
+                ['e', 'm', 'e' ,'n'],
+                ['e', 'n', 'i', 'g'],
+                ['h', 'd', 'r', 'r']
+            ];
+            di.get('fieldDecorator').decorate(field);
+        });
+
+        it('#contains finds words', function() {
+            assert.deepEqual(field.contains('men'), [ { x: 1, y: 1 }, { x: 0, y: 1 }, { x: 1, y: 2 } ]);
+        });
+    });
+
 });
