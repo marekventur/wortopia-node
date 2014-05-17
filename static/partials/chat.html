@@ -1,14 +1,17 @@
-<div class="row chat hidden-xs hidden-sm" ng-controller="ChatController">
-    <div class="col-md-6 col-md-push-3">
-        <div class="panel panel-default">
-            <div class="panel-body chat-content"></div>
-            <div class="panel-footer">
-                <div class="input-group input-group-sm">
-                    <span class="input-group-addon">{{getUser().name}}</span>
-                    <input type="text" class="form-control chat-input" ng-keyup="onKeyUp()" id="chat-input">
-                    <label for="chat-input" ng-hide="isGameOngoing()" ng-controller="TimerController">{{remainingTime}}</label>
-                </div>
-            </div>
+<!-- On small screens the chat won't be visible. This will display the time until the next round instead -->
+<div class="show-xs show-sm" ng-hide="getCurrentField()">
+    <h2 class="pause-timer" ng-controller="TimerController">
+        <span translate="please_wait_timer"></span> {{remainingTime}}
+    </h2>
+</div>
+
+<div class="chat panel panel-default hidden-xs hidden-sm" ng-controller="ChatController">
+    <div class="panel-body chat-content"></div>
+    <div class="panel-footer">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon">{{getUser().name}}</span>
+            <input type="text" class="form-control chat-input" ng-keyup="onKeyUp()" id="chat-input">
+            <label for="chat-input" ng-hide="isGameOngoing()" ng-controller="TimerController">{{remainingTime}}</label>
         </div>
     </div>
 </div>

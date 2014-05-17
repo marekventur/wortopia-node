@@ -1,4 +1,4 @@
-function Game(socket) {
+function Game(socket, fieldFactory) {
     var that = this;
 
     var currentField = null;
@@ -12,12 +12,12 @@ function Game(socket) {
     var latencyAllowance = 300;
 
     socket.on('fields', function(data) {
-        currentField = data.currentField;
-        lastField = data.lastField;
+        currentField = fieldFactory.create(data.currentField);
+        lastField = fieldFactory.create(data.lastField);
         lastWords = data.lastWords;
         lastStats = data.lastStats;
+        console.log(currentField, lastField);
         nextEvent = now() + data.remaining;
-        console.log(lastWords);
 
         that.ready = true;
 

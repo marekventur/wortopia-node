@@ -1,15 +1,31 @@
 @import 'nib'
 
-.chat {
+.row {
+    width: inherit;
     position: absolute;
-    top: 440px;
-    bottom: 5px;
+    top: 70px;
+    bottom: 10px;
+}
+
+@media (min-width: 992px) {
+    .main-area {
+        height: 100%;
+    }
+}
+
+.chat {
+    z-index: 1;
+    position: absolute;
+
     left: 0px;
     right: 0px;
+    top: 388px;
+    bottom: 0px;
     transition: top 0.5s;
     display: none;
+    margin-bottom: 0px;
 
-    &>div, .panel {
+    .panel {
         height: 100%;
     }
 
@@ -19,9 +35,9 @@
 
         top: 0;
         bottom: 51px;
-        right: 15px;
+        right: 0px;
         left: 0px;
-        padding-top: 0px;
+        padding: 5px;
         position: absolute;
 
         /* Enforce border radius */
@@ -78,8 +94,7 @@
 
     .panel-footer {
         position: absolute;
-        margin-right: 16px;
-        bottom: 1px;
+        bottom: 0px;
 
         label {
             z-index: 2;

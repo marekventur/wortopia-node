@@ -3,7 +3,7 @@
         <div class="panel-heading">
             <table class="field">
                 <tr ng-repeat="(y, row) in getLastField() track by y">
-                    <td ng-repeat="(x, cell) in row track by x + '.' + y">{{cell.toUpperCase()}}</td>
+                    <td ng-repeat="(x, cell) in row track by x + '.' + y" class="cell cell--{{x}}-{{y}}">{{cell.toUpperCase()}}</td>
                 </tr>
             </table>
 
@@ -19,7 +19,10 @@
         <div class="panel-body">
             <span
                 class="word word--length-{{word.length}}"
-                ng-repeat="word in getWords()">
+                ng-repeat="word in getWords()"
+                ng-mouseover="highlightWord(word)"
+                ng-mouseleave="dehighlightWord()"
+            >
                 {{word.word}}
             </span>
         </div>

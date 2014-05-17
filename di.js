@@ -9,7 +9,10 @@ module.exports = function() {
     di.load('Clock');
     di.load('Db');
     di.load('UserDao');
-    di.loadDecorator('decorator/Field');
+    di.loadDecorator('decorator/FieldGeneral', 'fieldDecorator');
+    di.loadDecorator('decorator/FieldContains', 'fieldDecorator');
+    di.loadDecorator('decorator/FieldStartingCombinations', 'fieldDecorator');
+    di.loadDecorator('decorator/FieldDatabase', 'fieldDecorator');
     di.loadDecorator('decorator/User');
     di.load('game/FieldGenerator');
     di.load('ExpressWrapper');

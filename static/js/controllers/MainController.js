@@ -14,4 +14,8 @@ function MainController($scope, $element, session, size, game) {
     $scope.isGameReady = function() {
         return game.ready;
     }
+
+    $scope.getCurrentField = function() {
+        return game.getCurrentField();
+    }
 };

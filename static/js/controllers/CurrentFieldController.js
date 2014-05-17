@@ -1,8 +1,5 @@
 function CurrentFieldController($scope, game, size, $element) {
     var $input = $element.find('#word-input');
-    $scope.getCurrentField = function() {
-        return game.getCurrentField();
-    }
 
     $scope.getCell = function(x, y) {
         var field = game.getCurrentField();

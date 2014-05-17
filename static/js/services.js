@@ -10,6 +10,7 @@ function initWortopia() {
     .service('game', Game)
     .service('timer', Timer)
     .service('chat', Chat)
+    .service('fieldFactory', FieldFactory)
     .run(function($templateCache) {
         if (templateCache) {
             templateCache($templateCache);

@@ -14,12 +14,13 @@
         <div><ng-include src="'/partials/nav.html'" /></div>
 
         <div class="row">
-            <div><ng-include src="'/partials/currentField.html'" /></div>
+            <div class="col-md-6 col-md-push-3 main-area">
+                <div><ng-include src="'/partials/currentField.html'" /></div>
+                <div><ng-include src="'/partials/chat.html'" /></div>
+            </div>
             <div><ng-include src="'/partials/playerList.html'" /></div>
             <div><ng-include src="'/partials/lastField.html'" /></div>
         </div>
-
-        <div><ng-include src="'/partials/chat.html'" /></div>
 
         <div><ng-include src="'/partials/signUp.html'" /></div>
         <div><ng-include src="'/partials/login.html'" /></div>
