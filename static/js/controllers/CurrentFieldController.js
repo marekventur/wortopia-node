@@ -20,6 +20,7 @@ function CurrentFieldController($scope, game, size, $element) {
     });
 
     $scope.submitWord = function(word) {
+        game.guess(word);
         $scope.wordEntered = "";
         $scope.dehighlightWord();
     }

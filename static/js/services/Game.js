@@ -6,6 +6,14 @@ function Game(socket, fieldFactory) {
     var lastWords = null;
     var lastStats = null;
     var nextEvent = null;
+    var guesses = [
+        {word: 'wait', status: 'waiting'},
+        {word: 'yep', status: 'correct', points: 2},
+        {word: 'twice', status: 'dublicated'},
+        {word: 'notonfield', status: 'notOnField'},
+        {word: 'notindic', status: 'notInDictionary'},
+        {word: 'late', status: 'tooLate'},
+    ];
     that.ready = false;
 
     // ToDo: Do a ping/pong to get a better value for this
@@ -16,8 +24,10 @@ function Game(socket, fieldFactory) {
         lastField = fieldFactory.create(data.lastField);
         lastWords = data.lastWords;
         lastStats = data.lastStats;
-        console.log(currentField, lastField);
         nextEvent = now() + data.remaining;
+
+        // todo: pass guesses through
+        //guesses = [];
 
         that.ready = true;
 
@@ -49,6 +59,18 @@ function Game(socket, fieldFactory) {
 
     that.getRemaining = function() {
         return Math.max(0, nextEvent - now() - latencyAllowance);
+    }
+
+    that.guess = function(word) {
+        guesses.unshift({
+            word: word,
+            status: 'waiting'
+        });
+        console.log(guesses);
+    }
+
+    that.getGuesses = function() {
+        return guesses;
     }
 
     function now() {

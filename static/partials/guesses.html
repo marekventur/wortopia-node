@@ -1,0 +1,15 @@
+<div ng-controller="GuessesController" class="guesses" ng-show="isVisible()">
+    <div class="panel panel-default">
+        <div class="panel-heading">{{'guesses.points'|translate: getCurrentPoints()}}</div>
+        <table class="table table-condensed">
+            <tr
+                ng-repeat="guess in getGuesses()"
+                ng-class="getClassFor(guess)"
+            >
+                <td class="word">{{guess.word}}</td>
+                <td class="points "ng-if="guess.points"><span class="badge">{{guess.points}}</span></td>
+                <td class="status" ng-class="getTextClassFor(guess)" ng-if="!guess.points">{{'guesses.status.' + guess.status|translate}}</td>
+            </tr>
+        </table>
+    </ul>
+</div>
