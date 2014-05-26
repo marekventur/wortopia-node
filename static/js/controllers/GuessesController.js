@@ -4,7 +4,7 @@ function GuessesController($scope, game) {
     }
 
     $scope.isVisible = function() {
-        return !!game.getGuesses();
+        return game.getGuesses().length > 0;
     }
 
     $scope.getClassFor = function(guess) {
@@ -26,6 +26,12 @@ function GuessesController($scope, game) {
         } else if (guess.status === 'tooLate') {
             result.push('guess--too-late');
             result.push('warning');
+        } else if (guess.status === 'tooShort') {
+            result.push('guess--too-short');
+            result.push('danger');
+        } else if (guess.status === 'unexpected') {
+            result.push('guess--unexpected');
+            result.push('warning');
         }
         return result;
     }
@@ -41,14 +47,21 @@ function GuessesController($scope, game) {
             return 'text-danger';
         } else if (guess.status === 'tooLate') {
             return 'text-warning';
+        } else if (guess.status === 'tooShort') {
+            return 'text-danger';
+        } else if (guess.status === 'unexpected') {
+            return 'text-danger';
         }
         return '';
     }
 
     $scope.getCurrentPoints = function(){
         return {
-            points: 14
+            points: game.getPoints()
         };
     }
 
+    game.on('guessesUpdated', function() {
+        $scope.$apply()
+    });
 }

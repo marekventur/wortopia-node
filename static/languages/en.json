@@ -76,6 +76,8 @@
     "guesses.status.waiting": "",
     "guesses.status.dublicated": "already guessed",
     "guesses.status.notOnField": "not on field",
-    "guesses.status.notInDictionary": "invalid",
-    "guesses.status.tooLate": "too late"
+    "guesses.status.notInDictionary": "not in dictonary",
+    "guesses.status.tooLate": "too late",
+    "guesses.status.tooShort": "too short",
+    "guesses.status.unexpected": "Something went wrong :("
 }

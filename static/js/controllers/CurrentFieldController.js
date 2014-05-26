@@ -1,4 +1,4 @@
-function CurrentFieldController($scope, game, size, $element) {
+function CurrentFieldController($scope, game, size, $element, socket) {
     var $input = $element.find('#word-input');
 
     $scope.getCell = function(x, y) {
@@ -44,7 +44,6 @@ function CurrentFieldController($scope, game, size, $element) {
         if (chain) {
             _.each(chain, function(element, index) {
                 var $cell = cells[element.y][element.x];
-                console.log($cell);
                 $cell.css('background', 'rgba(0, 0, 0, ' + (0.5 - 0.4 / chain.length * index) + ')');
             });
         } else if (word.length > 0) {

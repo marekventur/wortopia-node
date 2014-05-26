@@ -24,6 +24,7 @@ function Socket(size, session) {
         };
         sock.onmessage = function(event) {
             payload = JSON.parse(event.data);
+            console.log(payload.type, payload.data);
             that.emit(payload.type, payload.data);
         };
         sock.onclose = function() {

@@ -13,6 +13,8 @@ module.exports = function() {
     di.loadDecorator('decorator/FieldContains', 'fieldDecorator');
     di.loadDecorator('decorator/FieldStartingCombinations', 'fieldDecorator');
     di.loadDecorator('decorator/FieldDatabase', 'fieldDecorator');
+    di.loadDecorator('decorator/FieldPlayers', 'fieldDecorator');
+    di.loadDecorator('decorator/FieldGuess', 'fieldDecorator');
     di.loadDecorator('decorator/User');
     di.load('game/FieldGenerator');
     di.load('ExpressWrapper');
@@ -20,6 +22,7 @@ module.exports = function() {
     di.load('Chat');
     di.load('HttpServer');
     di.load('game/GameServer')
+    di.load('game/GuessHandler')
     di.load('handler/SignupHandler');
     di.load('handler/LoginHandler');
     di.load('handler/AccountHandler');

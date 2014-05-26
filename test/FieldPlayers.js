@@ -1,0 +1,109 @@
+require('./setup');
+
+describe('FieldPlayers', function() {
+    var field, user1, user2, user3Team1, user4Team1, word1, word2, word3;
+
+    beforeEach(function() {
+        setUpDi();
+
+        field = [
+            ['n', 'r', 'u', 'd'],
+            ['e', 't', 'e' ,'m'],
+            ['a', 's', 'e', 'n'],
+            ['m', 'r', 't', 'n']
+        ];
+        di.get('fieldDecorator').decorate(field);
+        user1 = {id: 1};
+        user2 = {id: 2};
+        user3Team1 = {id: 3, team: 'team1'};
+        user4Team1 = {id: 4, team: 'team1'};
+        word1 = {word: 'tea', points: 1};
+        word2 = {word: 'bloom', points: 2};
+        word3 = {word: 'teapot', points: 3};
+    });
+
+    it('calling getResult before finishing results in an error', function() {
+        try {
+            field.getResult();
+            assert.fail();
+        } catch (e) {
+            assert.equal(e.message, 'The game has to be finished first');
+        }
+    });
+
+    it('calling scoreForPlayer after finishing results in an error', function() {
+        try {
+            field.finishGame();
+            field.scoreForPlayer(user1, word1);
+            assert.fail();
+        } catch (e) {
+            assert.equal(e.message, 'The game has finished');
+        }
+    });
+
+    it('works with a simple szenario', function() {
+        assert.equal(field.getResultForPlayer(user1).points, 0);
+        assert.equal(field.getPointsForPlayer(user1), 0);
+        assert.deepEqual(field.getResultForPlayer(user1).words, []);
+        assert.ok(field.scoreForPlayer(user1, word1));
+        assert.equal(field.getResultForPlayer(user1).points, 1);
+        assert.equal(field.getPointsForPlayer(user1), 1);
+        assert.deepEqual(field.getResultForPlayer(user1).words, [word1]);
+        field.finishGame();
+        assert.equal(field.getResult().length, 1);
+        assert.deepEqual(field.getResult()[0].user, user1);
+        assert.equal(field.getResult()[0].points, 1);
+    });
+
+    it('guessing words twice will return false and not increase points', function() {
+        assert.ok(field.scoreForPlayer(user1, word1));
+        assert.notOk(field.scoreForPlayer(user1, word1));
+        field.finishGame();
+        assert.equal(field.getResult().length, 1);
+        assert.deepEqual(field.getResult()[0].user, user1);
+        assert.equal(field.getResult()[0].points, 1);
+    });
+
+    it('two players will be scored correctly', function() {
+        assert.ok(field.scoreForPlayer(user1, word1));
+        assert.ok(field.scoreForPlayer(user2, word1));
+        assert.ok(field.scoreForPlayer(user2, word2));
+        field.finishGame();
+        assert.equal(field.getResult().length, 2);
+        assert.deepEqual(field.getResult()[0].user, user2);
+        assert.deepEqual(field.getResult()[1].user, user1);
+        assert.equal(field.getResult()[0].points, 3);
+        assert.equal(field.getResult()[1].points, 1);
+        assert.deepEqual(field.getResult()[0].words[0], word2);
+    });
+
+    it('teams will be scored correctly', function() {
+        assert.ok(field.scoreForPlayer(user3Team1, word1));
+        assert.ok(field.scoreForPlayer(user4Team1, word1));
+        assert.ok(field.scoreForPlayer(user4Team1, word2));
+        field.finishGame();
+        assert.equal(field.getResult().length, 1);
+        assert.deepEqual(field.getResult()[0].teamName, 'team1');
+        assert.equal(field.getResult()[0].points, 3);
+        assert.deepEqual(field.getResult()[0].players[0].user, user4Team1);
+        assert.deepEqual(field.getResult()[0].players[1].user, user3Team1);
+        assert.deepEqual(field.getResult()[0].players[0].words[0], word2);
+    });
+
+    it('mixing teams and normal players will be scored correctly', function() {
+        assert.ok(field.scoreForPlayer(user1, word1));
+        assert.ok(field.scoreForPlayer(user2, word1));
+        assert.ok(field.scoreForPlayer(user2, word3));
+        assert.ok(field.scoreForPlayer(user3Team1, word1));
+        assert.ok(field.scoreForPlayer(user4Team1, word1));
+        assert.ok(field.scoreForPlayer(user4Team1, word2));
+        field.finishGame();
+        assert.equal(field.getResult().length, 3);
+        assert.deepEqual(field.getResult()[0].user, user2);
+        assert.deepEqual(field.getResult()[2].user, user1);
+        assert.equal(field.getResult()[0].points, 4);
+        assert.equal(field.getResult()[2].points, 1);
+        assert.deepEqual(field.getResult()[1].teamName, 'team1');
+    });
+
+});

@@ -31,9 +31,9 @@ module.exports = function(field) {
 
     that.allowed = function(word) {
         if (size == 4) {
-            return word.length > 2;
+            return word.toLowerCase().replace('qu', 'q').length > 2;
         } else {
-            return word.length > 3;
+            return word.toLowerCase().replace('qu', 'q').length > 3;
         }
     }
 

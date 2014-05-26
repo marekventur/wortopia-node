@@ -11,11 +11,19 @@ module.exports = function(config, fieldGenerator, logger, socket) {
         .then(function() {
             socket.on('connected', function(user, size, send) {
                 send('fields', getFieldsPayload(size));
+                var playerResult = getPlayerResult(size, user);
+                if (playerResult) {
+                    send('playerResult', playerResult);
+                }
             });
 
             startRound();
         });
     };
+
+    that.getCurrentField = function(size) {
+        return currentFields[size];
+    }
 
     function getFieldsPayload(size) {
         return {
@@ -25,6 +33,13 @@ module.exports = function(config, fieldGenerator, logger, socket) {
             lastStats: lastFields ? lastFields[size].getStatsSync() : null,
             remaining: (nextEventTimestamp - now())
         };
+    }
+
+    function getPlayerResult(size, user) {
+        if (currentFields) {
+            return currentFields[size].getResultForPlayer(user);
+        }
+        return null;
     }
 
     function broadcastFields() {

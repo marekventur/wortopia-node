@@ -6,14 +6,8 @@ function Game(socket, fieldFactory) {
     var lastWords = null;
     var lastStats = null;
     var nextEvent = null;
-    var guesses = [
-        {word: 'wait', status: 'waiting'},
-        {word: 'yep', status: 'correct', points: 2},
-        {word: 'twice', status: 'dublicated'},
-        {word: 'notonfield', status: 'notOnField'},
-        {word: 'notindic', status: 'notInDictionary'},
-        {word: 'late', status: 'tooLate'},
-    ];
+    var guesses = [];
+    var points = 0;
     that.ready = false;
 
     // ToDo: Do a ping/pong to get a better value for this
@@ -26,9 +20,6 @@ function Game(socket, fieldFactory) {
         lastStats = data.lastStats;
         nextEvent = now() + data.remaining;
 
-        // todo: pass guesses through
-        //guesses = [];
-
         that.ready = true;
 
         that.emit('updateCurrentField');
@@ -38,7 +29,18 @@ function Game(socket, fieldFactory) {
             that.emit('gameOngoing');
         } else {
             that.emit('gamePaused');
+            guesses = [];
         }
+    });
+
+
+    socket.on('playerResult', function(result) {
+        points = 0;
+        guesses = _.map(result.words, function(word) {
+            points += word.points;
+            return {word: word.word, points: word.points, status: 'correct'};
+        }).reverse();
+        that.emit('guessesUpdated');
     });
 
     that.getCurrentField = function() {
@@ -61,12 +63,32 @@ function Game(socket, fieldFactory) {
         return Math.max(0, nextEvent - now() - latencyAllowance);
     }
 
+    var guessId = 0;
     that.guess = function(word) {
         guesses.unshift({
             word: word,
-            status: 'waiting'
+            status: 'waiting',
+            id: guessId
         });
-        console.log(guesses);
+        socket.send('guess', {word: word, id: guessId});
+    }
+
+    socket.on('guessResponse', function(data) {
+        console.log(data);
+        var guessId = data.id;
+        var guess = _.findWhere(guesses, {id: guessId});
+        if (guess) {
+            guess.status = data.status;
+            if (guess.status === 'correct') {
+                guess.points = data.points;
+                points += data.points;
+            }
+            that.emit('guessesUpdated');
+        }
+    });
+
+    that.getPoints = function() {
+        return points;
     }
 
     that.getGuesses = function() {
