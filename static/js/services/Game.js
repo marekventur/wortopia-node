@@ -7,6 +7,8 @@ function Game(socket, fieldFactory) {
     var lastStats = null;
     var nextEvent = null;
     var guesses = [];
+    var lastResults = [{"user":{"id":2,"name":"Jill"},"words":[{"word":"teapot","points":3},{"word":"tea","points":1}],"points":4,"percent":33},{"team":true,"name":"team1","words":[{"word":"bloom","points":2},{"word":"tea","points":1}],"players":[{"user":{"id":4,"name":"Lee"},"words":[{"word":"bloom","points":2},{"word":"tea","points":1}],"points":3,"teamName":"team1","percent":25},{"user":{"id":3,"name":"Sue"},"words":[{"word":"tea","points":1}],"points":1,"teamName":"team1","percent":8}],"points":3,"percent":25},{"user":{"id":1,"name":"John"},"words":[{"word":"tea","points":1}],"points":1,"percent":8}];
+    var lastPlayers = [1, 2, 3];
     var points = 0;
     that.ready = false;
 
@@ -61,6 +63,14 @@ function Game(socket, fieldFactory) {
 
     that.getRemaining = function() {
         return Math.max(0, nextEvent - now() - latencyAllowance);
+    }
+
+    that.getLastResults = function() {
+        return lastResults;
+    }
+
+    that.getLastPlayers = function() {
+        return lastPlayers;
     }
 
     var guessId = 0;

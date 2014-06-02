@@ -79,5 +79,9 @@
     "guesses.status.notInDictionary": "not in dictonary",
     "guesses.status.tooLate": "too late",
     "guesses.status.tooShort": "too short",
-    "guesses.status.unexpected": "Something went wrong :("
+    "guesses.status.unexpected": "Something went wrong :(",
+
+    "results.count.one":"1 Player",
+    "results.count.other":"{{count}} Players",
+    "result.team": "Team {{name}}"
 }

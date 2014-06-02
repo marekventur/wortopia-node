@@ -14,6 +14,11 @@ $fields = {
 .current-field {
     margin-bottom: 20px;
 
+    canvas {
+        position: absolute;
+        top: 0;
+    }
+
     table.field {
 
         td {
@@ -76,6 +81,10 @@ for $size, $data in $fields {
     }
 
     .size-{$size} .input-area {
+        width: (($data.cellSize + 1px) * $size) ;
+    }
+
+    .size-{$size} .field-container {
         width: (($data.cellSize + 1px) * $size) ;
     }
 }

@@ -1,7 +1,7 @@
 {
     "port": 3000,
     "gameTime": 180000,
-    "pauseTime": 30000,
+    "pauseTime": 3000,
     "chatRetentionTime": 3600000,
     "language": {
         "quReplacement": true,

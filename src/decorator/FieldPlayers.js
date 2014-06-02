@@ -28,7 +28,7 @@ module.exports = function(field) {
         if(!teams[teamName]) {
             teams[teamName] = {
                 team: true,
-                teamName: teamName,
+                name: teamName,
                 words: {},
                 players: [],
                 points: 0
@@ -55,16 +55,23 @@ module.exports = function(field) {
     }
 
     that.finishGame = function() {
+        var totalPoints = that.getTotalPointsSync();
         finished = true;
         resultList.sort(compareByPoints);
         _.each(teams, function(team) {
             team.players.sort(compareByPoints);
             team.words = _.toArray(team.words);
             team.words.sort(compareByPoints);
+            team.percent = Math.round(team.points / totalPoints * 100);
         });
         _.each(players, function(player) {
             player.words = _.toArray(player.words);
             player.words.sort(compareByPoints);
+            player.user = {
+                id: player.user.id,
+                name: player.user.name
+            };
+            player.percent = Math.round(player.points / totalPoints * 100);
         })
 
         that.scoreForPlayer = function() {

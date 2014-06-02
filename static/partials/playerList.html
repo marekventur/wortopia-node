@@ -1,31 +1,21 @@
 <!-- Player list -->
 <div class="col-md-3 col-md-pull-6">
-    <div class="panel panel-default">
+    <div class="panel panel-default" ng-controller="ResultController">
         <div class="panel-heading">
-            4 Players
+            {{getPlayerCountTranslationKey() | translate: getPlayerCountTranslationInformation()}}
         </div>
         <ul class="list-group">
-            <li class="list-group-item">
-                <span class="badge">53 <small>(74%)</small></span>
-                marekventur
-            </li>
-            <li class="list-group-item">
-                <span class="badge">53 <small>(74%)</small></span>
-                Team Beatles
-                <ul>
-                    <li>
-                        <span class="badge badge--transparent pull-right">53 <small>(74%)</small></span>
-                        User345
-                    </li>
-                    <li>
-                        <span class="badge badge--transparent pull-right">53 <small>(74%)</small></span>
-                        User567
+            <li class="list-group-item" ng-repeat="teamOrPlayer in getResults()">
+                <span class="badge">{{teamOrPlayer.points}} <small>({{teamOrPlayer.percent}}%)</small></span>
+                <span ng-if="teamOrPlayer.team">{{'result.team' | translate: {name: teamOrPlayer.name} }}</span>
+                <span ng-if="!teamOrPlayer.team">{{teamOrPlayer.user.name}}</span>
+
+                <ul ng-if="teamOrPlayer.team">
+                    <li ng-repeat="player in teamOrPlayer.players">
+                        <span class="badge badge--transparent pull-right">{{player.points}} <small>({{player.percent}}%)</small></span>
+                        {{player.user.name}}
                     </li>
                 </ul>
-            </li>
-            <li class="list-group-item">
-                <span class="badge">53 <small>(74%)</small></span>
-                User123
             </li>
         </ul>
     </div>

@@ -31,6 +31,9 @@ module.exports = function(field, db, logger, config) {
     }
 
     that.getWordsSync = function() {
+        if (words === null) {
+            throw new Error('Words are not loaded yet');
+        }
         return words;
     }
 

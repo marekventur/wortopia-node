@@ -31,6 +31,7 @@ module.exports = function(config, fieldGenerator, logger, socket) {
             lastField: lastFields ? lastFields[size] : null,
             lastWords: lastFields ? lastFields[size].getWordsSync() : null,
             lastStats: lastFields ? lastFields[size].getStatsSync() : null,
+            lastResults: lastFields ? lastFields[size].getResult() : [],
             remaining: (nextEventTimestamp - now())
         };
     }
@@ -76,8 +77,13 @@ module.exports = function(config, fieldGenerator, logger, socket) {
         lastFields = currentFields;
         currentFields = null;
         nextEventTimestamp = now() + config.pauseTime;
-        broadcastFields();
         logger.info('Round over, calculating points...');
+        if (lastFields) {
+            _.each(lastFields, function(lastField) {
+                lastField.finishGame();
+            });
+        }
+        broadcastFields();
 
         // Onlys start next round when both 30 seconds have passed
         // and the next field has been calculated

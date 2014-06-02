@@ -13,13 +13,14 @@ describe('FieldPlayers', function() {
             ['m', 'r', 't', 'n']
         ];
         di.get('fieldDecorator').decorate(field);
-        user1 = {id: 1};
-        user2 = {id: 2};
-        user3Team1 = {id: 3, team: 'team1'};
-        user4Team1 = {id: 4, team: 'team1'};
+        user1 = {id: 1, name: 'John'};
+        user2 = {id: 2, name: 'Jill'};
+        user3Team1 = {id: 3, team: 'team1', name: 'Sue'};
+        user4Team1 = {id: 4, team: 'team1', name: 'Lee'};
         word1 = {word: 'tea', points: 1};
         word2 = {word: 'bloom', points: 2};
         word3 = {word: 'teapot', points: 3};
+        field.getTotalPointsSync = sinon.stub().returns(12);
     });
 
     it('calling getResult before finishing results in an error', function() {
@@ -51,7 +52,8 @@ describe('FieldPlayers', function() {
         assert.deepEqual(field.getResultForPlayer(user1).words, [word1]);
         field.finishGame();
         assert.equal(field.getResult().length, 1);
-        assert.deepEqual(field.getResult()[0].user, user1);
+        assert.equal(field.getResult()[0].user.id, user1.id);
+        assert.equal(field.getResult()[0].user.name, user1.name);
         assert.equal(field.getResult()[0].points, 1);
     });
 
@@ -60,7 +62,7 @@ describe('FieldPlayers', function() {
         assert.notOk(field.scoreForPlayer(user1, word1));
         field.finishGame();
         assert.equal(field.getResult().length, 1);
-        assert.deepEqual(field.getResult()[0].user, user1);
+        assert.equal(field.getResult()[0].user.id, user1.id);
         assert.equal(field.getResult()[0].points, 1);
     });
 
@@ -70,8 +72,8 @@ describe('FieldPlayers', function() {
         assert.ok(field.scoreForPlayer(user2, word2));
         field.finishGame();
         assert.equal(field.getResult().length, 2);
-        assert.deepEqual(field.getResult()[0].user, user2);
-        assert.deepEqual(field.getResult()[1].user, user1);
+        assert.equal(field.getResult()[0].user.id, user2.id);
+        assert.equal(field.getResult()[1].user.id, user1.id);
         assert.equal(field.getResult()[0].points, 3);
         assert.equal(field.getResult()[1].points, 1);
         assert.deepEqual(field.getResult()[0].words[0], word2);
@@ -83,11 +85,14 @@ describe('FieldPlayers', function() {
         assert.ok(field.scoreForPlayer(user4Team1, word2));
         field.finishGame();
         assert.equal(field.getResult().length, 1);
-        assert.deepEqual(field.getResult()[0].teamName, 'team1');
+        assert.deepEqual(field.getResult()[0].name, 'team1');
         assert.equal(field.getResult()[0].points, 3);
-        assert.deepEqual(field.getResult()[0].players[0].user, user4Team1);
-        assert.deepEqual(field.getResult()[0].players[1].user, user3Team1);
+        assert.equal(field.getResult()[0].percent, 25);
+        assert.deepEqual(field.getResult()[0].players[0].user.id, user4Team1.id);
+        assert.deepEqual(field.getResult()[0].players[1].user.id, user3Team1.id);
         assert.deepEqual(field.getResult()[0].players[0].words[0], word2);
+        assert.equal(field.getResult()[0].players[1].points, 1);
+        assert.equal(field.getResult()[0].players[1].percent, 8);
     });
 
     it('mixing teams and normal players will be scored correctly', function() {
@@ -99,11 +104,12 @@ describe('FieldPlayers', function() {
         assert.ok(field.scoreForPlayer(user4Team1, word2));
         field.finishGame();
         assert.equal(field.getResult().length, 3);
-        assert.deepEqual(field.getResult()[0].user, user2);
-        assert.deepEqual(field.getResult()[2].user, user1);
+        assert.deepEqual(field.getResult()[0].user.id, user2.id);
+        assert.deepEqual(field.getResult()[2].user.id, user1.id);
         assert.equal(field.getResult()[0].points, 4);
         assert.equal(field.getResult()[2].points, 1);
-        assert.deepEqual(field.getResult()[1].teamName, 'team1');
+        assert.deepEqual(field.getResult()[1].name, 'team1');
+        console.log('%j', field.getResult());
     });
 
 });

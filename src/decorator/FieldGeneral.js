@@ -3,7 +3,6 @@ var _ = require('underscore');
 
 module.exports = function(field) {
     var that = field;
-    var words = null;
     var size = field.length;
 
     that.getSize = function() {
@@ -11,18 +10,22 @@ module.exports = function(field) {
     }
 
     that.getStatsSync = function() {
-        if (words) {
-            var points = 0;
-            _.each(words, function(word) {
-                points += word.points;
-            });
-            return {
-                words: words.length,
-                points: points
-            };
-        } else {
-            return {};
-        }
+        return {
+            points: that.getTotalPointsSync(),
+            words: that.getWordCountSync()
+        };
+    }
+
+    that.getTotalPointsSync = function() {
+        var points = 0;
+        _.each(that.getWordsSync(), function(word) {
+            points += word.points;
+        });
+        return points;
+    }
+
+    that.getWordCountSync = function() {
+        return that.getWordsSync().length;
     }
 
     that.getAllLetters = function() {
