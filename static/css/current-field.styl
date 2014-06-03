@@ -1,3 +1,5 @@
+@import 'nib'
+
 $fields = {
     "4": {
         cellSize: 70px,
@@ -70,6 +72,43 @@ $fields = {
     h2 {
         text-align: center;
     }
+
+    .giant-tick, .giant-cross {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 231px;
+        opacity: 0;
+
+        &.highlight {
+            animation: highlight 0.5s;
+        }
+    }
+
+    /*.giant-tick {
+        color: green;
+    }
+    .giant-cross {
+        color: red;
+    }*/
+}
+
+@keyframes highlight {
+    0% {
+        opacity: 0;
+        font-size: 200px;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+        font-size: 330px;
+    }
 }
 
 /* Sizing for different field sizes */
@@ -86,6 +125,10 @@ for $size, $data in $fields {
 
     .size-{$size} .field-container {
         width: (($data.cellSize + 1px) * $size) ;
+    }
+
+    .giant-tick, .giant-cross {
+        line-height: (($data.cellSize + 1px) * $size);
     }
 }
 

@@ -19,28 +19,79 @@ function CurrentFieldController($scope, game, size, $element, socket) {
         }, 250);
     });
 
-    $scope.submitWord = function(word) {
-        game.guess(word);
-        $scope.wordEntered = "";
-        $scope.dehighlightWord();
-    }
+    // Marks
+    var $correctSymbol = $element.find('.giant-tick');
+    var $incorrectSymbol = $element.find('.giant-cross');
 
-    // Hightlighting
+    game.on('guessCorrect', function() {
+        $correctSymbol.addClass('highlight');
+        setTimeout(function() {
+            $correctSymbol.removeClass('highlight');
+        }, 600);
+    })
+
+    game.on('guessIncorrect', function() {
+        $incorrectSymbol.addClass('highlight');
+        setTimeout(function() {
+            $incorrectSymbol.removeClass('highlight');
+        }, 600);
+    })
+
+    // Clicking/Swiping
     var $canvas = $element.find('canvas');
     var dimension = size.size === 4 ? 280 : 280;
     var cellDimension = dimension / size.size;
-    $canvas.attr('width', dimension + 'px').attr('height', dimension + 'px');
-    var context = $canvas[0].getContext('2d');
-
-    $scope.highlightWord = function(word) {
-        $scope.dehighlightWord();
-        var chain = $scope.getCurrentField().contains(word);
-        if (chain) {
+    var chain = [];
+    $canvas.click(function(e) {
+        var x = Math.floor(e.offsetX / cellDimension);
+        var y = Math.floor(e.offsetY / cellDimension);
+        if (!_.findWhere(chain, {x: x, y: y})) {
+            chain.push({x: x, y: y});
             drawChain(chain);
+        } else {
+            submitChain();
+        }
+    });
+
+    function submitChain() {
+        var word = '';
+        _.each(chain, function(element) {
+            word += $scope.getCell(element.x, element.y);
+        });
+        $scope.submitWord(word);
+    }
+
+    $canvas.dblclick(submitChain);
+
+    $canvas.mousedown(function(){ return false; })
+
+    // Submit
+    $scope.submitWord = function(word) {
+        game.guess(word);
+        $scope.wordEntered = "";
+        chain = [];
+        drawChain(chain);
+    }
+
+    // Hightlighting
+    $scope.typeWord = function(word) {
+        if (word === '') {
+            var newChain = [];
+        } else {
+            var newChain = $scope.getCurrentField().contains(word);
+        }
+
+         if (newChain) {
+            chain = newChain;
         } else if (word.length > 0) {
             $scope.wordEnteredClass = ['has-error'];
+            chain = [];
         }
+        drawChain(chain);
     }
+
+    $canvas.attr('width', dimension + 'px').attr('height', dimension + 'px');
+    var context = $canvas[0].getContext('2d');
 
     function drawChain(chain) {
         context.clearRect(0 , 0 , dimension , dimension);
@@ -64,10 +115,12 @@ function CurrentFieldController($scope, game, size, $element, socket) {
         });
         context.stroke();
 
-
         _.each(chain, function(element) {
             var x = Math.round((element.x + 0.5) * cellDimension);
             var y = Math.round((element.y + 0.5) * cellDimension);
+
+            // We could save this by doing some maths further up.
+            // Can't be bothered right now.
             context.save();
             context.globalCompositeOperation = 'destination-out';
             context.beginPath();
@@ -126,11 +179,6 @@ function CurrentFieldController($scope, game, size, $element, socket) {
         context.stroke();
     }
     */
-
-    $scope.dehighlightWord = function() {
-        $scope.wordEnteredClass = [];
-        drawChain([]);
-    }
 
 
     /*$scope.wordEnteredClass = [];

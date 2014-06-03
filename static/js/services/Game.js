@@ -92,6 +92,9 @@ function Game(socket, fieldFactory) {
             if (guess.status === 'correct') {
                 guess.points = data.points;
                 points += data.points;
+                that.emit('guessCorrect');
+            } else {
+                that.emit('guessIncorrect');
             }
             that.emit('guessesUpdated');
         }

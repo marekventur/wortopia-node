@@ -7,11 +7,14 @@
             </tr>
         </table>
 
+        <div class="giant-tick visible-xs visible-sm">✓</div>
+        <div class="giant-cross visible-xs visible-sm">✗</div>
+
         <canvas></canvas>
     </div>
 
     <form class="input-area" ng-submit="submitWord(wordEntered)" ng-class="wordEnteredClass">
-        <input type="text" class="input form-control" id="word-input" ng-model="wordEntered" ng-change="highlightWord(wordEntered)" />
+        <input type="text" class="input form-control" id="word-input" ng-model="wordEntered" ng-change="typeWord(wordEntered)" />
         <label for="word-input" ng-controller="TimerController">{{remainingTime}}</label>
     </form>
 
