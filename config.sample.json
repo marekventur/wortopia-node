@@ -57,5 +57,12 @@
     },
     "chatMessages": {
         "started": "Server has been (re-)started. Sorry for any inconvenience caused."
-    }
+    },
+    "simplerSes": {
+        "authToken": "xxxx",
+        "from": "mail@wortopia.de",
+        "templatePrefix": "wortopia_en_"
+    },
+    "tokenSalt": "xxxx",
+    "rootUrl": "https://wortopia.de"
 }
