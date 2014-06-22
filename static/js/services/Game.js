@@ -7,8 +7,8 @@ function Game(socket, fieldFactory) {
     var lastStats = null;
     var nextEvent = null;
     var guesses = [];
-    var lastResults = [{"user":{"id":2,"name":"Jill"},"words":[{"word":"teapot","points":3},{"word":"tea","points":1}],"points":4,"percent":33},{"team":true,"name":"team1","words":[{"word":"bloom","points":2},{"word":"tea","points":1}],"players":[{"user":{"id":4,"name":"Lee"},"words":[{"word":"bloom","points":2},{"word":"tea","points":1}],"points":3,"teamName":"team1","percent":25},{"user":{"id":3,"name":"Sue"},"words":[{"word":"tea","points":1}],"points":1,"teamName":"team1","percent":8}],"points":3,"percent":25},{"user":{"id":1,"name":"John"},"words":[{"word":"tea","points":1}],"points":1,"percent":8}];
-    var lastPlayers = [1, 2, 3];
+    var lastResults = [];
+    var lastPlayers = [];
     var points = 0;
     that.ready = false;
 
@@ -21,6 +21,7 @@ function Game(socket, fieldFactory) {
         lastWords = data.lastWords;
         lastStats = data.lastStats;
         nextEvent = now() + data.remaining;
+        setLastResults(data.lastResults);
 
         that.ready = true;
 
@@ -34,6 +35,20 @@ function Game(socket, fieldFactory) {
             guesses = [];
         }
     });
+
+    function setLastResults(results) {
+        lastResults = results;
+        lastPlayers = [];
+        _.each(results, function(playerOrTeam) {
+            if (playerOrTeam.team) {
+                _.each(playerOrTeam.players, function(player) {
+                    lastPlayers.push(player);
+                });
+            } else {
+                lastPlayers.push(playerOrTeam);
+            }
+        });
+    }
 
 
     socket.on('playerResult', function(result) {
@@ -84,7 +99,6 @@ function Game(socket, fieldFactory) {
     }
 
     socket.on('guessResponse', function(data) {
-        console.log(data);
         var guessId = data.id;
         var guess = _.findWhere(guesses, {id: guessId});
         if (guess) {
