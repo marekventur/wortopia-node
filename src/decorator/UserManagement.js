@@ -37,7 +37,7 @@ module.exports = function(user, db, logger) {
 
     // What a users see about themselves
     that.getExternalPrivateRepresentation = function() {
-        return user.loadEmail();
+        return user.loadEmail()
     }
 
     that.loadEmail = function() {

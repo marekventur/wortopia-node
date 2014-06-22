@@ -1,0 +1,29 @@
+<div class="modal fade" id="modal--recover" ng-controller="RecoverController">
+    <div class="modal-dialog modal-sm">
+        <form role="form" class="modal-content" ng-submit="recover()">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" translate="recover.title"></h4>
+            </div>
+            <div class="modal-body">
+                <div ng-hide="success">
+                    <p translate="recover.explanation"></p>
+                    <p class="text-danger" ng-show="error">{{'recover.error.' + error |translate}}</p>
+                    <div class="form-group {{error?'has-error':''}}">
+                        <label for="recoverEmail" translate="recover.email.label"></label>
+                        <input type="text" class="form-control" ng-model="input.email" name="email" id="recoverEmail" placeholder="{{'recover.email.placeholder'|translate}}" ng-disabled="loading">
+                    </div>
+                    <p><a href="#" data-toggle="modal" data-target="#modal--signup" translate="recover.signup" ng-click="closeModal()"></a></p>
+                </div>
+                <p ng-show="success" translate="recover.success"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" ng-disabled="loading" ng-hide="success">
+                    <span translate="recover.button.confirm" ng-hide="loading"></span>
+                    <i class="fa fa-spinner fa-spin" ng-show="loading"></i>
+                </button>
+                <button class="btn btn-primary" ng-show="success" ng-click="closeModal()" translate="recover.button.close"></button>
+            </div>
+        </form><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -8,6 +8,8 @@ module.exports = function() {
 
     di.load('Clock');
     di.load('Db');
+    di.loadDecorator('decorator/UserManagement', 'userDecorator');
+    di.loadDecorator('decorator/UserPasswordHash', 'userDecorator');
     di.load('UserDao');
     di.loadDecorator('decorator/FieldGeneral', 'fieldDecorator');
     di.loadDecorator('decorator/FieldContains', 'fieldDecorator');
@@ -15,17 +17,20 @@ module.exports = function() {
     di.loadDecorator('decorator/FieldDatabase', 'fieldDecorator');
     di.loadDecorator('decorator/FieldPlayers', 'fieldDecorator');
     di.loadDecorator('decorator/FieldGuess', 'fieldDecorator');
-    di.loadDecorator('decorator/User');
     di.load('game/FieldGenerator');
     di.load('ExpressWrapper');
     di.load('Socket');
     di.load('Chat');
     di.load('HttpServer');
+    di.load('MessageAuthenticationCodeManager');
+    di.load('RecoverLinkManager');
+    di.load('SimplerSesClient');
     di.load('game/GameServer')
     di.load('game/GuessHandler')
     di.load('handler/SignupHandler');
     di.load('handler/LoginHandler');
     di.load('handler/AccountHandler');
+    di.load('handler/RecoverHandler');
 
     return di;
 }

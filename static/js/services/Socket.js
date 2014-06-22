@@ -24,12 +24,14 @@ function Socket(size, session) {
         };
         sock.onmessage = function(event) {
             payload = JSON.parse(event.data);
-            console.log(payload.type, payload.data);
             that.emit(payload.type, payload.data);
         };
-        sock.onclose = function() {
-            // ToDo: Reconnect
-            console.log('close');
+        sock.onclose = function(data) {
+            if (data.code === 101) {
+                console.error('Invalid session token')
+            } else {
+                console.error('Connection closed due to unknown reason:', data);
+            }
         };
     });
 

@@ -39,7 +39,7 @@ module.exports = function(config, logger, userDao) {
             .fail(function(err) {
                 logger.error('Could not connect user due to error: %s', err);
                 logger.info('Closing connection');
-                connection.close(1);
+                connection.close(101);
             });
         });
 

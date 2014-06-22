@@ -1,15 +1,15 @@
-function LoginController($scope, session, $element) {
-
+function RecoverController($scope, $element, recoverService) {
     $scope.input = {};
     $scope.error = null;
     $scope.loading = false;
+    $scope.success = false;
 
-    $scope.login = function() {
+    $scope.recover = function() {
         $scope.loading = true;
         $scope.error = null;
-        session.loginWithCredentials($scope.input.username, $scope.input.password)
+        recoverService.recover($scope.input.email)
         .then(function() {
-            $element.modal('hide');
+            $scope.success = true;
         })
         .fail(function(err) {
             $scope.error = err.reason;

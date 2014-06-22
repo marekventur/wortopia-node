@@ -26,6 +26,7 @@
                     <p class="text-danger" ng-show="errors.password2">{{'signup.password2.error.' + errors.password2 |translate}}</p>
                     <input type="password" class="form-control" ng-model="input.password2" name="password2" id="signupPassword2" placeholder="{{'signup.password2.placeholder'|translate}}" ng-disabled="loading">
                 </div>
+                <p><a href="#" data-toggle="modal" data-target="#modal--recover" translate="signup.reset_password" ng-click="closeModal()"></a></p>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" ng-disabled="loading">

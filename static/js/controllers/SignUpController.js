@@ -25,4 +25,8 @@ function SignUpController($scope, $element, session) {
             $scope.$apply();
         })
     }
+
+    $scope.closeModal = function() {
+        $element.modal('hide');
+    }
 }

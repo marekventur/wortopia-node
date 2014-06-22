@@ -1,4 +1,4 @@
-function AccountController($scope, session, $element) {
+function AccountController($scope, session, $element, hashHandler) {
     $scope.input = {};
     $scope.errors = {};
     $scope.loading = false;
@@ -29,5 +29,9 @@ function AccountController($scope, session, $element) {
             $scope.loading = false;
             $scope.$apply();
         })
+    }
+
+    if (hashHandler.needsOpening('account')) {
+        $element.modal('show');
     }
 }

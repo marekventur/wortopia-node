@@ -1,6 +1,5 @@
-var userDeorator = require('./decorator/User');
 var Q = require('q');
-module.exports = function(db, logger) {
+module.exports = function(db, logger, userDecorator) {
     var that = this;
 
     that.create = function(username, email, password) {
@@ -18,24 +17,38 @@ module.exports = function(db, logger) {
     };
 
     that.getByName = function(name) {
-        return db.queryOne("SELECT id, name, team FROM users WHERE name = $1", [name])
+        return db.queryOne("SELECT id FROM users WHERE name = $1", [name])
         .then(function(user) {
             if (!user) {
                 var error = new Error('User not found');
                 error.userNotFound = true;
                 return Q.reject(error);
             }
-            return decorateUser(user);
+            return that.getById(user.id);
         });
     }
 
     that.getById = function(id) {
-        return db.queryOne("SELECT id, name, team FROM users WHERE id = $1", [id])
+        return db.queryOne("SELECT id, name, team, pw_hash FROM users WHERE id = $1", [id])
         .then(function(user) {
             if (!user) {
-                return Q.reject(new Error('User not found'));
+                var error = new Error('User not found');
+                error.userNotFound = true;
+                return Q.reject(error);
             }
-            return decorateUser(user);
+            return decorateUser(user)
+        });
+    }
+
+    that.getByEmail = function(email) {
+        return db.queryOne("SELECT user_id FROM user_emails WHERE email = $1", [email])
+        .then(function(row) {
+            if (!row) {
+                var error = new Error('User not found');
+                error.userNotFound = true;
+                return Q.reject(error);
+            }
+            return that.getById(row.user_id);
         });
     }
 
@@ -65,6 +78,8 @@ module.exports = function(db, logger) {
         .then(function(row) {
             if (row.user_id) {
                 return that.getById(row.user_id);
+            } if (row.guest_id) {
+                return that.createGuestById(row.guest_id);
             } else {
                 throw new Error('Session token invalid');
             }
@@ -74,12 +89,12 @@ module.exports = function(db, logger) {
                 throw new Error('Session token or user not found');
             }
             user.sessionToken = sessionToken;
-            return decorateUser(user);
+            return user;
         });
     }
 
     that.getViaLogin = function(username, password) {
-        return db.queryOne("SELECT pw_hash = crypt($1, pw_hash) as valid, id, name, team FROM users WHERE name = $2", [password, username])
+        return db.queryOne("SELECT pw_hash = crypt($1, pw_hash) as valid, id FROM users WHERE name = $2", [password, username])
         .then(function(user) {
             if (!user || !user.valid) {
                 var error = new Error('Username or password incorrect');
@@ -87,12 +102,12 @@ module.exports = function(db, logger) {
                 return Q.reject(error);
             }
             delete user.valid;
-            return decorateUser(user);
+            return that.getById(user.id);
         })
     }
 
     function decorateUser(rawUser) {
-        return userDeorator(rawUser, db, logger);
+        return userDecorator.decorate(rawUser);
     }
 
 }

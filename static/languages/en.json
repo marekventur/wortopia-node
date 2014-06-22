@@ -29,6 +29,7 @@
     "signup.password2.placeholder": "Password",
     "signup.password2.error.not_identical": "Passwords don't match",
     "signup.button.confirm": "Sign up",
+    "signup.reset_password": "Already have an account and forgot password or username?",
 
     "login.title": "Login",
     "login.error.invalid_credentials": "Username or Password incorrect. Please try again.",
@@ -38,6 +39,18 @@
     "login.password.label": "Password",
     "login.password.placeholder": "Password",
     "login.button.confirm": "Login",
+    "login.reset_password": "Forgot password or username?",
+
+    "recover.title": "Forgot password or username",
+    "recover.explanation":"Just enter your email address and we'll send you an email with a recovery link:",
+    "recover.success":"Your recovery link has been sent. Please check your inbox and spam folder.",
+    "recover.error.invalid_email": "Email address is incorrect or is not used.",
+    "recover.error.unknown": "An unknown error has occured. Please contact mail@wortopia.de",
+    "recover.email.label": "Email",
+    "recover.email.placeholder": "mail@something.com",
+    "recover.button.confirm": "Send email",
+    "recover.button.close": "Close",
+    "recover.signup": "Create new account",
 
     "account.title": "Your Account",
     "account.name.label": "Username (no spaces allowed)",

@@ -15,6 +15,7 @@
                     <label for="loginPassword" translate="login.password.label"></label>
                     <input type="password" class="form-control" ng-model="input.password" name="password" id="loginPassword" placeholder="{{'login.password.placeholder'|translate}}" ng-disabled="loading">
                 </div>
+                <p><a href="#" data-toggle="modal" data-target="#modal--recover" translate="login.reset_password" ng-click="closeModal()"></a></p>
             </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" ng-disabled="loading">
