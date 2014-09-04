@@ -67,10 +67,20 @@ module.exports = function(field) {
         _.each(players, function(player) {
             player.words = _.toArray(player.words);
             player.words.sort(compareByPoints);
-            player.user = {
-                id: player.user.id,
-                name: player.user.name
-            };
+            if (player.user.guest) {
+                player.user = {
+                    id: player.user.id,
+                    guestId: player.user.guestId,
+                    guest: player.user.guest
+                };
+            } else {
+                player.user = {
+                    id: player.user.id,
+                    name: player.user.name,
+                    guest: false
+                };
+            }
+            
             player.percent = Math.round(player.points / totalPoints * 100);
         })
 

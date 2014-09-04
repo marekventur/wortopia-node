@@ -96,5 +96,8 @@
 
     "results.count.one":"1 Player",
     "results.count.other":"{{count}} Players",
-    "result.team": "Team {{name}}"
+    "result.team": "Team {{name}}",
+
+    "guest.name": "Guest {{guestId}}",
+    "guest.prefix": "Guest "
 }

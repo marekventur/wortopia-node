@@ -9,9 +9,13 @@
     <div class="panel-body chat-content"></div>
     <div class="panel-footer">
         <div class="input-group input-group-sm">
-            <span class="input-group-addon">{{getUser().name}}</span>
+            <span class="input-group-addon" ng-hide="isGuest()">{{getUser().name}}</span>
+            <span class="input-group-addon" ng-show="isGuest()">{{'guest.name'|translate:getUser()}}</span>
             <input type="text" class="form-control chat-input" ng-keyup="onKeyUp()" id="chat-input">
             <label for="chat-input" ng-hide="isGameOngoing()" ng-controller="TimerController">{{remainingTime}}</label>
         </div>
     </div>
 </div>
+
+<!-- This is just here for translation purposes -->
+<span id="translation-guest-prefix" ng-show="false" translate="guest.prefix"></span>

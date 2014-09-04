@@ -25,7 +25,11 @@ function ChatController($scope, $element, chat, game) {
             $el = $systemMessageTemplate.clone();
         } else {
             $el = $userMessageTemplate.clone();
-            $el.find('.chat-name').text(message.user.name);
+            if (message.user.guest) {
+                $el.find('.chat-name').text($('#translation-guest-prefix').text() + message.user.guestId);
+            } else {
+                $el.find('.chat-name').text(message.user.name);
+            }
         }
 
         $el.find('.chat-inner-text').html(linkify(message.text));
@@ -59,16 +63,7 @@ function ChatController($scope, $element, chat, game) {
         if (minutes < 10) {
             minutes = "0" + minutes
         }
-        var suffix = "AM";
-        if (hours >= 12) {
-            suffix = "PM";
-            hours = hours - 12;
-        }
-        if (hours == 0) {
-            hours = 12;
-        }
-
-        return hours + ":" + minutes + " " + suffix;
+        return hours + ":" + minutes;
     }
 
     function scrollDown() {

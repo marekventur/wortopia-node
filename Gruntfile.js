@@ -135,5 +135,5 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-concat-sourcemap');
 
-    grunt.registerTask('default', ['stylus', 'concat_sourcemap', 'copy']);
+    grunt.registerTask('default', ['stylus', 'concat_sourcemap', 'copy', 'ngtemplates:partials']);
 }

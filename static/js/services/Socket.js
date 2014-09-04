@@ -1,7 +1,10 @@
 function Socket(size, session) {
     var that = this;
 
-    session.once('update', function(user) {
+    session.on('update', function(user) {
+        if (that.sock) {
+            that.sock.close(3001);
+        }
         var sock = new SockJS('/socket');
         function send(type, data) {
             sock.send(JSON.stringify({
@@ -29,10 +32,14 @@ function Socket(size, session) {
         sock.onclose = function(data) {
             if (data.code === 101) {
                 console.error('Invalid session token')
+            } else if (data.code === 3001) {
+                // Socket closed from client side
             } else {
                 console.error('Connection closed due to unknown reason:', data);
             }
         };
+
+        that.sock = sock;
     });
 
     that.send = function() {

@@ -34,4 +34,8 @@ function MainController($scope, $element, session, size, game) {
     $scope.getWords = function() {
         return game.getLastWords();
     }
+
+    $scope.isGuest = function() {
+        return session.user && session.user.guest;
+    }
 };

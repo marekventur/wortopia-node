@@ -58,7 +58,11 @@ function CurrentFieldController($scope, game, size, $element, socket) {
         _.each(chain, function(element) {
             word += $scope.getCell(element.x, element.y);
         });
-        $scope.submitWord(word);
+        if (word.length > 2) {
+            $scope.submitWord(word);
+        } else {
+            $scope.clearChain();
+        }
     }
 
     $canvas.dblclick(submitChain);
@@ -68,6 +72,12 @@ function CurrentFieldController($scope, game, size, $element, socket) {
     // Submit
     $scope.submitWord = function(word) {
         game.guess(word);
+        $scope.wordEntered = "";
+        chain = [];
+        drawChain(chain);
+    }
+
+    $scope.clearChain = function() {
         $scope.wordEntered = "";
         chain = [];
         drawChain(chain);
