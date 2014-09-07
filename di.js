@@ -2,7 +2,7 @@ module.exports = function() {
     var Di = require('no-configuration-di');
     var di = new Di(__dirname + '/src');
 
-    di.add('config', require('./config.json'));
+    di.add('config', require('./config.js'));
     di.add('databaseConfig', require('./database.json'));
     di.add('logger', require('bunyan').createLogger({name: "main"}));
 

@@ -1,5 +1,15 @@
-{
-    "port": 3000,
+if (!process.env.SIMPLER_SES_AUTH_TOKEN) {
+    console.error("Error: Please define SIMPLER_SES_AUTH_TOKEN");
+    process.exit(1);
+}
+
+if (!process.env.TOKEN_SALT) {
+    console.error("Error: Please define TOKEN_SALT");
+    process.exit(1);
+}
+
+module.exports = {
+    "port": process.env.PORT || 3000,
     "gameTime": 180000,
     "pauseTime": 3000,
     "chatRetentionTime": 3600000,
@@ -59,10 +69,10 @@
         "started": "Server has been (re-)started. Sorry for any inconvenience caused."
     },
     "simplerSes": {
-        "authToken": "xxxx",
-        "from": "mail@wortopia.de",
-        "templatePrefix": "wortopia_en_"
+        "authToken": process.env.SIMPLER_SES_AUTH_TOKEN,
+        "from": process.env.FROM_EMAIL_ADDRESS || "mail@wortopia.de",
+        "templatePrefix": process.env.SIMPLER_SES_TEMPLATE_PREFIX || "wortopia_en_"
     },
-    "tokenSalt": "xxxx",
-    "rootUrl": "https://wortopia.de"
-}
+    "tokenSalt": process.env.TOKEN_SALT,
+    "rootUrl": process.env.ROOT_URL || "http://wortopia.de"
+};
