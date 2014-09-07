@@ -1,4 +1,0 @@
-{
-    "test": "postgres://wortopia:wortopia@localhost/wortopia_test",
-    "dev": "postgres://wortopia:wortopia@localhost/wortopia"
-}

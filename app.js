@@ -4,5 +4,3 @@ di.runAll('start')
 .done(function() {
     di.get('logger').info('Server has successfully started');
 });
-
-
