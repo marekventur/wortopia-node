@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "TEST=1 ./node_modules/mocha/bin/mocha test --check-leaks --reporter tap --colors --recursive test/"
+    "test": "./migrate.sh test && NODE_ENV=test ./node_modules/mocha/bin/mocha test --check-leaks --reporter tap --colors --recursive test/"
   },
   "repository": {
     "type": "git",

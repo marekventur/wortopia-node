@@ -1,4 +1,4 @@
-if (process.env.TEST) {
+if (process.env.NODE_ENV === 'test') {
     process.env.SIMPLER_SES_AUTH_TOKEN = 'abc';
     process.env.TOKEN_SALT = 'abc';
 }
