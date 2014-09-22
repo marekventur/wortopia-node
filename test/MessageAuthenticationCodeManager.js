@@ -40,7 +40,7 @@ describe('MessageAuthenticationCodeManager', function() {
     it('fails with broken hash', function() {
         var value = 'asdf';
         var token = messageAuthenticationCodeManager.create(value);
-        tokenChanged = token.substr(0, 20) + 'Y' + token.substr(21);
+        var tokenChanged = token.substr(0, 20) + 'Y' + token.substr(21);
         try {
             messageAuthenticationCodeManager.verify(tokenChanged)
             assert.fail('Error expected');

@@ -109,7 +109,6 @@ describe('FieldPlayers', function() {
         assert.equal(field.getResult()[0].points, 4);
         assert.equal(field.getResult()[2].points, 1);
         assert.deepEqual(field.getResult()[1].name, 'team1');
-        console.log('%j', field.getResult());
     });
 
 });

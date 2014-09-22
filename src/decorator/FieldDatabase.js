@@ -13,7 +13,7 @@ module.exports = function(field, db, logger, config) {
             var sql = "SELECT word FROM words WHERE substring(replace(word, 'qu', 'q') for 2) IN (" + inStatement + ") AND word ~ '^[" + that.getAllLetters() + "]*$' AND char_length(word) >= $1 AND accepted = true;"
             var start = new Date().getTime();
             var afterQuery = null;
-            var afterChecks = null;
+            var afterCheck = null;
             return db.query(sql, [config.language.minimumWordLengthPerFieldSize[size]])
             .then(function(rows) {
                 afterQuery = new Date().getTime();

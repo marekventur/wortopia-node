@@ -1,3 +1,8 @@
+if (process.env.TEST) {
+    process.env.SIMPLER_SES_AUTH_TOKEN = 'abc';
+    process.env.TOKEN_SALT = 'abc';
+}
+
 if (!process.env.SIMPLER_SES_AUTH_TOKEN) {
     console.error("Error: Please define SIMPLER_SES_AUTH_TOKEN");
     process.exit(1);
