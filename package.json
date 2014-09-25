@@ -19,13 +19,14 @@
     "url": "https://github.com/marekventur/wortopia-node/issues"
   },
   "devDependencies": {
-    "mocha": "~1.14.0",
     "grunt": "~0.4.2",
-    "grunt-contrib-watch": "~0.5.3",
-    "grunt-contrib-stylus": "~0.10.0",
-    "grunt-contrib-copy": "~0.4.1",
+    "grunt-angular-templates": "~0.5.4",
+    "grunt-cli": "^0.1.13",
     "grunt-concat-sourcemap": "~0.4.1",
-    "grunt-angular-templates": "~0.5.4"
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-stylus": "~0.10.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "mocha": "~1.14.0"
   },
   "dependencies": {
     "async": "~0.2.9",
