@@ -20,7 +20,8 @@ module.exports = function(grunt) {
             compile: {
                 options: {
                     paths: ['node_modules/nib/index.styl'],
-                    compress: false
+                    compress: false,
+                    use: ['nib']
                 },
                 files: {
                     'static-build/css/main.css': ['static/css/*']
