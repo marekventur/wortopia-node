@@ -20,7 +20,7 @@ module.exports = function(grunt) {
             compile: {
                 options: {
                     compress: false,
-                    import: ['nib']
+                    /*import: ['nib']*/
                 },
                 files: {
                     'static-build/css/main.css': ['static/css/*']
