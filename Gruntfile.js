@@ -19,9 +19,8 @@ module.exports = function(grunt) {
         stylus: {
             compile: {
                 options: {
-                    paths: ['node_modules/nib/index.styl'],
                     compress: false,
-                    use: ['nib']
+                    import: ['nib']
                 },
                 files: {
                     'static-build/css/main.css': ['static/css/*']
