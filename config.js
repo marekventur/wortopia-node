@@ -16,7 +16,7 @@ if (!process.env.TOKEN_SALT) {
 module.exports = {
     "port": process.env.PORT || 3000,
     "gameTime": 180000,
-    "pauseTime": 3000,
+    "pauseTime": 30000,
     "chatRetentionTime": 3600000,
     "language": {
         "quReplacement": true,
