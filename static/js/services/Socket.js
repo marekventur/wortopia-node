@@ -1,7 +1,10 @@
 function Socket(size, session) {
     var that = this;
 
-    session.on('update', function(user) {
+    
+
+    that.openSocket = function(user, reconnectDuration) {
+        reconnectDuration = reconnectDuration || 1000;
         if (that.sock) {
             that.sock.close(3001);
         }
@@ -17,6 +20,8 @@ function Socket(size, session) {
                 sessionToken: user.sessionToken,
                 size: size.size
             }));
+
+            reconnectDuration = 1000;
 
             that.send = function(type, data) {
                 sock.send(JSON.stringify({
@@ -36,11 +41,16 @@ function Socket(size, session) {
                 // Socket closed from client side
             } else {
                 console.error('Connection closed due to unknown reason:', data);
+                setTimeout(function() {
+                    that.openSocket(user, reconnectDuration * 2);
+                }, reconnectDuration)
             }
         };
 
         that.sock = sock;
-    });
+    };
+
+    session.once('update', that.openSocket);
 
     that.send = function() {
         console.error('Socket is not ready yet');
