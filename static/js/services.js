@@ -6,7 +6,7 @@ function initWortopia() {
     angular.module('wortopia', ['pascalprecht.translate'])
     .config(function ($translateProvider) {
         $translateProvider.useStaticFilesLoader({ prefix: 'languages/', suffix: '.json' });
-        $translateProvider.preferredLanguage('en');
+        $translateProvider.preferredLanguage('de');
     })
     .value('hashHandler', hashHandler)
     .service('session', Session)
