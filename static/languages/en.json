@@ -99,5 +99,10 @@
     "result.team": "Team {{name}}",
 
     "guest.name": "Guest {{guestId}}",
-    "guest.prefix": "Guest "
+    "guest.prefix": "Guest ",
+
+    "rules.headline":"Translate me",
+    "rules.body":"Translate me",
+    "guidelines.headline":"Translate me",
+    "guidelines.body":"Translate me"
 }
