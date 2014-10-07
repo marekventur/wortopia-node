@@ -1,4 +1,4 @@
-function Game(socket, fieldFactory) {
+function Game(socket, fieldFactory, tracking) {
     var that = this;
 
     var currentField = null;
@@ -111,6 +111,8 @@ function Game(socket, fieldFactory) {
                 that.emit('guessIncorrect');
             }
             that.emit('guessesUpdated');
+
+            tracking.event('guess', guess.status);
         }
     });
 

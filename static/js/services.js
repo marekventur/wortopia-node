@@ -16,6 +16,7 @@ function initWortopia() {
     .service('game', Game)
     .service('timer', Timer)
     .service('chat', Chat)
+    .service('tracking', Tracking)
     .service('fieldFactory', FieldFactory)
     .service('recoverService', RecoverService)
     .run(function($templateCache) {

@@ -1,4 +1,4 @@
-function Chat(socket) {
+function Chat(socket, tracking) {
     var that = this;
 
     socket.on('chatBacklog', function(messages) {
@@ -14,6 +14,7 @@ function Chat(socket) {
 
     that.sendMessage = function(text) {
         socket.send('chat', text);
+        tracking.event('chat', 'send');
     }
 }
 
