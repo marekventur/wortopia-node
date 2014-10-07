@@ -1,8 +1,6 @@
 function Socket(size, session) {
     var that = this;
 
-    
-
     that.openSocket = function(user, reconnectDuration) {
         reconnectDuration = reconnectDuration || 1000;
         if (that.sock) {

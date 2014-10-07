@@ -1,4 +1,4 @@
-function HeaderController($scope, $element, session) {
+function HeaderController($scope, $element, session, size) {
     $scope.login = function() {
         return session.user;
     }
@@ -9,6 +9,10 @@ function HeaderController($scope, $element, session) {
 
     $scope.logout = function() {
         session.logout();
+    }
+
+    $scope.isActiveSize = function(sizeToTest) {
+        return size.size === sizeToTest;
     }
 
     session.on('update', function() {
