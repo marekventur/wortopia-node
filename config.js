@@ -71,8 +71,10 @@ module.exports = {
         }
     },
     "chatMessages": {
-        "started": "Server has been (re-)started. Sorry for any inconvenience caused."
+        "started": "Der Server wurde neu gestartet. Wir entschuldigen uns für die Unterbrechung.", // Server has been (re-)started. Sorry for any inconvenience caused.
+        "alphaWarning": "Dies ist eine Alpha Version - Nicht alle Funktionen sind implementiert und es sind noch einige Fehler zu finden. Bitte schick uns euere Meinung/Fehlermeldungen an mail@wortopia.de. Danke!" // This is alpha software. Please report all errors to mail@wortopia.de
     },
+    "chatPostHook": process.env.CHAT_POST_HOOK || null,
     "simplerSes": {
         "authToken": process.env.SIMPLER_SES_AUTH_TOKEN,
         "from": process.env.FROM_EMAIL_ADDRESS || "mail@wortopia.de",

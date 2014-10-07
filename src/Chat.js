@@ -1,5 +1,6 @@
 var _ = require('underscore');
 var util = require('util');
+var request = require('request');
 module.exports = function(socket, logger, config, clock) {
     var that = this;
 
@@ -16,6 +17,11 @@ module.exports = function(socket, logger, config, clock) {
         socket.on('extern_chat', function(text, user, size) {
             that.addMessage(user, size, text);
         });
+
+        setInterval(function() {
+            that.addGlobalSystemMessage('alphaWarning');
+        }, 30 * 60 * 1000);
+        that.addGlobalSystemMessage('alphaWarning');
     }
 
     that.addMessage = function(user, size, text) {
@@ -24,6 +30,16 @@ module.exports = function(socket, logger, config, clock) {
             user: user.getExternalPublicRepresentation(),
             time: clock.now()
         }, size);
+
+        if (config.chatPostHook) {
+            request({
+                uri: config.chatPostHook,
+                method: 'POST',
+                body: "<" + user.getExternalPublicRepresentation().name + "> " + text
+            }, function (error, response, body) {
+                // Silent
+            });
+        }
     }
 
     that.addSystemMessage = function(size, key, args) {
