@@ -43,8 +43,10 @@ function CurrentFieldController($scope, game, size, $element, socket) {
     var cellDimension = dimension / size.size;
     var chain = [];
     $canvas.click(function(e) {
-        var x = Math.floor(e.offsetX / cellDimension);
-        var y = Math.floor(e.offsetY / cellDimension);
+        var offX  = (e.offsetX || e.clientX - $(e.target).offset().left);
+        var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
+        var x = Math.floor(offX / cellDimension);
+        var y = Math.floor(offY / cellDimension);
         if (!_.findWhere(chain, {x: x, y: y})) {
             chain.push({x: x, y: y});
             drawChain(chain);
