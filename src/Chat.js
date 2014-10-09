@@ -32,10 +32,11 @@ module.exports = function(socket, logger, config, clock) {
         }, size);
 
         if (config.chatPostHook) {
+            var name = user.getExternalPublicRepresentation().guest ? "Guest " + user.getExternalPublicRepresentation().guestId : user.getExternalPublicRepresentation().name
             request({
                 uri: config.chatPostHook,
                 method: 'POST',
-                body: "<" + user.getExternalPublicRepresentation().name + "> " + text
+                body: "<" + name + "> " + text
             }, function (error, response, body) {
                 // Silent
             });
