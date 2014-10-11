@@ -1,7 +1,7 @@
 require('./setup');
 
 describe('FieldPlayers', function() {
-    var field, user1, user2, user3Team1, user4Team1, word1, word2, word3;
+    var field, user1, user2, userReal, user3Team1, user4Team1, word1, word2, word3, db;
 
     beforeEach(function() {
         setUpDi();
@@ -111,4 +111,32 @@ describe('FieldPlayers', function() {
         assert.deepEqual(field.getResult()[1].name, 'team1');
     });
 
+    context('with real user', function() {
+        beforeEach(function() {
+            db = di.get('db');
+            return db.query('delete from users;')
+            .then(function() {
+                return di.get('userDao').create('testuser', 'test@test.com', 'abc')
+            })
+            .then(function(user) {
+                userReal = user;
+            });
+        });
+
+        it('#saveToDb works', function() {
+            assert.ok(field.scoreForPlayer(userReal, word2));
+            field.finishGame();
+            field.getWordCountSync = sinon.stub().returns(10);
+            return field.saveToDb() 
+            .then(function() {
+                return db.queryOne('select * from user_results where user_id = $1 limit 1', [userReal.id]);
+            })
+            .then(function(result) {
+                assert.equal(result.words, 1);
+                assert.equal(result.points, 2);
+                assert.equal(result.max_words, 10);
+                assert.equal(result.max_points, 12);
+            });
+        });
+    });
 });

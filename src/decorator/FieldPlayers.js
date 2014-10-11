@@ -1,6 +1,7 @@
 var _ = require('underscore');
+var Q = require('q');
 
-module.exports = function(field) {
+module.exports = function(field, db) {
     var that = field;
     var players = {};
     var teams = {};
@@ -91,10 +92,40 @@ module.exports = function(field) {
         that.getResult = function() {
             return resultList;
         }
+
+        that.saveToDb = function() {
+            var now;
+            var lastPromise = db.queryOne('select now() as now;')
+            .then(function(result) {
+                now = result.now;
+            })
+            _.each(players, function(player) {
+                if (!player.user.guest) {
+                    lastPromise = lastPromise.then(function() {
+                        return db.query(
+                            'insert into user_results (user_id, finished, words, points, max_words, max_points) values ($1, $2, $3, $4, $5, $6);',
+                                [
+                                    player.user.id, 
+                                    now,
+                                    player.words.length,
+                                    player.points,
+                                    that.getWordCountSync(),
+                                    totalPoints
+                                ]
+                            );
+                    });
+                }   
+            })
+            return lastPromise;
+        }
     }
 
     that.isFinished = function() {
         return finished;
+    }
+
+    that.saveToDb = function() {
+        throw new Error('The game has to be finished first');   
     }
 
     that.getResult = function() {

@@ -81,6 +81,10 @@ module.exports = function(config, fieldGenerator, logger, socket) {
         if (lastFields) {
             _.each(lastFields, function(lastField) {
                 lastField.finishGame();
+                lastField.saveToDb()
+                .fail(function(error) {
+                    logger.error("Error saving result: %s", error);
+                });
             });
         }
         broadcastFields();
