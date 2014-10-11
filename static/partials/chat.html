@@ -1,7 +1,7 @@
 <!-- On small screens the chat won't be visible. This will display the time until the next round instead -->
-<div class="visible-xs visible-sm" ng-hide="getCurrentField()">
+<div class="visible-xs-block visible-sm-block">
     <h2 class="pause-timer" ng-controller="TimerController">
-        <span translate="please_wait_timer"></span> {{remainingTime}}
+        <span translate="please_wait_timer" ng-hide="getCurrentField()"></span> {{remainingTime}}
     </h2>
 </div>
 
