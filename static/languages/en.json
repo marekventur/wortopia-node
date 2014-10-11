@@ -4,6 +4,7 @@
     "header.4x4": "4x4",
     "header.5x5": "5x5",
     "header.rules": "Rules",
+    "header.highscore": "Highscore",
     "header.playing_as": "Playing as {{name}}",
     "header.playing_as_guest": "Playing as \"Guest {{guestId}}\"",
     "header.login": "Login",
@@ -104,5 +105,7 @@
     "rules.headline":"Translate me",
     "rules.body":"Translate me",
     "guidelines.headline":"Translate me",
-    "guidelines.body":"Translate me"
+    "guidelines.body":"Translate me",
+
+    "highscore.title": "Highscore"
 }

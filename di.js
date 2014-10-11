@@ -21,6 +21,7 @@ module.exports = function() {
     di.load('ExpressWrapper');
     di.load('Socket');
     di.load('Chat');
+    di.load('HighscoreQuery');
     di.load('HttpServer');
     di.load('MessageAuthenticationCodeManager');
     di.load('RecoverLinkManager');
@@ -31,6 +32,7 @@ module.exports = function() {
     di.load('handler/LoginHandler');
     di.load('handler/AccountHandler');
     di.load('handler/RecoverHandler');
+    di.load('handler/HighscoreHandler');
 
     return di;
 }
