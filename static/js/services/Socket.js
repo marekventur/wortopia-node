@@ -44,6 +44,12 @@ function Socket(size, session) {
                 }, reconnectDuration)
             }
         };
+        /* Defer to avoid being called instantly */
+        _.defer(function() {
+            session.on('update', function(user) {
+                send('changeSessionToken', user.sessionToken);
+            });
+        });
 
         that.sock = sock;
     };

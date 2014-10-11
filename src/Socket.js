@@ -66,7 +66,17 @@ module.exports = function(config, logger, userDao) {
                 if (!payload.type) {
                     throw new Error('Invalid payload type');
                 }
-                that.emit('extern_' + payload.type, payload.data, user, size, send);
+                if (payload.type === 'changeSessionToken') {
+                    var sessionToken = payload.data;
+                    userDao.getBySessionToken(sessionToken)
+                    .then(function(newUser) {
+                        user = newUser;
+                    }, function(error) {
+                        connection.close();
+                    });
+                } else {
+                    that.emit('extern_' + payload.type, payload.data, user, size, send);
+                }
             } catch (err) {
                 logger.error('Error caught when trying to handle incoming data from websocket:', err, payloadString);
             }
