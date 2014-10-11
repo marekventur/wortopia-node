@@ -1,7 +1,7 @@
 require('./setup');
 
 describe('FieldPlayers', function() {
-    var field, user1, user2, userReal, user3Team1, user4Team1, word1, word2, word3, db;
+    var field, user1, user2, user3Team1, user4Team1, word1, word2, word3;
 
     beforeEach(function() {
         setUpDi();
@@ -112,6 +112,8 @@ describe('FieldPlayers', function() {
     });
 
     context('with real user', function() {
+        var db, userReal;
+
         beforeEach(function() {
             db = di.get('db');
             return db.query('delete from users;')
