@@ -103,14 +103,15 @@ module.exports = function(field, db) {
                 if (!player.user.guest) {
                     lastPromise = lastPromise.then(function() {
                         return db.query(
-                            'insert into user_results (user_id, finished, words, points, max_words, max_points) values ($1, $2, $3, $4, $5, $6);',
+                            'insert into user_results (user_id, finished, words, points, max_words, max_points, size) values ($1, $2, $3, $4, $5, $6, $7);',
                                 [
                                     player.user.id, 
                                     now,
                                     player.words.length,
                                     player.points,
                                     that.getWordCountSync(),
-                                    totalPoints
+                                    totalPoints,
+                                    that.size
                                 ]
                             );
                     });

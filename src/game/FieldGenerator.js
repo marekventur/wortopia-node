@@ -36,6 +36,7 @@ module.exports = function(config, fieldDecorator) {
                 row.push(fieldAsString.charAt(y * size + x));
             }
         }
+        field.size = size;
 
         return fieldDecorator.decorate(field);
     }

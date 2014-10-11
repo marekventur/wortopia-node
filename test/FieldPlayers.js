@@ -12,6 +12,8 @@ describe('FieldPlayers', function() {
             ['a', 's', 'e', 'n'],
             ['m', 'r', 't', 'n']
         ];
+        field.size = 4;
+
         di.get('fieldDecorator').decorate(field);
         user1 = {id: 1, name: 'John'};
         user2 = {id: 2, name: 'Jill'};
@@ -138,6 +140,7 @@ describe('FieldPlayers', function() {
                 assert.equal(result.points, 2);
                 assert.equal(result.max_words, 10);
                 assert.equal(result.max_points, 12);
+                assert.equal(result.size, 4);
             });
         });
     });
