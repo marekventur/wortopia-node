@@ -13,12 +13,6 @@ function CurrentFieldController($scope, game, size, $element, socket) {
         return size.size;
     }
 
-    game.on('gameOngoing', function() {
-        setTimeout(function() {
-            $input.focus();
-        }, 250);
-    });
-
     // Marks
     var $correctSymbol = $element.find('.giant-tick');
     var $incorrectSymbol = $element.find('.giant-cross');
@@ -75,12 +69,14 @@ function CurrentFieldController($scope, game, size, $element, socket) {
     $scope.submitWord = function(word) {
         game.guess(word);
         $scope.wordEntered = "";
+        $scope.wordEnteredClass = [];
         chain = [];
         drawChain(chain);
     }
 
     $scope.clearChain = function() {
         $scope.wordEntered = "";
+        $scope.wordEnteredClass = [];
         chain = [];
         drawChain(chain);
     }
@@ -95,6 +91,7 @@ function CurrentFieldController($scope, game, size, $element, socket) {
 
          if (newChain) {
             chain = newChain;
+            $scope.wordEnteredClass = [];
         } else if (word.length > 0) {
             $scope.wordEnteredClass = ['has-error'];
             chain = [];
