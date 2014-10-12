@@ -41,6 +41,16 @@ function CurrentFieldController($scope, game, size, $element, socket) {
         var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
         var x = Math.floor(offX / cellDimension);
         var y = Math.floor(offY / cellDimension);
+        
+        if (chain.length > 0) {
+            var last = chain[chain.length - 1];
+
+            if (Math.abs(last.x - x) > 1 || Math.abs(last.y - y) > 1) {
+                $scope.clearChain();
+                return;
+            }
+        }
+
         if (!_.findWhere(chain, {x: x, y: y})) {
             chain.push({x: x, y: y});
             drawChain(chain);
