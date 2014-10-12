@@ -107,5 +107,12 @@
     "guidelines.headline":"Translate me",
     "guidelines.body":"Translate me",
 
-    "highscore.title": "Highscore"
+    "highscore.title": "Highscore",
+    "highscore.header.position": "#",
+    "highscore.header.name": "Name",
+    "highscore.header.count": "Games",
+    "highscore.header.avg": "Average guessed points",
+    "highscore.header.avgWords": "Average words per round",
+    "highscore.loading": "Please wait…",
+    "highscore.explanation": "List of the best 100 players in the last 30 days"
 }

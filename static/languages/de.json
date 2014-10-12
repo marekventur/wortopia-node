@@ -5,16 +5,16 @@
     "header.5x5": "5x5",
     "header.rules": "Regeln",
     "header.highscore": "Rangliste",
-    "header.playing_as": "Spielername {{name}}",
-    "header.playing_as_guest": "Spielername \"Gast {{guestId}}\"",
+    "header.playing_as": "Name \"{{name}}\"",
+    "header.playing_as_guest": "Name \"Gast {{guestId}}\"",
     "header.login": "Login",
     "header.signup": "Registrieren",
     "header.account": "Account",
     "header.logout": "Logout",
 
     "signup.title": "Anmeldung - Wortopia",
-    "signup.username.label": "Spielername (keine Leerzeichen erlaubt)",
-    "signup.username.placeholder": "Spielername",
+    "signup.username.label": "Name (keine Leerzeichen erlaubt)",
+    "signup.username.placeholder": "Name",
     "signup.username.error.too_short": "Name ist zu kurz, bitte benutze 5 oder mehr Buchstaben",
     "signup.username.error.too_long": "Name ist zu lang, bitte benutze nicht mehr als 15 Buchstaben",
     "signup.username.error.invalid": "Name ist ungültig, bitte verwende nur a-z, 0-9 und \"_\" \"-\" ",
@@ -33,16 +33,16 @@
     "signup.reset_password": "Du hast bereits einen Account, hast aber deine Zugangsdaten vergessen?",
 
     "login.title": "Login",
-    "login.error.invalid_credentials": "Spielername oder Passwort sind falsch. Probier es nochmal.",
+    "login.error.invalid_credentials": "Name oder Passwort sind falsch. Probier es nochmal.",
     "login.error.unknown": "Ein Fehler ist aufgetreten. Bitte sende eine Email an mail@wortopia.de",
-    "login.username.label": "Spielername",
-    "login.username.placeholder": "Spielername",
+    "login.username.label": "Name",
+    "login.username.placeholder": "Name",
     "login.password.label": "Passwort",
     "login.password.placeholder": "Passwort",
     "login.button.confirm": "Login",
-    "login.reset_password": "Passwort oder Benutzernamen vergessen?",
+    "login.reset_password": "Passwort oder Name vergessen?",
 
-    "recover.title": "Passwort oder Benutzernamen vergessen",
+    "recover.title": "Passwort oder Name vergessen",
     "recover.explanation":"Bitte gebe deine Email Adresse ein und wir senden dir eine Email mit einem Wiederherstellungslink:",
     "recover.success":"Dein Wiederherstellungslink wurder verschickt. Bitte schau auch in deinem Spam Order nach.",
     "recover.error.invalid_email": "Die angegebene Email Adresse ist inkorrekt",
@@ -54,8 +54,8 @@
     "recover.signup": "Erstelle einen neuen Account",
 
     "account.title": "Dein Account",
-    "account.name.label": "Spielername (keine Leerzeichen erlaubt)",
-    "account.name.placeholder": "Spielername",
+    "account.name.label": "Name (keine Leerzeichen erlaubt)",
+    "account.name.placeholder": "Name",
     "account.name.error.too_short": "Name ist zu kurz, bitte benutze 5 oder mehr Buchstaben",
     "account.name.error.too_long": "Name ist zu lang, bitte benutze nicht mehr als 15 Buchstaben",
     "account.name.error.invalid": "Name ist ungültig, bitte verwende nur a-z, 0-9 und \"_\" \"-\"",
@@ -107,5 +107,13 @@
     "guidelines.headline":"Wortrichtlinien",
     "guidelines.body":"<ul><li>In Wortopia gelten (fast) alle Wörter, die in einem der folgenden Duden zu finden sind:<ul><li>Duden - Die deutsche Rechtschreibung</li><li>Duden - Deutsches Universalwörterbuch</li><li>Duden - Das Fremdwörterbuch</li><li>Duden - Das große Fremdwörterbuch</li></ul></li><li>Wir versuchen, die jeweils aktuellsten Ausgaben zu berücksichtigen, dabei bleiben aber auch alle Wörter gültig, die in einem älteren der o. a. Duden-Bücher aufgeführt wurden. Das gilt ebenso für solche Wörter, die vor der Rechtschreibreform anders geschrieben wurden.</li><li>Die Umlaute Ä, Ö und Ü sowie das Eszett (ß) werden nicht akzeptiert, stattdessen finden sie als AE, OE und UE sowie SS Verwendung.</li><li>Verben, Hauptwörter und Adjektive werden in all ihren gebeugten Formen anerkannt, näheres dazu findet Ihr im Wortopia-Forum.</li><li>Wörter, die in allen o. a. Duden-Büchern als Abkürzungen verzeichnet sind (z. B. \"BGH\", \"FCKW\"), werden nicht akzeptiert.</li><li>Kurzwörter wie \"Deo\", \"Kripo\" oder \"Web\" werden akzeptiert.</li><li>Geographische Bezeichnungen, Eigennamen sowie Vor- und Familiennamen werden nicht akzeptiert, es sei denn, sie haben noch weitere Bedeutungen, z. B. \"Marie\" (ugs. für \"Geld\") oder \"Hertz\" (physikalische Maßeinheit).</li><li>Oft ist eine genau Abgrenzung schwierig, sodaß wir im Einzelfall auch ohne feststehende Regel für oder gegen die Aufnahme eines Wortes entscheiden müssen. Bitte nutzt bei weitergehenden Fragen das Wortopia-Forum.</li></ul>",
 
-    "highscore.title": "Highscore"
+    "highscore.title": "Rangliste",
+    "highscore.header.position": "#",
+    "highscore.header.name": "Name",
+    "highscore.header.count": "Spiele",
+    "highscore.header.avg": "Ergebnis",
+    "highscore.header.avgWords": "Wörtern pro Runde",
+    "highscore.loading": "Bitte warten…",
+    "highscore.explanation": "Rangliste der 100 besten Spieler/innen in den letzten 30 Tagen"
+
 }

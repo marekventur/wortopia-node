@@ -1,12 +1,29 @@
-<div class="modal fade" id="modal--highscore">
+<div class="modal fade" id="modal--highscore" ng-controller="HighscoreController">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" translate="highscore.title"></h4>
             </div>
-            <div class="modal-body" >
-                
+            <div class="modal-body">
+                <p ng-hide="highscores" translate="highscore.loading"></p>
+                <p ng-show="highscores" translate="highscore.explanation"></p>
+                <table ng-show="highscores" class="table table-condensed">
+                    <tr>
+                        <th translate="highscore.header.position"></th>
+                        <th translate="highscore.header.name"></th>
+                        <th translate="highscore.header.count"></th>
+                        <th translate="highscore.header.avg"></th>
+                        <th translate="highscore.header.avgWords"></th>
+                    </tr>
+                    <tr ng-repeat="(i, result) in highscores" class="{{(result.id == getUser().id)?'info':''}}">
+                        <td>{{i + 1}}</td>
+                        <td>{{result.name}}</td>
+                        <td>{{result.count}}</td>
+                        <td>{{asPercent(result.avg)}}%</td>
+                        <td>{{twoDecimals(result.avgWords)}}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </div><!-- /.modal-dialog -->

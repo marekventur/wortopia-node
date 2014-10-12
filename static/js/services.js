@@ -8,6 +8,9 @@ function initWortopia() {
         $translateProvider.useStaticFilesLoader({ prefix: 'languages/', suffix: '.json' });
         $translateProvider.preferredLanguage('de');
     })
+    .config(function($locationProvider) {
+        $locationProvider.html5Mode(true);
+    })
     .value('hashHandler', hashHandler)
     .service('session', Session)
     .service('socket', Socket)

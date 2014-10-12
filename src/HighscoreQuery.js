@@ -5,20 +5,21 @@ module.exports = function(db) {
 	that.query = function(size) {
 		sql = "SELECT " +  
 			"	u.name, " + 
+			"   u.id, " +
 			"	sub.avg, " + 
-			"	sub.avg_words as avgWords, " + 
+			"	sub.avg_words as \"avgWords\", " + 
 			"	sub.count " + 
 			"FROM " + 
 			"	( " + 
 			"		SELECT  " + 
 			"			user_id, " + 
 			"			avg(points / max_points::float) AS avg, " + 
-			"			avg(words) as avg_words, " + 
-			"			count(1) AS count " + 
+			"			avg(words)::float as avg_words, " + 
+			"			count(1)::integer AS count " + 
 			"		FROM  " + 
 			"			user_results " + 
 			"		WHERE  " + 
-			"			finished > now() - INTERVAL '1 month'  " + 
+			"			finished > now() - INTERVAL '30 days'  " + 
 			"				AND " + 
 			"			max_points > 0 " + 
 			"				AND " + 

@@ -11,6 +11,11 @@ function HashHandler() {
                 window.location.hash = '';
                 toOpen = 'account';
             }
+            if (elements[0] === '#rules' || elements[0] === '#highscore') {
+                $(function() {
+                    $('#modal--' + elements[0].slice(1)).modal('toggle');
+                });
+            }
         }
     }
 

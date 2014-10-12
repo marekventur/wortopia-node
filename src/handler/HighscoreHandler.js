@@ -7,7 +7,7 @@ module.exports = function(expressWrapper, highscoreQuery) {
             if (size !== 4 && size !== 5) {
                 res.send(400, {error: 'invalidSize'});
             } else {
-                highscoreQuery.query()
+                highscoreQuery.query(size)
                 .then(function(highscore) {
                     res.send(highscore);
                 }, function(err) {
