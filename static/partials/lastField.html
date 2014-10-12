@@ -17,13 +17,12 @@
             </div>
         </div>
         <div class="panel-body">
-            <span
-                class="word word--length-{{word.length}}"
-                ng-repeat="word in getWords()"
-                ng-mouseover="highlightWord(word)"
-                ng-mouseleave="dehighlightWord()"
-            >
-                {{word.word}}
+            <span ng-repeat="word in getWords()">
+                <span
+                    class="word word--length-{{word.length}} word--word-{{word.word.toLowerCase()}}"
+                    ng-mouseover="highlightWord(word)"
+                    ng-mouseleave="dehighlightWord()"
+                >{{word.word}}</span> 
             </span>
         </div>
     </div>

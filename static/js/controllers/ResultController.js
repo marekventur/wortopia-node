@@ -11,4 +11,25 @@ function ResultController($scope, game) {
     $scope.getResults = function() {
         return game.getLastResults();
     }
-}
+
+    $scope.mouseOver = function(player) {
+        _.each(player.words, function(word) {
+            $('.word--word-' + word.word).addClass('word--highlight');
+        });
+    }
+
+    $scope.mouseLeave = function() {
+        $('.word').removeClass('word--highlight');
+    }
+
+    $scope.playerClasses = function(player) {
+        if (!player || player.team) {
+            return [];
+        }
+
+        var classes = _.map(player.words, function(word) {
+            return 'player--word-' + word.word;
+        });
+        return classes;
+    }
+}   

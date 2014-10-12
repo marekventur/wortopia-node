@@ -5,14 +5,14 @@
             {{getPlayerCountTranslationKey() | translate: getPlayerCountTranslationInformation()}}
         </div>
         <ul class="list-group">
-            <li class="list-group-item" ng-repeat="teamOrPlayer in getResults()">
+            <li class="list-group-item" ng-repeat="teamOrPlayer in getResults()" ng-mouseover="mouseOver(teamOrPlayer)" ng-mouseleave="mouseLeave()" ng-class="playerClasses(player)">
                 <span class="badge">{{teamOrPlayer.points}} <small>({{teamOrPlayer.percent}}%)</small></span>
                 <span ng-if="teamOrPlayer.team">{{'result.team' | translate: {name: teamOrPlayer.name} }}</span>
                 <span ng-if="(!teamOrPlayer.team) && !teamOrPlayer.user.guest">{{teamOrPlayer.user.name}}</span>
                 <span ng-if="(!teamOrPlayer.team) && teamOrPlayer.user.guest">{{'guest.name'|translate:teamOrPlayer.user}}</span>
 
-                <ul ng-if="teamOrPlayer.team">
-                    <li ng-repeat="player in teamOrPlayer.players">
+                <ul ng-if="teamOrPlayer.team" ng-mouseover="mouseOver(teamOrPlayer)" ng-mouseleave="mouseLeave()">
+                    <li ng-repeat="player in teamOrPlayer.players" ng-class="playerClasses(player)">
                         <span class="badge badge--transparent pull-right">{{player.points}} <small>({{player.percent}}%)</small></span>
                         {{player.user.name}}
                     </li>

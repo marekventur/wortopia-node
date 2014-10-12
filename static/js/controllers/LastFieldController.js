@@ -26,6 +26,8 @@ function LastFieldController($scope, size, $element) {
             var $cell = cells[element.y][element.x];
             $cell.css('background', 'rgba(0, 0, 0, ' + (0.5 - 0.4 / chain.length * index) + ')');
         });
+
+        $('.player--word-' + word.word).addClass('player--highlight');
     }
 
     $scope.dehighlightWord = function() {
@@ -34,6 +36,7 @@ function LastFieldController($scope, size, $element) {
                 cell.css('background', 'white');
             });
         });
+        $('.player--highlight').removeClass('player--highlight');
     }
 
 };
