@@ -96,6 +96,13 @@ module.exports = function(db, logger, userDecorator) {
     that.getViaLogin = function(username, password) {
         return db.queryOne("SELECT pw_hash = crypt($1, pw_hash) as valid, id FROM users WHERE name = $2", [password, username])
         .then(function(user) {
+            if (user) {
+                return user;
+            }
+            // Allow login with email address
+            return db.queryOne("SELECT u.pw_hash = crypt($1, u.pw_hash) as valid, u.id FROM users u LEFT JOIN user_emails e ON u.id = e.user_id WHERE e.email = $2", [password, username])
+        })
+        .then(function(user) {
             if (!user || !user.valid) {
                 var error = new Error('Username or password incorrect');
                 error.invalidUsernameOrPassword = true;
