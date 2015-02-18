@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var di = require('./di')();
 
 di.runAll('start')

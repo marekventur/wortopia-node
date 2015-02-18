@@ -1,10 +1,10 @@
 var Q = require('q');
 var pg = require('pg');
-module.exports = function(databaseConfig) {
+module.exports = function(config, logger) {
     var that = this;
 
     function getConnectionString() {
-        return databaseConfig[process.env.NODE_ENV || 'dev'];
+        return config.dbConnectionString;
     }
 
     that.query = function(sql, params) {

@@ -3,7 +3,6 @@ module.exports = function() {
     var di = new Di(__dirname + '/src');
 
     di.add('config', require('./config.js'));
-    di.add('databaseConfig', require('./database.js'));
     di.add('logger', require('bunyan').createLogger({name: "main"}));
 
     di.load('Clock');
