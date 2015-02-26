@@ -3,7 +3,7 @@ module.exports = function(config, messageAuthenticationCodeManager, userDao) {
 
     this.createUrl = function(user) {
         var payload = {u: user.id, t: 'pwr', h: user.getPasswordHash()};
-        return config.rootUrl + '/recover?t=' + encodeURIComponent(messageAuthenticationCodeManager.create(payload, user.getPasswordHash()));
+        return config.rootUrl + '/recover?t=' + messageAuthenticationCodeManager.create(payload, user.getPasswordHash());
     }
 
     this.verifyUser = function(token) {
