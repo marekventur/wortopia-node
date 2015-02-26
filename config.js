@@ -1,6 +1,6 @@
 var fs = require('fs');
 
-var configPath = 'config/config.js';
+var configPath = './config/config.js';
 
 if(process.argv[2]) {
     configPath = process.argv[2];

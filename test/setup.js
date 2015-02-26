@@ -5,7 +5,7 @@ GLOBAL.sinon = require('sinon');
 
 var Di = require('no-configuration-di');
 
-process.env.NODE_ENV = 'test';
+process.argv[2] = './config/config_test.js';
 
 GLOBAL.setUpDi = function() {
     var di = require('../di')();
