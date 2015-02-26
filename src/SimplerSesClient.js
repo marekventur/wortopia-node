@@ -9,7 +9,7 @@ module.exports = function(config, logger) {
         .then(function(user) {
             var deferred = Q.defer();
             request({
-                uri: 'http://api.simplerses.com/v1/email_jobs',
+                uri: 'https://api.simplerses.com/v1/email_jobs',
                 method: 'POST',
                 json: {
                     "auth_token": config.simplerSes.authToken,
