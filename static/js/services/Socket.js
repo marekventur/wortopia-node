@@ -60,6 +60,12 @@ function Socket(size, session) {
         console.error('Socket is not ready yet');
     }
 
+    that.noWebsocketConnectionWarning = function() {
+        if (that.sock) {
+            return that.sock.protocol !== 'websocket';
+        }
+        return false;
+    }
 }
 
 Socket.prototype = new EventEmitter();

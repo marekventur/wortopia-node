@@ -114,5 +114,7 @@
     "highscore.header.avg": "Average guessed points",
     "highscore.header.avgWords": "Average words per round",
     "highscore.loading": "Please wait…",
-    "highscore.explanation": "List of the best 100 players in the last 30 days"
+    "highscore.explanation": "List of the best 100 players in the last 30 days",
+
+    "messages.highLatency": "A problem with your internet connection or browser has stopped Wortopia from establishing a websocket connection. This means your game will lag a few seconds behind the rest and the timer might not be correct. Maybe you should look into <a href=\"http://browsehappy.com/\">updating your browser</a>."
 }

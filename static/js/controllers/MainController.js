@@ -1,4 +1,4 @@
-function MainController($scope, $element, session, size, game) {
+function MainController($scope, $element, session, size, game, socket) {
     $scope.getUser = function() {
         return session.user;
     }
@@ -37,5 +37,9 @@ function MainController($scope, $element, session, size, game) {
 
     $scope.isGuest = function() {
         return session.user && session.user.guest;
+    }
+
+    $scope.noWebsocketConnectionWarning = function() {
+        return socket.noWebsocketConnectionWarning();
     }
 };
