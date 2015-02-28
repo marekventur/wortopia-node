@@ -1,4 +1,4 @@
-function MainController($scope, $element, session, size, game, socket) {
+function MainController($scope, $element, session, size, game, socket, userOptions) {
     $scope.getUser = function() {
         return session.user;
     }
@@ -42,4 +42,10 @@ function MainController($scope, $element, session, size, game, socket) {
     $scope.noWebsocketConnectionWarning = function() {
         return socket.noWebsocketConnectionWarning();
     }
+
+    $scope.userOptions = userOptions.options
+    userOptions.on('update', function() {
+        $scope.userOptions = userOptions.options
+        $scope.$apply();
+    });
 };

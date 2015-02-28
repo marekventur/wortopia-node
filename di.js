@@ -9,6 +9,7 @@ module.exports = function() {
     di.load('Db');
     di.loadDecorator('decorator/UserManagement', 'userDecorator');
     di.loadDecorator('decorator/UserPasswordHash', 'userDecorator');
+    di.loadDecorator('decorator/UserOptions', 'userDecorator');
     di.load('UserDao');
     di.loadDecorator('decorator/FieldGeneral', 'fieldDecorator');
     di.loadDecorator('decorator/FieldContains', 'fieldDecorator');
@@ -24,6 +25,7 @@ module.exports = function() {
     di.load('HttpServer');
     di.load('MessageAuthenticationCodeManager');
     di.load('RecoverLinkManager');
+    di.load('UserOptions');
     di.load('SimplerSesClient');
     di.load('game/GameServer')
     di.load('game/GuessHandler')

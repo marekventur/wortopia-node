@@ -71,6 +71,7 @@ module.exports = function(config, logger, userDao) {
                     userDao.getBySessionToken(sessionToken)
                     .then(function(newUser) {
                         user = newUser;
+                        sendUserOptions(user, send);
                     }, function(error) {
                         connection.close();
                     });
@@ -83,6 +84,8 @@ module.exports = function(config, logger, userDao) {
             that.emit()
         });
         internalEventEmitter.on('broadcast_' + size, send);
+
+        sendUserOptions(user, send);
 
         connection.once('close', function() {
             internalEventEmitter.removeListener('broadcast_' + size, send)
@@ -97,6 +100,17 @@ module.exports = function(config, logger, userDao) {
 
     that.broadcast = function(type, size, data) {
         internalEventEmitter.emit('broadcast_' + size, type, data);
+    }
+
+    function sendUserOptions(user, send) {
+        if (!user.guest) {
+            user.getOptions()
+            .then(function(options) {
+                send('userOptions', options);
+            }, function(error) {
+                logger.error('Could not retrieve options for user', user.id, error);
+            });
+        }
     }
 }
 

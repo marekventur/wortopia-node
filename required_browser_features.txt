@@ -1,0 +1,5 @@
+required browser features: (todo: add error page)
+* local storage
+
+optional:
+* web socket support (warning is implemented)

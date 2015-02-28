@@ -19,6 +19,7 @@ function initWortopia() {
     .service('tracking', Tracking)
     .service('fieldFactory', FieldFactory)
     .service('recoverService', RecoverService)
+    .service('userOptions', UserOptions)
     .run(function($templateCache) {
         if (templateCache) {
             templateCache($templateCache);
