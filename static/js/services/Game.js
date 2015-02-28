@@ -30,6 +30,7 @@ function Game(socket, fieldFactory, tracking) {
         that.emit('switchBetweenPauseAndGame');
         if (currentField) {
             that.emit('gameOngoing');
+            points = 0;
         } else {
             that.emit('gamePaused');
             guesses = [];
