@@ -61,7 +61,7 @@ function Socket(size, session) {
     }
 
     that.noWebsocketConnectionWarning = function() {
-        if (that.sock) {
+        if (that.sock && that.sock.protocol) {
             return that.sock.protocol !== 'websocket';
         }
         return false;
