@@ -9,10 +9,6 @@ function CurrentFieldController($scope, game, size, $element, socket) {
         return field[y][x];
     }
 
-    $scope.getSize = function() {
-        return size.size;
-    }
-
     // Marks
     var $correctSymbol = $element.find('.giant-tick');
     var $incorrectSymbol = $element.find('.giant-cross');
@@ -33,8 +29,8 @@ function CurrentFieldController($scope, game, size, $element, socket) {
 
     // Clicking/Swiping
     var $canvas = $element.find('canvas');
-    var dimension = size.size === 4 ? 280 : 280;
-    var cellDimension = dimension / size.size;
+    var dimension = $scope.getSize() === 4 ? 280 : 280;
+    var cellDimension = dimension / $scope.getSize();
     var chain = [];
     $canvas.click(function(e) {
         var offX  = (e.offsetX || e.clientX - $(e.target).offset().left);

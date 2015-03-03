@@ -1,4 +1,4 @@
-function SettingsController($scope, userOptions) {
+function OptionsController($scope, userOptions) {
 
     // Throttle to avoid update-flooding for text fields
     $scope.persistUserOptions = _.throttle(userOptions.persist, 1000);

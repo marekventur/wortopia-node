@@ -11,7 +11,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
-<body ng-cloak class="size-{{getSize()}} {{isGameOngoing()?'game-ongoing':'game-paused'}} {{isGameReady()?'game-ready':''}}" ng-controller="MainController">
+<body ng-cloak class="size-{{getSize()}} {{isGameOngoing()?'game-ongoing':'game-paused'}} {{isGameReady()?'game-ready':''}}  {{getBoardStyleClass()}} wortopia" ng-controller="MainController">
     <div class="container">
         <div><ng-include src="'/partials/nav.html'" /></div>
 
@@ -28,7 +28,7 @@
             </div>
         </div>
 
-        <!--<div><ng-include src="'/partials/settings.html'" /></div>-->
+        <div><ng-include src="'/partials/options.html'" /></div>
         <div><ng-include src="'/partials/signUp.html'" /></div>
         <div><ng-include src="'/partials/login.html'" /></div>
         <div><ng-include src="'/partials/account.html'" /></div>
@@ -41,7 +41,7 @@
     <script src="/lib.js"></script>
     <script src="/all.js"></script>
     <script src="/partials.js"></script>
-    <script>initWortopia();</script>
+    <script>initWortopia(true);</script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

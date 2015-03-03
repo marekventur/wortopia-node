@@ -1,0 +1,132 @@
+@import 'nib'
+
+.field-style--old {
+    @import url(http://fonts.googleapis.com/css?family=EB+Garamond);
+
+    .current-field {
+        margin-bottom: 20px;
+
+        canvas {
+            position: absolute;
+            top: 0;
+        }
+
+        table.field {
+            background-color: #A9A9A9;
+
+            border-radius: 20px;
+
+            box-shadow: 3px 3px 5px #888888;
+
+            td {
+                text-align: center;
+                padding: 0px;
+
+                color: #fff;
+
+                font-family: 'EB Garamond', serif;
+            
+            }
+
+        }
+
+        .input-area {
+            margin-top: 30px;
+            position: relative;
+
+            input {
+                top: 0px;
+                width: 100%;
+                display: block;
+                height: 30px;
+                padding-left: 5px;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 30px;
+                letter-spacing: 1px;
+            }
+
+            label {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                color: #999;
+                margin: 0px;
+                text-align: right;
+                font-size:19px;
+                line-height: 30px;
+                margin-right: 5px;
+            }
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .giant-tick, .giant-cross {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 231px;
+            opacity: 0;
+
+            &.highlight {
+                animation: field-style-old-highlight 0.5s;
+            }
+        }
+    }
+
+    $fields = {
+        "4": {
+            cellSize: 70px,
+            fontSize: 55px
+        },
+        "5": {
+            cellSize: 56px,
+            fontSize: 40px
+        }
+    };
+
+
+    /* Sizing for different field sizes */
+    for $size, $data in $fields {
+        &.size-{$size} .current-field table.field td {
+            width: $data.cellSize;
+            font-size: $data.fontSize;
+            line-height: $data.cellSize;
+            height: $data.cellSize;
+        }
+
+        &.size-{$size} .input-area {
+            width: (($data.cellSize + 1px) * $size) ;
+        }
+
+        &.size-{$size} .field-container {
+            width: (($data.cellSize + 1px) * $size) ;
+        }
+
+        &.giant-tick, .giant-cross {
+            line-height: (($data.cellSize + 1px) * $size);
+        }
+    }
+}
+
+@keyframes field-style-old-highlight {
+    0% {
+        opacity: 0;
+        font-size: 200px;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+        font-size: 330px;
+    }
+}
+

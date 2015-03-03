@@ -39,12 +39,12 @@ module.exports = function(grunt) {
                     }
                 ]
             },
-            index: {
+            html: {
                 files: [
                     {
                         expand: true,
                         cwd: 'static/',
-                        src: ['index.html'],
+                        src: ['*.html'],
                         dest: 'static-build/'
                     },
                 ]
@@ -109,8 +109,8 @@ module.exports = function(grunt) {
                 tasks: ['copy:languages']
             },
             index: {
-                files: ['static/index.html'],
-                tasks: ['copy:index']
+                files: ['static/*.html'],
+                tasks: ['copy:html']
             },
             js: {
                 files: ['static/js/**'],

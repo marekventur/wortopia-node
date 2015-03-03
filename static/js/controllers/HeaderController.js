@@ -18,6 +18,4 @@ function HeaderController($scope, $element, session, size) {
     session.on('update', function() {
         $scope.$apply();
     })
-
-    session.loginViaSessionToken();
 }

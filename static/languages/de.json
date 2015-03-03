@@ -11,6 +11,7 @@
     "header.signup": "Registrieren",
     "header.account": "Account",
     "header.logout": "Logout",
+    "header.options": "Einstellungen",
 
     "signup.title": "Anmeldung - Wortopia",
     "signup.username.label": "Name (keine Leerzeichen erlaubt)",
@@ -115,6 +116,12 @@
     "highscore.header.avgWords": "Wörtern pro Runde",
     "highscore.loading": "Bitte warten…",
     "highscore.explanation": "Rangliste der 100 besten Spieler/innen der letzten 30 Tagen",
+
+    "options.title": "Einstellungen",
+    "options.loginNote": "Meld dich an, damit deine Einstellungen gespeichert werden!",
+    "options.boardStyle.label": "Brett:",
+    "options.boardStyle.option.default": "Normal",
+    "options.boardStyle.option.old": "Alt",
 
     "messages.browserUpdate": "Vielleicht solltest du <a target=\"_blank\" href=\"http://browsehappy.com/\">deinen Browser updaten</a>?",
     "messages.highLatency": "Ein Problem mit deiner Internetverbindung oder deinem Browser hindert Wortopia daran, eine Websocket Verbindung aufzubauen. Dies kann zu Verzögerungen im Spiel führen und zu inkorrekten Spielzeiten."

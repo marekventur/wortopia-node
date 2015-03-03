@@ -1,0 +1,30 @@
+<div class="modal fade" id="modal--options" ng-controller="OptionsController">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" translate="options.title"></h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="alert alert-warning" role="alert" ng-show="isGuest()">
+                        <span translate="options.loginNote"></span> 
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="optionBoardStyle" translate="options.boardStyle.label"></label>
+                        <select 
+                            class="form-control" 
+                            ng-model="userOptions.boardStyle" 
+                            name="optionBoardStyle" 
+                            id="optionBoardStyle" 
+                            ng-change="persistUserOptions()">
+                            <option value="default" translate="options.boardStyle.option.default"></option>
+                            <option value="old" translate="options.boardStyle.option.old"></option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

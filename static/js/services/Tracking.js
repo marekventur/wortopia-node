@@ -28,7 +28,9 @@ function Tracking(session, size) {
         that.setUserId(user.id);
     });
 
-    setTimeout(function() {
-        that.page('/' + size.size);
-    }, 10);
+    that.start = function() {
+        setTimeout(function() {
+            that.page('/' + size.size);
+        }, 10);
+    };    
 }

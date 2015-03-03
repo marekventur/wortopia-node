@@ -1,7 +1,9 @@
-function initWortopia() {
+function initWortopia(start) {
 
-    var hashHandler = new HashHandler();
-    hashHandler.handleHashs();
+    if (start) {
+        var hashHandler = new HashHandler();
+        hashHandler.handleHashs();
+    }
 
     angular.module('wortopia', ['pascalprecht.translate'])
     .config(function ($translateProvider) {
@@ -10,7 +12,6 @@ function initWortopia() {
     })
     .value('hashHandler', hashHandler)
     .service('session', Session)
-    .service('socket', Socket)
     .service('socket', Socket)
     .service('size', Size)
     .service('game', Game)
@@ -23,6 +24,13 @@ function initWortopia() {
     .run(function($templateCache) {
         if (templateCache) {
             templateCache($templateCache);
+        }
+    })
+    .run(function(session, tracking, size) {
+        if (start) {
+            size.start();
+            tracking.start();
+            session.loginViaSessionToken();
         }
     });
 }

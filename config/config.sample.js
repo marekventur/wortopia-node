@@ -67,8 +67,5 @@ module.exports = {
         "templatePrefix":"wortopia_en_"
     },
     "tokenSalt": "cde",
-    "rootUrl": "http://wortopia.de",
-    "defaultOptions": {
-        "boardStyle":"default"
-    }
+    "rootUrl": "http://wortopia.de"
 };

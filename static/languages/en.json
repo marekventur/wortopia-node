@@ -11,6 +11,7 @@
     "header.signup": "Sign up",
     "header.account": "Account",
     "header.logout": "Logout",
+    "header.options": "Settings",
 
     "signup.title": "Sign up for Wortopia",
     "signup.username.label": "Username (no spaces allowed)",
@@ -115,6 +116,12 @@
     "highscore.header.avgWords": "Average words per round",
     "highscore.loading": "Please wait…",
     "highscore.explanation": "List of the best 100 players in the last 30 days",
+
+    "options.title": "Settings",
+    "options.loginNote": "Log in or sign up to make sure your settings are saved",
+    "options.boardStyle.label": "Board:",
+    "options.boardStyle.option.default": "Default",
+    "options.boardStyle.option.old": "Legacy",
 
     "messages.browserUpdate": "Maybe you should look into <a href=\"http://browsehappy.com/\">updating your browser</a>.",
     "messages.highLatency": "A problem with your internet connection or browser has stopped Wortopia from establishing a websocket connection. This means your game will lag a few seconds behind the rest and the timer might not be correct."

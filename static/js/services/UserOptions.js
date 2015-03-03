@@ -1,7 +1,9 @@
 function UserOptions(session, socket) {
     var that = this;
-
-    that.options = {};
+    
+    that.options = {
+        "boardStyle":"default"
+    };
 
     if (window.localStorage.getItem('userOptions')) {
         that.options = JSON.parse(window.localStorage.getItem('userOptions'));

@@ -23,10 +23,6 @@ function MainController($scope, $element, session, size, game, socket, userOptio
         return game.getLastField();
     }
 
-    $scope.getSize = function() {
-        return size.size;
-    }
-
     $scope.getStats = function() {
         return game.getLastStats();
     }
@@ -48,4 +44,8 @@ function MainController($scope, $element, session, size, game, socket, userOptio
         $scope.userOptions = userOptions.options
         $scope.$apply();
     });
+
+    $scope.getBoardStyleClass = function() {
+        return 'field-style--' + userOptions.options.boardStyle;
+    }
 };

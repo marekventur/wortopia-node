@@ -51,6 +51,8 @@ function fieldContainsFactoryMethod(field) {
             return row.slice(0);
         });
     }
+
+    return field;
 }
 
 // Make sure this class can be used in the browser as well as in node
