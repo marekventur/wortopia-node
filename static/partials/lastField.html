@@ -19,7 +19,7 @@
         <div class="panel-body">
             <span ng-repeat="word in getWords()">
                 <span
-                    class="word word--length-{{word.length}} word--word-{{word.word.toLowerCase()}}"
+                    class="word word--length-{{word.length}} word--word-{{word.word.toLowerCase()}} {{word.timesGuessed?'word--guessed word--times-guessed-'+word.timesGuessed:'word--not-guessed'}}"
                     ng-mouseover="highlightWord(word)"
                     ng-mouseleave="dehighlightWord()"
                 >{{word.word}}</span> 

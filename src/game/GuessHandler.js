@@ -16,6 +16,11 @@ module.exports = function(gameServer, logger, socket) {
         field.guessWord(user, word)
         .then(function(word) {
             send('guessResponse', {id: id, status: 'correct', points: word.points});
+            if (!word.timesGuessed) {
+                word.timesGuessed = 1;
+            } else {
+                ++word.timesGuessed;
+            }
         })
         .fail(function(err) {
             if (err.code) {
