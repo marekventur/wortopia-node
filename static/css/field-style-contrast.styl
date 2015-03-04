@@ -1,0 +1,142 @@
+@import 'nib'
+
+.field-style--contrast {
+    .current-field {
+        margin-bottom: 20px;
+
+        canvas {
+            position: absolute;
+            top: 0;
+        }
+
+        table.field {
+            background-color: #fff;
+            color: #000;
+
+            border-radius: 4px;
+
+            td {
+                font-weight: bold;
+                text-align: center;
+                border-right: 2px solid #ccc;
+                border-bottom: 2px solid #ccc;
+                padding: 0px;
+
+                &.cell--selected {
+                    background-color: #000;
+                    color: #fff;
+                }
+            }
+
+            td:last-child {
+                border-right: none;
+            }
+
+            tr:last-child td {
+                border-bottom: none;
+            }
+        }
+
+        .input-area {
+            margin-top: 30px;
+            position: relative;
+
+            input {
+                top: 0px;
+                width: 100%;
+                display: block;
+                height: 30px;
+                padding-left: 5px;
+                text-transform: uppercase;
+                font-weight: bold;
+                font-size: 18px;
+                line-height: 30px;
+                letter-spacing: 1px;
+            }
+
+            label {
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                color: #999;
+                margin: 0px;
+                text-align: right;
+                font-size:19px;
+                line-height: 30px;
+                margin-right: 5px;
+            }
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        .giant-tick, .giant-cross {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-size: 231px;
+            opacity: 0;
+
+            &.highlight {
+                animation: field-style-default-highlight 0.5s;
+            }
+        }
+    }
+
+    $fields = {
+        "4": {
+            cellSize: 70px,
+            fontSize: 35px
+        },
+        "5": {
+            cellSize: 56px,
+            fontSize: 30px
+        }
+    };
+
+
+    /* Sizing for different field sizes */
+    for $size, $data in $fields {
+        &.size-{$size} .current-field table.field td {
+            width: $data.cellSize;
+            font-size: $data.fontSize;
+            height: $data.cellSize;
+        }
+
+        &.size-{$size} .input-area {
+            width: (($data.cellSize + 1px) * $size) ;
+        }
+
+        &.size-{$size} .field-container {
+            width: (($data.cellSize + 1px) * $size) ;
+        }
+
+        &.giant-tick, .giant-cross {
+            line-height: (($data.cellSize + 1px) * $size);
+        }
+    }
+}
+
+@keyframes field-style-default-highlight {
+    0% {
+        opacity: 0;
+        font-size: 200px;
+    }
+
+    50% {
+        opacity: 0.7;
+    }
+
+    100% {
+        opacity: 0;
+        font-size: 330px;
+    }
+}
+
+
+
+
+

@@ -21,7 +21,9 @@
                             ng-change="persistUserOptions()">
                             <option value="default" translate="options.boardStyle.option.default"></option>
                             <option value="old" translate="options.boardStyle.option.old"></option>
+                            <option value="contrast" translate="options.boardStyle.option.contrast"></option>
                         </select>
+                        <div ng-show="userOptions.boardStyle === 'contrast'" class="alert alert-info" role="alert" translate="options.contrastNote"></div>
                     </div>
                 </form>
             </div>
