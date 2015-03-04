@@ -25,6 +25,10 @@ module.exports = function(field, db) {
         return players[user.id];
     }
 
+    that.getPlayersCount = function() {
+        return _.size(players);
+    }
+
     function getTeam(teamName) {
         if(!teams[teamName]) {
             teams[teamName] = {

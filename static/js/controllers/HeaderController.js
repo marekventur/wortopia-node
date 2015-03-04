@@ -1,4 +1,4 @@
-function HeaderController($scope, $element, session, size) {
+function HeaderController($scope, $element, session, size, playersPerField) {
     $scope.login = function() {
         return session.user;
     }
@@ -15,7 +15,15 @@ function HeaderController($scope, $element, session, size) {
         return size.size === sizeToTest;
     }
 
+    $scope.getPlayersPerField = function(size) {
+        return playersPerField.playersPerField[size];
+    }
+
     session.on('update', function() {
         $scope.$apply();
-    })
+    });
+
+    playersPerField.on('update', function() {
+        $scope.$apply();
+    });
 }

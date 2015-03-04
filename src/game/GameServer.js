@@ -11,6 +11,9 @@ module.exports = function(config, fieldGenerator, logger, socket) {
         .then(function() {
             socket.on('connected', function(user, size, send) {
                 send('fields', getFieldsPayload(size));
+
+                send('playersPerField', getPlayersPerField());
+
                 var playerResult = getPlayerResult(size, user);
                 if (playerResult) {
                     send('playerResult', playerResult);
@@ -36,6 +39,17 @@ module.exports = function(config, fieldGenerator, logger, socket) {
         };
     }
 
+    function getPlayersPerField() {
+        if (lastFields) {
+            return {
+                4: lastFields[4].getPlayersCount(),
+                5: lastFields[5].getPlayersCount()
+            };
+        } else {
+            return {4: 0, 5: 0};
+        }
+    }
+
     function getPlayerResult(size, user) {
         if (currentFields) {
             return currentFields[size].getResultForPlayer(user);
@@ -46,6 +60,7 @@ module.exports = function(config, fieldGenerator, logger, socket) {
     function broadcastFields() {
         [4, 5].forEach(function(size) {
             socket.broadcast('fields', size, getFieldsPayload(size));
+            socket.broadcast('playersPerField', size, getPlayersPerField());
         });
     }
 

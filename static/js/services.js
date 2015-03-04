@@ -21,6 +21,7 @@ function initWortopia(start) {
     .service('fieldFactory', FieldFactory)
     .service('recoverService', RecoverService)
     .service('userOptions', UserOptions)
+    .service('playersPerField', PlayersPerField)
     .run(function($templateCache) {
         if (templateCache) {
             templateCache($templateCache);

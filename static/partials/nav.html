@@ -27,8 +27,8 @@
             </li>
         </ul>
         <ul class="nav navbar-nav">
-            <li class="{{isActiveSize(4)?'active':''}}"><a href="/4" translate="header.4x4"></a></li>
-            <li class="{{isActiveSize(5)?'active':''}}"><a href="/5" translate="header.5x5"></a></li>
+            <li class="{{isActiveSize(4)?'active':''}}"><a href="/4"><span translate="header.4x4"></span> <span ng-show="getPlayersPerField(4)" class="badge">{{getPlayersPerField(4)}}</span></a></li>
+            <li class="{{isActiveSize(5)?'active':''}}"><a href="/5"><span translate="header.5x5"></span> <span ng-show="getPlayersPerField(5)" class="badge">{{getPlayersPerField(5)}}</span></a></li>
             <li><a href="#/rules" translate="header.rules" data-toggle="modal" data-target="#modal--rules"></a></li>
             <li><a href="#/highscore" translate="header.highscore" data-toggle="modal" data-target="#modal--highscore"></a></li>
             <li><a href="#/options" translate="header.options" data-toggle="modal" data-target="#modal--options"></a></li>
