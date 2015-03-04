@@ -53,6 +53,8 @@ function CurrentFieldController($scope, game, size, $element, socket) {
         } else {
             submitChain();
         }
+
+        $scope.$apply();
     });
 
     function submitChain() {
@@ -103,6 +105,12 @@ function CurrentFieldController($scope, game, size, $element, socket) {
             chain = [];
         }
         drawChain(chain);
+    }
+
+    $scope.isPartOfChain = function(x, y) {
+        return !!_.find(chain, function(element) {
+            return element.x === x && element.y === y;
+        });
     }
 
     $canvas.attr('width', dimension + 'px').attr('height', dimension + 'px');

@@ -3,7 +3,7 @@
     <div class="field-container">
         <table class="field">
             <tr ng-repeat="(y, row) in getCurrentField() track by y">
-                <td ng-repeat="(x, cell) in row track by x + '.' + y" class="cell cell--{{x}}-{{y}}">{{cell.toUpperCase()}}</td>
+                <td ng-repeat="(x, cell) in row track by x + '.' + y" class="cell cell--{{x}}-{{y}} {{isPartOfChain(x, y)?'cell--selected':''}}">{{cell.toUpperCase()}}</td>
             </tr>
         </table>
 
