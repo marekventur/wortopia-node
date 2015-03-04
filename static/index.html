@@ -11,8 +11,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
-<body ng-cloak class="size-{{getSize()}} {{isGameOngoing()?'game-ongoing':'game-paused'}} {{isGameReady()?'game-ready':''}}  {{getBoardStyleClass()}} wortopia" ng-controller="MainController">
-    <div class="container">
+<body class="size-{{getSize()}} {{isGameOngoing()?'game-ongoing':'game-paused'}} {{isGameReady()?'game-ready':''}}  {{getBoardStyleClass()}} wortopia" ng-controller="MainController">
+    <div ng-cloak class="container">
         <div><ng-include src="'/partials/nav.html'" /></div>
 
         <div class="row">
@@ -37,6 +37,12 @@
         <div><ng-include src="'/partials/highscore.html'" /></div>
 
     </div>
+
+    <noscript><div class="no-script-warning">
+        <h1>JavaScript</h1>
+        <p>Wortopia funkctioniert nicht ohne JavaScript. Bitte <a href="http://enable-javascript.com/">aktiviere JavaScript</a> und lade diese Seite neu um mitzuspielen.</p>
+        <p>Wortopia doesn't work without JavaScript. Please <a href="http://enable-javascript.com/">enable JavaScript</a> and reload this page to play.</p>
+    </div></noscript>
 
     <script src="/lib.js"></script>
     <script src="/all.js"></script>
