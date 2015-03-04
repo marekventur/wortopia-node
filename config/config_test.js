@@ -58,7 +58,6 @@ module.exports = {
     },
     "chatMessages": {
         "started": "Der Server wurde neu gestartet. Wir entschuldigen uns für die Unterbrechung.", // Server has been (re-)started. Sorry for any inconvenience caused.
-        "alphaWarning": "Dies ist eine Alpha Version - Nicht alle Funktionen sind implementiert und es sind noch einige Fehler zu finden. Bitte schick uns euere Meinung/Fehlermeldungen an mail@wortopia.de. Danke!" // This is alpha software. Please report all errors to mail@wortopia.de
     },
     "chatPostHook": "http://xyz.com/internal-http-post-endpoint",
     "simplerSes": {

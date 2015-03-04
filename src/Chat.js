@@ -17,11 +17,6 @@ module.exports = function(socket, logger, config, clock) {
         socket.on('extern_chat', function(text, user, size) {
             that.addMessage(user, size, text);
         });
-
-        setInterval(function() {
-            that.addGlobalSystemMessage('alphaWarning');
-        }, 30 * 60 * 1000);
-        that.addGlobalSystemMessage('alphaWarning');
     }
 
     that.addMessage = function(user, size, text) {
