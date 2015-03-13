@@ -79,7 +79,7 @@ module.exports = function(config, logger, userDao) {
                     that.emit('extern_' + payload.type, payload.data, user, size, send);
                 }
             } catch (err) {
-                logger.error('Error caught when trying to handle incoming data from websocket:', err, payloadString);
+                logger.error('Error caught when trying to handle incoming data from websocket:', err, err.stack, payloadString);
             }
             that.emit()
         });
