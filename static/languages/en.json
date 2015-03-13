@@ -126,5 +126,7 @@
     "options.contrastNote": "This is an experiment on my part. Should you suffer from probelems with your sight I would be most greatful for some feedback on this. Please contact mail@wortopia.de",
 
     "messages.browserUpdate": "Maybe you should look into <a href=\"http://browsehappy.com/\">updating your browser</a>.",
-    "messages.highLatency": "A problem with your internet connection or browser has stopped Wortopia from establishing a websocket connection. This means your game will lag a few seconds behind the rest and the timer might not be correct."
+    "messages.highLatency": "A problem with your internet connection or browser has stopped Wortopia from establishing a websocket connection. This means your game will lag a few seconds behind the rest and the timer might not be correct.",
+
+    "main.notice":""
 }
