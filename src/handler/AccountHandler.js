@@ -27,7 +27,7 @@ module.exports = function(expressWrapper, userDao, logger) {
                 var password2 = req.body.password2;
 
                 // Do some superficial valiating
-                if (!name || name.length < 5) {
+                if (!name || name.length < 4) {
                     errors.name = 'too_short';
                 } else if (name.length > 15) {
                     errors.name = 'too_long';

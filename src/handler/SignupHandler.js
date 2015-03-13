@@ -14,7 +14,7 @@ module.exports = function(expressWrapper, userDao, logger) {
             var errors = {};
 
             // Do some superficial valiating
-            if (!username || username.length < 5) {
+            if (!username || username.length < 4) {
                 errors.username = 'too_short';
             } else if (username.length > 15) {
                 errors.username = 'too_long';
