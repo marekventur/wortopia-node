@@ -11,6 +11,8 @@ function UserOptions(session, socket) {
 
     if (window.localStorage.getItem('userOptions')) {
         that.options = _.defaults(JSON.parse(window.localStorage.getItem('userOptions')), defaultOptions);
+    } else {
+        that.options = JSON.parse(JSON.stringify(defaultOptions));
     }
 
     that.persist = function() {
