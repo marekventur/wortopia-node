@@ -25,6 +25,9 @@ module.exports = function(config, fieldGenerator, logger, socket) {
     };
 
     that.getCurrentField = function(size) {
+        if (!currentFields) {
+            return null;
+        }
         return currentFields[size];
     }
 

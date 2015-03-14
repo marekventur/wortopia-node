@@ -13,22 +13,27 @@ module.exports = function(gameServer, logger, socket) {
         var word = data.word;
         var id = data.id;
 
-        field.guessWord(user, word)
-        .then(function(word) {
-            send('guessResponse', {id: id, status: 'correct', points: word.points});
-            if (!word.timesGuessed) {
-                word.timesGuessed = 1;
-            } else {
-                ++word.timesGuessed;
-            }
-        })
-        .fail(function(err) {
-            if (err.code) {
-                send('guessResponse', {id: id, status: err.code});
-            } else {
-                logger.error(err);
-                send('guessResponse', {id: id, status: 'unexpected'});
-            }
-        });
+        if (field) {
+            field.guessWord(user, word)
+            .then(function(word) {
+                send('guessResponse', {id: id, status: 'correct', points: word.points});
+                if (!word.timesGuessed) {
+                    word.timesGuessed = 1;
+                } else {
+                    ++word.timesGuessed;
+                }
+            })
+            .fail(function(err) {
+                if (err.code) {
+                    send('guessResponse', {id: id, status: err.code});
+                } else {
+                    logger.error(err);
+                    send('guessResponse', {id: id, status: 'unexpected'});
+                }
+            });
+        } else {
+            send('guessResponse', {id: id, status: 'tooLate'});
+        }
+
     }
 }
