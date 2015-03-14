@@ -3,6 +3,7 @@ module.exports = function(db) {
 	var that = this;
 
 	that.query = function(size, interval) {
+		interval = Math.max(Math.min(interval, 356), 1);
 		sql = "SELECT " +  
 			"	u.name, " + 
 			"   u.id, " +
