@@ -8,10 +8,14 @@ module.exports = function(config, logger, userDao) {
     var internalEventEmitter;
 
     that.start = function() {
-        socket = sockjs.createServer();
+        socket = sockjs.createServer({log:log});
         socket.on('connection', handleConnection);
         internalEventEmitter = new EventEmitter();
         internalEventEmitter.setMaxListeners(0);
+    }
+
+    function log(severity, message) {
+        // nop
     }
 
     function handleConnection(connection) {
