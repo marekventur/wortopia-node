@@ -131,6 +131,7 @@
     "options.boardStyle.option.old": "Alt",
     "options.boardStyle.option.contrast": "Kontrast",
     "options.contrastNote": "Die Farben fuer diese Option sind geraten und wahrscheinlich nicht besonders gut. Solltest du Sehprobleme haben oder jemanden kennen der Sehprobleme hat würde ich mich über eine Rückmeldung freuen. Bitte kontaktiere mail@wortopia.de",
+    "options.boardScale.label": "Brettgröße (in %):",
 
     "messages.browserUpdate": "Vielleicht solltest du <a target=\"_blank\" href=\"http://browsehappy.com/\">deinen Browser updaten</a>?",
     "messages.highLatency": "Ein Problem mit deiner Internetverbindung oder deinem Browser hindert Wortopia daran, eine Websocket Verbindung aufzubauen. Dies kann zu Verzögerungen im Spiel führen und zu inkorrekten Spielzeiten.",

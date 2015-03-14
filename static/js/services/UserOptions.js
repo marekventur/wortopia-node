@@ -3,9 +3,10 @@ function UserOptions(session, socket) {
 
     var defaultOptions = {
         "boardStyle":"default",
-        "highscoreInterval": 30
+        "highscoreInterval": 30,
+        "boardScale": 100
     }
-    
+
     that.options = {};
 
     if (window.localStorage.getItem('userOptions')) {
@@ -17,7 +18,7 @@ function UserOptions(session, socket) {
             socket.send('setUserOptions', that.options);
         } else {
             window.localStorage.setItem('userOptions', JSON.stringify(that.options));
-        } 
+        }
     }
 
     socket.on('userOptions', function(data) {

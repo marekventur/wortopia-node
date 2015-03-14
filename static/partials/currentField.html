@@ -1,6 +1,6 @@
 <div class="current-field" ng-show="getCurrentField()" ng-controller="CurrentFieldController" >
 
-    <div class="field-container">
+    <div class="field-container" ng-style="getContainerStyle()">
         <table class="field">
             <tr ng-repeat="(y, row) in getCurrentField() track by y">
                 <td ng-repeat="(x, cell) in row track by x + '.' + y" class="cell cell--{{x}}-{{y}} {{isPartOfChain(x, y)?'cell--selected':''}}">{{cell.toUpperCase()}}</td>

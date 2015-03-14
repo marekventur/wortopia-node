@@ -12,39 +12,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 </head>
 <body>
-    <div class="container">
+    <div class="container" ng-controller="StyleController">
         <h1>Field Styles</h1>
-        <div>
-            <h2>Default</h2>
+        <input ng-model="userOptions.boardScale" value="100" type="number" min="20" max="300" ng-change="persistUserOptions()">
+        <div ng-repeat="fieldStyle in fieldStyles">
+            <h2>{{fieldStyle}}</h2>
             <div class="row">
-                <div ng-controller="FieldStyleController4" class="col-md-6 size-4 field-style--default">
+                <div ng-controller="FieldStyleController4" class="col-md-6 size-4 {{fieldStyle}}">
                     <div><ng-include src="'/partials/currentField.html'" /></div>
                 </div>
-                <div ng-controller="FieldStyleController5" class="col-md-6 size-5 field-style--default">
-                    <div><ng-include src="'/partials/currentField.html'" /></div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <h2>Old</h2>
-            <div>
-                <div ng-controller="FieldStyleController4" class="col-md-6 size-4 field-style--old">
-                    <div><ng-include src="'/partials/currentField.html'" /></div>
-                </div>
-                <div ng-controller="FieldStyleController5" class="col-md-6 size-5 field-style--old">
-                    <div><ng-include src="'/partials/currentField.html'" /></div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <h2>Contrast</h2>
-            <div>
-                <div ng-controller="FieldStyleController4" class="col-md-6 size-4 field-style--contrast">
-                    <div><ng-include src="'/partials/currentField.html'" /></div>
-                </div>
-                <div ng-controller="FieldStyleController5" class="col-md-6 size-5 field-style--contrast">
+                <div ng-controller="FieldStyleController5" class="col-md-6 size-5 {{fieldStyle}}">
                     <div><ng-include src="'/partials/currentField.html'" /></div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-function CurrentFieldController($scope, game, size, $element, socket) {
+function CurrentFieldController($scope, game, size, $element, socket, userOptions) {
     var $input = $element.find('#word-input');
 
     $scope.getCell = function(x, y) {
@@ -7,6 +7,20 @@ function CurrentFieldController($scope, game, size, $element, socket) {
             return null;
         }
         return field[y][x];
+    }
+
+    $scope.getContainerStyle = function() {
+        if (userOptions.options.boardScale === 100) {
+            return {};
+        }
+        var scale = userOptions.options.boardScale / 100;
+        var style = {
+            "transform": "scale(" + scale + ")",
+            "height": (scale * 281) + "px"
+        };
+        style['-webkit-transform'] = style.transform;
+        style['-ms-transform'] = style.transform;
+        return style;
     }
 
     // Marks
@@ -37,7 +51,7 @@ function CurrentFieldController($scope, game, size, $element, socket) {
         var offY  = (e.offsetY || e.clientY - $(e.target).offset().top);
         var x = Math.floor(offX / cellDimension);
         var y = Math.floor(offY / cellDimension);
-        
+
         if (chain.length > 0) {
             var last = chain[chain.length - 1];
 

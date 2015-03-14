@@ -8,22 +8,31 @@
             <div class="modal-body">
                 <form>
                     <div class="alert alert-warning" role="alert" ng-show="isGuest()">
-                        <span translate="options.loginNote"></span> 
+                        <span translate="options.loginNote"></span>
                     </div>
-                    
+
                     <div class="form-group">
                         <label for="optionBoardStyle" translate="options.boardStyle.label"></label>
-                        <select 
-                            class="form-control" 
-                            ng-model="userOptions.boardStyle" 
-                            name="optionBoardStyle" 
-                            id="optionBoardStyle" 
+                        <select
+                            class="form-control"
+                            ng-model="userOptions.boardStyle"
+                            name="optionBoardStyle"
+                            id="optionBoardStyle"
                             ng-change="persistUserOptions()">
                             <option value="default" translate="options.boardStyle.option.default"></option>
                             <option value="old" translate="options.boardStyle.option.old"></option>
                             <option value="contrast" translate="options.boardStyle.option.contrast"></option>
                         </select>
                         <div ng-show="userOptions.boardStyle === 'contrast'" class="alert alert-info" role="alert" translate="options.contrastNote"></div>
+
+                        <label for="optionBoardScale" translate="options.boardScale.label"></label>
+                        <input
+                            class="form-control"
+                            ng-model="userOptions.boardScale"
+                            name="optionBoardScale"
+                            id="optionBoardScale"
+                            ng-change="persistUserOptions()"
+                            type="number" step="1" max="300" min="20">
                     </div>
                 </form>
             </div>

@@ -2,13 +2,22 @@
  * This class is doing stuff the un-angular way. I'm just not trusting angular performance
  * enough and there's no need to re-check lines every time -- they simply never change.
  */
-function ChatController($scope, $element, chat, game) {
+function ChatController($scope, $element, chat, game, userOptions) {
     var $input = $element.find('.chat-input');
     var $chatContent = $element.find('.chat-content');
 
     var $userMessageTemplate = $('<div class="chat-line"><div class="chat-time"></div><div class="chat-text"><span class="chat-name"></span> <span class="chat-inner-text"></span></div></div>');
     var $systemMessageTemplate = $('<div class="chat-line chat-line--sys"><div class="chat-time"></div><div class="chat-text"><span class="chat-inner-text"></span></div></div>');
 
+    $scope.getStyle = function() {
+        if (userOptions.options.boardScale === 100 || !$scope.isGameOngoing()) {
+            return {};
+        }
+        var scale = userOptions.options.boardScale / 100;
+        return {
+            top: 281 * scale + 107
+        };
+    }
 
     $input.keypress(function(e) {
         if(e.which === 13) {

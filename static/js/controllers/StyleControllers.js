@@ -5,7 +5,7 @@ function FieldStyleController4($scope) {
         ['i', 'j', 'k', 'l'],
         ['m', 'n', 'o', 'p']
     ]);
-    $scope.getSize = function() {   
+    $scope.getSize = function() {
         return $scope.field.length;
     }
 
@@ -22,7 +22,7 @@ function FieldStyleController5($scope) {
         ['p', 'q', 'r', 's', 't'],
         ['u', 'v', 'w', 'x', 'y']
     ]);
-    $scope.getSize = function() {   
+    $scope.getSize = function() {
         return $scope.field.length;
     }
 
@@ -30,3 +30,9 @@ function FieldStyleController5($scope) {
         return $scope.field;
     }
 };
+
+function StyleController($scope, userOptions) {
+    $scope.fieldStyles = ['field-style--default', 'field-style--old', 'field-style--contrast'];
+    $scope.userOptions = userOptions.options;
+    $scope.persistUserOptions = userOptions.persist;
+}
