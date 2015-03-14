@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal--highscore" ng-controller="HighscoreController">
+<div class="modal fade modal--highscores" id="modal--highscore" ng-controller="HighscoreController">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -6,9 +6,22 @@
                 <h4 class="modal-title" translate="highscore.title"></h4>
             </div>
             <div class="modal-body">
-                <p ng-hide="highscores" translate="highscore.loading"></p>
-                <p ng-show="highscores" translate="highscore.explanation"></p>
-                <table ng-show="highscores" class="table table-condensed">
+                <p ng-show="highscores === null" translate="highscore.loading"></p>
+                
+                <div class="input-group interval-select">
+                    <select ng-hide="highscores === null" ng-model="interval" class="form-control">
+                        <option value="1" translate="highscore.options.1day"></option>
+                        <option value="7" translate="highscore.options.7days"></option>
+                        <option value="30" translate="highscore.options.30days"></option>
+                        <option value="60" translate="highscore.options.60days"></option>
+                        <option value="90" translate="highscore.options.90days"></option>
+                        <option value="180" translate="highscore.options.180days"></option>
+                        <option value="365" translate="highscore.options.365days"></option>
+                    </select>
+                </div>
+                <p ng-hide="highscores === null" translate="highscore.explanation"></p>
+
+                <table ng-hide="highscores === null" class="table table-condensed">
                     <tr>
                         <th translate="highscore.header.position"></th>
                         <th translate="highscore.header.name"></th>

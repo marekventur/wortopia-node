@@ -2,7 +2,7 @@ var _ = require('underscore');
 module.exports = function(db) {
 	var that = this;
 
-	that.query = function(size) {
+	that.query = function(size, interval) {
 		sql = "SELECT " +  
 			"	u.name, " + 
 			"   u.id, " +
@@ -19,7 +19,7 @@ module.exports = function(db) {
 			"		FROM  " + 
 			"			user_results " + 
 			"		WHERE  " + 
-			"			finished > now() - INTERVAL '30 days'  " + 
+			"			finished > now() - INTERVAL '1 day' * $2  " + 
 			"				AND " + 
 			"			max_points > 0 " + 
 			"				AND " + 
@@ -32,10 +32,10 @@ module.exports = function(db) {
 			"		ON  " + 
 			"	u.id = sub.user_id " + 
 			"WHERE  " + 
-			"	sub.count > 5 " + 
+			"	sub.count > 2 " + 
 			"ORDER BY " + 
 			"	sub.avg DESC " + 
 			"LIMIT 100;";
-		return db.query(sql, [size]);
+		return db.query(sql, [size, interval]);
 	}
 }

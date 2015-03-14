@@ -1,12 +1,22 @@
-function HighscoreController($scope, $element, size) {
-    $scope.highscores = null;
-
+function HighscoreController($scope, $element, size, userOptions) {
     $element.on('shown.bs.modal', function() {
-        $.get('/highscore', {size: size.size}, function(data) {
+        $scope.interval = userOptions.options.highscoreInterval || 30;
+        load();
+    });
+
+    $scope.$watch('interval', function(interval) {
+        load();
+        userOptions.options.highscoreInterval = interval;
+        userOptions.persist();
+    });
+
+    function load() {
+        $scope.highscores = null;
+        $.get('/highscore', {size: size.size, interval: $scope.interval}, function(data) {
             $scope.highscores = data;
             $scope.$apply();
         });
-    });
+    }
 
     $element.on('hidden.bs.modal', function() {
         window.location.hash = '';
