@@ -39,9 +39,27 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
         setTimeout(function() {
             $incorrectSymbol.removeClass('highlight');
         }, 600);
-    })
+    });
 
-    // Clicking/Swiping
+    function addCellToFrame(x, y) {
+        if (chain.length > 0) {
+            var last = chain[chain.length - 1];
+
+            if (Math.abs(last.x - x) > 1 || Math.abs(last.y - y) > 1) {
+                $scope.clearChain();
+                return 'i'; // invalid
+            }
+        }
+
+        if (!_.findWhere(chain, {x: x, y: y})) {
+            chain.push({x: x, y: y});
+            return 'a'; // added
+        } else {
+            return 'd'; // duplicated
+        }
+    }
+
+    /* All clicking */
     var $canvas = $element.find('canvas');
     var dimension = $scope.getSize() === 4 ? 280 : 280;
     var cellDimension = dimension / $scope.getSize();
@@ -52,24 +70,76 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
         var x = Math.floor(offX / cellDimension);
         var y = Math.floor(offY / cellDimension);
 
-        if (chain.length > 0) {
-            var last = chain[chain.length - 1];
-
-            if (Math.abs(last.x - x) > 1 || Math.abs(last.y - y) > 1) {
-                $scope.clearChain();
-                return;
-            }
-        }
-
-        if (!_.findWhere(chain, {x: x, y: y})) {
-            chain.push({x: x, y: y});
+        var result = addCellToFrame(x, y);
+        if (result === 'a') {
+            //added
             drawChain(chain);
-        } else {
+        } else if (result === 'd') {
+            // duplicated
             submitChain();
         }
 
         $scope.$apply();
     });
+
+    /* Mobile phones */
+    $canvas
+    .on('touchstart', function(e) {
+        swipeStart();
+
+        var touch = e.originalEvent.touches[0];
+        var elm = $canvas.offset();
+        var x = touch.pageX - elm.left;
+        var y = touch.pageY - elm.top;
+        swipeMove(x, y);
+    })
+    .on('touchmove', function(e) {
+        var touch = e.originalEvent.touches[0];
+        var elm = $canvas.offset();
+        var x = touch.pageX - elm.left;
+        var y = touch.pageY - elm.top;
+
+        swipeMove(x, y);
+
+        e.preventDefault();
+    })
+    .on('touchend', function() {
+        swipeEnd();
+    })
+
+    /* All swiping */
+    function swipeStart() {
+        $scope.clearChain();
+
+        //context.beginPath();
+        //context.strokeStyle = '#888';
+        //context.lineWidth = 2;
+    }
+
+    function swipeMove(posX, posY) {
+        var x = Math.floor(posX / cellDimension);
+        var y = Math.floor(posY / cellDimension);
+        var centerPosX = (x + 0.5) * cellDimension;
+        var centerPosY = (y + 0.5) * cellDimension;
+        var distToCenterX = posX - centerPosX;
+        var distToCenterY = posY - centerPosY;
+        var distance = Math.sqrt(distToCenterX * distToCenterX + distToCenterY * distToCenterY);
+
+        if (distance < 0.4 * cellDimension) {
+            var result = addCellToFrame(x, y);
+            if (result === 'a') {
+                //added
+                drawChain(chain);
+                return;
+            }
+        }
+
+        drawChain(chain, {x: posX, y: posY});
+    }
+
+    function swipeEnd() {
+        submitChain();
+    }
 
     function submitChain() {
         var word = '';
@@ -130,7 +200,7 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
     $canvas.attr('width', dimension + 'px').attr('height', dimension + 'px');
     var context = $canvas[0].getContext('2d');
 
-    function drawChain(chain) {
+    function drawChain(chain, drawToPoint) {
         context.clearRect(0 , 0 , dimension , dimension);
 
         context.beginPath();
@@ -150,6 +220,12 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
             }
 
         });
+
+        // For swiping
+        if (drawToPoint) {
+            context.lineTo(drawToPoint.x, drawToPoint.y);
+        }
+
         context.stroke();
 
         _.each(chain, function(element) {
