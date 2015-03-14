@@ -1,16 +1,18 @@
 function UserOptions(session, socket) {
     var that = this;
+
+    var defaultOptions = {
+        "boardStyle":"default",
+        "highscoreInterval": 30
+    }
     
-    that.options = {
-        "boardStyle":"default"
-    };
+    that.options = {};
 
     if (window.localStorage.getItem('userOptions')) {
-        that.options = JSON.parse(window.localStorage.getItem('userOptions'));
+        that.options = _.defaults(JSON.parse(window.localStorage.getItem('userOptions')), defaultOptions);
     }
 
     that.persist = function() {
-        console.log('persisting', that.options);
         if (session.user && !session.user.guest) {
             socket.send('setUserOptions', that.options);
         } else {
@@ -19,7 +21,7 @@ function UserOptions(session, socket) {
     }
 
     socket.on('userOptions', function(data) {
-        that.options = data;
+        that.options = _.defaults(data, defaultOptions);
         that.emit('update');
     });
 
