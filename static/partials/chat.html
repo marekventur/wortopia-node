@@ -11,7 +11,7 @@
         <div class="input-group input-group-sm">
             <span class="input-group-addon" ng-hide="isGuest()">{{getUser().name}}</span>
             <span class="input-group-addon" ng-show="isGuest()">{{'guest.name'|translate:getUser()}}</span>
-            <input type="text" class="form-control chat-input" ng-keyup="onKeyUp()" id="chat-input">
+            <input type="text" class="form-control chat-input" ng-keyup="onKeyUp()" id="chat-input" placeholder="{{'chat'|translate}}">
             <label for="chat-input" ng-hide="isGameOngoing()" ng-controller="TimerController">{{remainingTime}}</label>
         </div>
     </div>

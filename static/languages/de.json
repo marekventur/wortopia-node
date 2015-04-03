@@ -54,6 +54,8 @@
     "recover.button.close": "Schliessen",
     "recover.signup": "Erstelle einen neuen Account",
 
+    "chat": "Chat",
+
     "account.title": "Dein Account",
     "account.name.label": "Name (keine Leerzeichen erlaubt)",
     "account.name.placeholder": "Name",

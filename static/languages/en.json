@@ -54,6 +54,8 @@
     "recover.button.close": "Close",
     "recover.signup": "Create new account",
 
+    "chat": "Chat",
+
     "account.title": "Your Account",
     "account.name.label": "Username (no spaces allowed)",
     "account.name.placeholder": "Username",
