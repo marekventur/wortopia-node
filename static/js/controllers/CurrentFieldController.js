@@ -48,6 +48,22 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
         drawChain(chain);
     }
 
+    game.on('gamePaused', function() {
+        // only re-focus to the input field when the game was paused that way
+        if ($input.is(":focus")) {
+            game.once('gameOngoing', function() {
+                _.defer(function() {
+                    $input.focus();
+                });
+            });
+        }
+
+        // clear input field anyway
+        $input.val('');
+        chain = [];
+        drawChain(chain);
+    });
+
     /* All clicking and swiping */
     var $canvas = $element.find('canvas');
     var dimension = $scope.getSize() === 4 ? 280 : 280;
