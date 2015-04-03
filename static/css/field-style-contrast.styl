@@ -18,8 +18,8 @@
             td {
                 font-weight: bold;
                 text-align: center;
-                border-right: 2px solid #ccc;
-                border-bottom: 2px solid #ccc;
+                border-right: 2px solid #000;
+                border-bottom: 2px solid #000;
                 padding: 0px;
 
                 &.cell--selected {
@@ -89,11 +89,11 @@
     $fields = {
         "4": {
             cellSize: 70px,
-            fontSize: 35px
+            fontSize: 50px
         },
         "5": {
             cellSize: 56px,
-            fontSize: 30px
+            fontSize: 35px
         }
     };
 
@@ -104,6 +104,7 @@
             width: $data.cellSize;
             font-size: $data.fontSize;
             height: $data.cellSize;
+            line-height: $data.cellSize - 2px;
         }
 
         &.size-{$size} .input-area {
