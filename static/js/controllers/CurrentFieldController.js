@@ -9,11 +9,12 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
         return field[y][x];
     }
 
+    var scale = 1;
     $scope.getContainerStyle = function() {
         if (userOptions.options.boardScale === 100) {
             return {};
         }
-        var scale = userOptions.options.boardScale / 100;
+        scale = userOptions.options.boardScale / 100;
 
         // never allow the field to be bigger than the screen width
         var usableWidth = $(window).width() - 10;
@@ -124,29 +125,31 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
     }
 
     /* Mobile phones */
-    var canvasOffset = $canvas.offset();
+
     $canvas
     .on('touchstart', function(e) {
+        var canvasOffset = $canvas.offset();
         var touch = e.originalEvent.touches[0];
-        var x = touch.pageX - canvasOffset.left;
-        var y = touch.pageY - canvasOffset.top;
+        var x = (touch.pageX - canvasOffset.left) / scale;
+        var y = (touch.pageY - canvasOffset.top) / scale;
         swipeStart(x, y);
         e.stopPropagation();
         e.preventDefault();
     })
     .on('touchmove', function(e) {
-        console.log('touchmove');
+        var canvasOffset = $canvas.offset();
         var touch = e.originalEvent.touches[0];
-        var x = touch.pageX - canvasOffset.left;
-        var y = touch.pageY - canvasOffset.top;
+        var x = (touch.pageX - canvasOffset.left) / scale;
+        var y = (touch.pageY - canvasOffset.top) / scale;
         swipeMove(x, y);
         e.stopPropagation();
         e.preventDefault();
     })
     .on('touchend', function(e) {
+        var canvasOffset = $canvas.offset();
         var touch = e.originalEvent.changedTouches[e.originalEvent.changedTouches.length-1];
-        var x = touch.pageX - canvasOffset.left;
-        var y = touch.pageY - canvasOffset.top;
+        var x = (touch.pageX - canvasOffset.left) / scale;
+        var y = (touch.pageY - canvasOffset.top) / scale;
         swipeEnd(x, y);
         e.stopPropagation();
         e.preventDefault();
