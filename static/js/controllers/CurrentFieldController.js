@@ -14,6 +14,13 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
             return {};
         }
         var scale = userOptions.options.boardScale / 100;
+
+        // never allow the field to be bigger than the screen width
+        var usableWidth = $(window).width() - 10;
+        if (281 * scale > usableWidth) {
+            scale = usableWidth / 281;
+        }
+
         var style = {
             "transform": "scale(" + scale + ")",
             "height": (scale * 281) + "px"
