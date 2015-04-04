@@ -65,14 +65,14 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
         drawChain(chain);
     });
 
-    /* All clicking and swiping */
+    /* All clicking and touching */
     var $canvas = $element.find('canvas');
     var dimension = $scope.getSize() === 4 ? 280 : 280;
     var cellDimension = dimension / $scope.getSize();
     var chain = [];
     var startSwipingField = null;
 
-    function swipeStart(posX, posY) {
+    function swipeStart(posX, posY, guessingMethod) { /* guessingMethod is mouse or touch */
         var x = Math.floor(posX / cellDimension);
         var y = Math.floor(posY / cellDimension);
 
@@ -81,7 +81,7 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
             startSwipingField = {x:x, y:y};
             drawChain(chain);
         } else if (result === 'd') {
-            submitChain();
+            submitChain(guessingMethod + 'Single');
         }
 
     }
@@ -113,12 +113,12 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
         }
     }
 
-    function swipeEnd(posX, posY) {
+    function swipeEnd(posX, posY, guessingMethod) { /* guessingMethod is mouse or touch */
         var x = Math.floor(posX / cellDimension);
         var y = Math.floor(posY / cellDimension);
 
         if(startSwipingField && (x !== startSwipingField.x || y !== startSwipingField.y)) { // only end when the mouse has been moved
-            submitChain();
+            submitChain(guessingMethod + 'Swipe');
         }
 
         startSwipingField = null;
@@ -132,7 +132,7 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
         var touch = e.originalEvent.touches[0];
         var x = (touch.pageX - canvasOffset.left) / scale;
         var y = (touch.pageY - canvasOffset.top) / scale;
-        swipeStart(x, y);
+        swipeStart(x, y, 'touch');
         e.stopPropagation();
         e.preventDefault();
     })
@@ -150,7 +150,7 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
         var touch = e.originalEvent.changedTouches[e.originalEvent.changedTouches.length-1];
         var x = (touch.pageX - canvasOffset.left) / scale;
         var y = (touch.pageY - canvasOffset.top) / scale;
-        swipeEnd(x, y);
+        swipeEnd(x, y, 'touch');
         e.stopPropagation();
         e.preventDefault();
     });
@@ -163,7 +163,7 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
             leftButtonDown = true;
             var x  = (e.offsetX || e.clientX - $(e.target).offset().left);
             var y  = (e.offsetY || e.clientY - $(e.target).offset().top);
-            swipeStart(x, y);
+            swipeStart(x, y, 'mouse');
             e.stopPropagation();
             e.preventDefault();
         }
@@ -182,14 +182,11 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
             leftButtonDown = false;
             var x  = (e.offsetX || e.clientX - $(e.target).offset().left);
             var y  = (e.offsetY || e.clientY - $(e.target).offset().top);
-            swipeEnd(x, y);
+            swipeEnd(x, y, 'mouse');
             e.stopPropagation();
             e.preventDefault();
         }
     });
-    /*.dblclick(function() {
-        submitChain()
-    });*/
 
     // Chains, submits and clear
     function addCellToFrame(x, y) {
@@ -210,19 +207,20 @@ function CurrentFieldController($scope, game, size, $element, socket, userOption
         }
     }
 
-    function submitChain() {
+    function submitChain(guessingMethod) {
         var word = '';
         _.each(chain, function(element) {
             word += $scope.getCell(element.x, element.y);
         });
         if (word.length > 2) {
-            $scope.submitWord(word);
+            $scope.submitWord(word, guessingMethod);
         } else {
             $scope.clearChain();
         }
     }
 
-    $scope.submitWord = function(word) {
+    $scope.submitWord = function(word, guessingMethod) {
+        game.setLastGuessingMethod(guessingMethod);
         game.guess(word);
         $scope.wordEntered = "";
         $scope.wordEnteredClass = [];

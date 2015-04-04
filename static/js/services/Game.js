@@ -10,6 +10,7 @@ function Game(socket, fieldFactory, tracking) {
     var lastResults = [];
     var lastPlayers = [];
     var points = 0;
+    var lastGuessingMethod = 'unknown'; // keyboard, mouseSingle, mouseSwipe, touchSingle, touchSwipe
     that.ready = false;
 
     // ToDo: Do a ping/pong to get a better value for this
@@ -113,7 +114,7 @@ function Game(socket, fieldFactory, tracking) {
             }
             that.emit('guessesUpdated');
 
-            tracking.event('guess', guess.status);
+            tracking.event('guess', guess.status, lastGuessingMethod);
         }
     });
 
@@ -127,6 +128,10 @@ function Game(socket, fieldFactory, tracking) {
 
     function now() {
         return new Date().getTime();
+    }
+
+    that.setLastGuessingMethod = function(method) {
+        lastGuessingMethod = method;
     }
 }
 

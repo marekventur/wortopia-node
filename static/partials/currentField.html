@@ -13,7 +13,7 @@
         <canvas></canvas>
     </div>
 
-    <form class="input-area hidden-xs hidden-sm" ng-submit="submitWord(wordEntered)" ng-class="wordEnteredClass">
+    <form class="input-area hidden-xs hidden-sm" ng-submit="submitWord(wordEntered, 'keyboard')" ng-class="wordEnteredClass">
         <input type="text" class="input form-control" id="word-input" ng-model="wordEntered" ng-change="typeWord(wordEntered)" />
         <label for="word-input" ng-controller="TimerController">{{remainingTime}}</label>
     </form>
