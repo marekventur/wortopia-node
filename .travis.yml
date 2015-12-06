@@ -13,4 +13,8 @@ services:
   - postgresql
 
 before_script:
-  - psql -c 'create database wortopia_test;' -U postgres
+  - psql -c "CREATE USER wortopia WITH PASSWORD 'wortopia';" -U postgres
+  - psql -c 'CREATE DATABASE wortopia_test WITH OWNER wortopia;' -U postgres
+  - psql -d wortopia_test -c 'CREATE EXTENSION IF NOT EXISTS citext;' -U postgres
+  - psql -d wortopia_test -c 'CREATE EXTENSION IF NOT EXISTS pgcrypto;' -U postgres
+  - psql -d wortopia_test -c 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp";' -U postgres
