@@ -34,7 +34,7 @@
     "async": "~1.5.0",
     "body-parser": "~1.14.1",
     "bower": "~1.6.9",
-    "bunyan": "~0.22.0",
+    "bunyan": "~1.5.1",
     "chai": "~3.4.1",
     "db-migrate": "~0.9.23",
     "express": "4.0.0",
