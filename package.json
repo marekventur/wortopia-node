@@ -39,7 +39,7 @@
     "db-migrate": "~0.6.4",
     "express": "4.0.0",
     "iz": "~0.7.1",
-    "line-reader": "~0.2.3",
+    "line-reader": "~0.3.0",
     "no-configuration-di": "~0.3.3",
     "pg": "~3.0.3",
     "q": "~2.0.3",
