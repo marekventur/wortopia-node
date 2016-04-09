@@ -61,41 +61,40 @@ module.exports = function(grunt) {
             }
         },
 
-        concat_sourcemap: {
-            options: {},
+        concat: {
+            options: {
+                sourceMap: true
+            },
             lib_css: {
-                files: {
-                    'static-build/lib.css': [
-                        'static/lib/bootstrap/dist/css/bootstrap.css',
-                        'static/lib/bootstrap/dist/css/bootstrap-theme.css',
-                    ]
-                }
+                src: [
+                    'static/lib/bootstrap/dist/css/bootstrap.css',
+                    'static/lib/bootstrap/dist/css/bootstrap-theme.css',
+                ],
+                'dest': 'static-build/lib.css'
             },
             lib_js: {
-                files: {
-                    'static-build/lib.js': [
-                        'static/lib/jquery/dist/jquery.js',
-                        'static/lib/bootstrap/dist/js/bootstrap.js',
-                        'static/lib/angular/angular.js',
-                        'static/lib/angular-translate/angular-translate.js',
-                        'static/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
-                        'static/lib/underscore/underscore.js',
-                        'static/lib/q/q.js',
-                        'static/lib/EventEmitter/EventEmitter.js',
-                        'static/lib/sockjs/sockjs.js',
-                        'static/lib/polyfills/localStorage.js',
-                        'static/lib/sockjs/sockjs.js',
-                    ]
-                }
+                src: [
+                    'static/lib/jquery/dist/jquery.js',
+                    'static/lib/bootstrap/dist/js/bootstrap.js',
+                    'static/lib/angular/angular.js',
+                    'static/lib/angular-translate/angular-translate.js',
+                    'static/lib/angular-translate-loader-static-files/angular-translate-loader-static-files.js',
+                    'static/lib/underscore/underscore.js',
+                    'static/lib/q/q.js',
+                    'static/lib/EventEmitter/EventEmitter.js',
+                    'static/lib/sockjs/sockjs.js',
+                    'static/lib/polyfills/localStorage.js',
+                    'static/lib/sockjs/sockjs.js',
+                ],
+                'dest': 'static-build/lib.js'
             },
             js: {
-                files: {
-                    'static-build/all.js': [
-                        'static/js/controllers/*.js',
-                        'static/js/services/*.js',
-                        'static/js/*.js'
-                    ]
-                }
+                src: [
+                    'static/js/controllers/*.js',
+                    'static/js/services/*.js',
+                    'static/js/*.js'
+                ],
+                'dest': 'static-build/all.js'
             }
         },
 
@@ -114,11 +113,11 @@ module.exports = function(grunt) {
             },
             js: {
                 files: ['static/js/**'],
-                tasks: ['concat_sourcemap:js']
+                tasks: ['concat:js']
             },
             lib: {
                 files: ['static/lib/**'],
-                tasks: ['concat_sourcemap:lib_js', 'concat_sourcemap:lib_css']
+                tasks: ['concat:lib_js', 'concat:lib_css']
             },
             partials: {
                 files: ['static/partials/**'],
@@ -133,7 +132,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-stylus');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-concat-sourcemap');
+    grunt.loadNpmTasks('grunt-contrib-concat');
 
-    grunt.registerTask('default', ['stylus', 'concat_sourcemap', 'copy', 'ngtemplates:partials']);
+    grunt.registerTask('default', ['stylus', 'concat', 'copy', 'ngtemplates:partials']);
 }
