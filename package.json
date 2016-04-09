@@ -19,7 +19,7 @@
     "url": "https://github.com/marekventur/wortopia-node/issues"
   },
   "devDependencies": {
-    "grunt": "~0.4.2",
+    "grunt": "~1.0.1",
     "grunt-angular-templates": "~1.0.1",
     "grunt-cli": "^0.1.13",
     "grunt-concat-sourcemap": "~0.4.1",
