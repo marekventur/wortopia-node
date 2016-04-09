@@ -31,7 +31,7 @@
     "nib": "~1.1.0"
   },
   "dependencies": {
-    "async": "~1.5.0",
+    "async": "~2.0.0-rc.3",
     "body-parser": "~1.15.0",
     "bower": "~1.7.2",
     "bunyan": "~1.8.0",
