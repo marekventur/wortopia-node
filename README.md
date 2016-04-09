@@ -43,4 +43,9 @@ Start wortopia
 SIMPLER_SES_AUTH_TOKEN=abc TOKEN_SALT=def node ./app.js | ./node_modules/bunyan/bin/bunyan -o short
 ```
 
+# Init script
+
+```
+apt-get install pipexec # requires debian unstable
+```
 

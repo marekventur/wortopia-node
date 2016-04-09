@@ -9,13 +9,13 @@
 # Short-Description:    Wortopia
 ### END INIT INFO
 
-DAEMON="NODE_ENV=production /var/www/wortopia/app.js"
+DAEMON_ENV = "NODE_ENV=production"
+DAEMON="/var/www/wortopia/app.js"
 DAEMON_ARGS="/etc/wortopia/config.js"
 DAEMON_NAME=wortopia
 
 DAEMON_USER=wortopia
 PID_FILE=/var/run/wortopia.pid
-LOG_FILE=/var/log/wortopia/wortopia.log
 WORKING_DIR=/var/www/wortopia
 DESC="Wortopia"
 
@@ -33,14 +33,15 @@ fi
 start() {
     log_daemon_msg "Starting $DESC"
 
-    #pid=`pidofproc -p $PID_FILE`
-    #if [ -n "$pid" ] ; then
-    #    log_begin_msg "Already running"
-    #    log_end_msg 0
-    #    exit 0
-    #fi
+    start-stop-daemon --start --background \
+        --chuid $DAEMON_USER \
+        -n $DAEMON_NAME \
+        -d $WORKING_DIR \
+        --pidfile $PID_FILE --make-pidfile \
+        --exec /usr/bin/env \
+        --startas /usr/bin/pipexec -- -k \
+        -- [ D /usr/bin/env $DAEMON $DAEMON_ARGS ] [ L /usr/bin/logger --tag $DAEMON_NAME ] '{D:2>D:1}' '{D:1>L:0}'
 
-    nohup start-stop-daemon -c $DAEMON_USER -n $DAEMON_NAME -d $WORKING_DIR -p $PID_FILE -m --exec /usr/bin/env --start $DAEMON -- $DAEMON_ARGS >>$LOG_FILE 2>&1 &
     log_end_msg $?
 }
 
