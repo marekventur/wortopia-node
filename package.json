@@ -37,7 +37,7 @@
     "bunyan": "~1.8.0",
     "chai": "~3.5.0",
     "db-migrate": "~0.9.23",
-    "express": "4.13.3",
+    "express": "4.13.4",
     "iz": "~0.7.1",
     "line-reader": "~0.3.0",
     "no-configuration-di": "~0.3.3",
