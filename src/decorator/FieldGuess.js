@@ -9,7 +9,7 @@ module.exports = function(field) {
             var foundWord = _.findWhere(words, {word: word});
             if (foundWord) {
                 if (field.scoreForPlayer(user, foundWord)) {
-                    return Q.resolve(foundWord);
+                    return Q(foundWord);
                 } else {
                     return Q.reject(newErrorWithCode('dublicated'));
                 }

@@ -26,7 +26,7 @@ module.exports = function(field, db, logger, config) {
 
 
         } else {
-            return Q.resolve(words);
+            return Q(words);
         }
     }
 

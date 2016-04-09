@@ -42,12 +42,12 @@ module.exports = function(user, db, logger) {
 
     that.loadEmail = function() {
         if (user.email) {
-            return Q.resolve(user);
+            return Q(user);
         }
 
         // Guests have no email address
         if (user.id < 0) {
-            return Q.resolve(user);
+            return Q(user);
         }
 
         return db.queryOne('SELECT email FROM user_emails WHERE user_id = $1', [user.id])
