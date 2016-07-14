@@ -67,7 +67,7 @@ module.exports = function(expressWrapper, userDao, logger) {
                         user: externalPrivateRepresentation
                     });
                 })
-                .fail(function(err) {
+                .catch(function(err) {
                     if (err.usernameAlreadyExists) {
                         logger.info('Username already taken: %s', username);
                         errors.username = 'already_exists';

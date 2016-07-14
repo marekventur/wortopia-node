@@ -23,7 +23,7 @@ module.exports = function(gameServer, logger, socket) {
                     ++word.timesGuessed;
                 }
             })
-            .fail(function(err) {
+            .catch(function(err) {
                 if (err.code) {
                     send('guessResponse', {id: id, status: err.code});
                 } else {

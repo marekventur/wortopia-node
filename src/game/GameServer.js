@@ -100,7 +100,7 @@ module.exports = function(config, fieldGenerator, logger, socket) {
             _.each(lastFields, function(lastField) {
                 lastField.finishGame();
                 lastField.saveToDb()
-                .fail(function(error) {
+                .catch(function(error) {
                     logger.error("Error saving result: %s", error);
                 });
             });
@@ -116,7 +116,7 @@ module.exports = function(config, fieldGenerator, logger, socket) {
         .then(function() {
             startRound();
         })
-        .fail(function(err) {
+        .catch(function(err) {
             logger.error('Error while trying to calculate next fields:', err);
             // ToDo Try again?
         });

@@ -7,7 +7,7 @@ module.exports = function(socket, logger) {
 
     function setUserOptions(data, user, size, send) {
         user.setOptions(data)
-        .fail(function(error) {
+        .catch(function(error) {
             logger.error('Saving options failed', error);
         });
     }

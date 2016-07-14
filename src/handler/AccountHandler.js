@@ -96,7 +96,7 @@ module.exports = function(expressWrapper, userDao, logger) {
                         .then(function() {
                             return user.setName(newUser.name)
                         })
-                        .fail(function(err) {
+                        .catch(function(err) {
                             if (err.usernameAlreadyExists) {
                                 logger.info('Username already taken: %s', username);
                                 throw {name: 'already_exists'};
@@ -110,7 +110,7 @@ module.exports = function(expressWrapper, userDao, logger) {
                 .then(function() {
                     if (user.team != newUser.team) {
                         return user.setTeam(newUser.team)
-                        .fail(function(err) {
+                        .catch(function(err) {
                             logger.error('Error while trying to update team: ', err.stack);
                             throw {team: 'unknown'};
                         });
@@ -119,7 +119,7 @@ module.exports = function(expressWrapper, userDao, logger) {
                 .then(function() {
                     if (user.email != newUser.email) {
                         return user.setEmail(newUser.email)
-                        .fail(function(err) {
+                        .catch(function(err) {
                             logger.error('Error while trying to update email: ', err.stack);
                             throw {email: 'unknown'};
                         });
@@ -128,7 +128,7 @@ module.exports = function(expressWrapper, userDao, logger) {
                 .then(function() {
                     if (newUser.password) {
                         return user.setPassword(newUser.password)
-                        .fail(function(err) {
+                        .catch(function(err) {
                             logger.error('Error while trying to update password: ', err.stack);
                             throw {password1: 'unknown'};
                         });
@@ -149,13 +149,13 @@ module.exports = function(expressWrapper, userDao, logger) {
                         user: externalPrivateRepresentation
                     });
                 })
-                .fail(function(errors) {
+                .catch(function(errors) {
                     var error = new Error('Validation error');
                     error.errors = errors;
                     throw error;
                 })
             })
-            .fail(function(err) {
+            .catch(function(err) {
                 if (err.errors) {
                     res.send({
                         errors: err.errors

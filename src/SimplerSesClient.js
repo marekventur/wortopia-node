@@ -35,7 +35,7 @@ module.exports = function(config, logger) {
                 throw new Error(message);
             }
         })
-        .fail(function(error) {
+        .catch(function(error) {
             logger.error('Caught error from simplerses: %j', error)
             throw error
         });

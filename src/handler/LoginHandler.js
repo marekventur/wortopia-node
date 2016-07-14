@@ -26,7 +26,7 @@ module.exports = function(expressWrapper, userDao, logger) {
             .then(function(externalPrivateRepresentation) {
                 res.send({ user: externalPrivateRepresentation });
             })
-            .fail(function(err) {
+            .catch(function(err) {
                 logger.error('Error caught while trying to login in via session token:', err.stack);
                 res.send(500, 'Error while trying to log in');
             });
@@ -47,7 +47,7 @@ module.exports = function(expressWrapper, userDao, logger) {
             .then(function(externalPrivateRepresentation) {
                 res.send({ user: externalPrivateRepresentation });
             })
-            .fail(function(err) {
+            .catch(function(err) {
                 if (err.invalidUsernameOrPassword) {
                     logger.info('Can not log in user due to incorrect credentials: %s', username);
                     res.send({error: 'invalid_credentials'});

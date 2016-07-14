@@ -40,7 +40,7 @@ module.exports = function(config, logger, userDao) {
                 user = setUser;
                 afterLogin(connection, user, size);
             })
-            .fail(function(err) {
+            .catch(function(err) {
                 logger.error('Could not connect user due to error: %s', err);
                 logger.info('Closing connection');
                 connection.close(101);
