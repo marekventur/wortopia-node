@@ -15,12 +15,12 @@ module.exports = function(expressWrapper, userDao, recoverLinkManager, simplerSe
                 .then(function() {
                     res.send({});
                 })
-                .fail(function(err) {
+                .catch(function(err) {
                     logger.error('Error caught while trying to send password reset link:', err.stack);
                     res.send(500, {error: 'unknown'});
                 });
             })
-            .fail(function(err) {
+            .catch(function(err) {
                 if (err.userNotFound) {
                     logger.error('User for email not found:', email);
                     res.send(400, {error: 'invalid_email'});
@@ -43,7 +43,7 @@ module.exports = function(expressWrapper, userDao, recoverLinkManager, simplerSe
             .then(function(user) {
                 res.redirect(config.rootUrl + '#pwr.' + user.sessionToken);
             })
-            .fail(function(err) {
+            .catch(function(err) {
                 logger.error('Error caught while trying to reset password:', err.stack);
                 res.send(500, 'Error while trying to send password reset link');
             });
