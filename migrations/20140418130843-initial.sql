@@ -30,7 +30,7 @@ CREATE TABLE user_sessions
     session_token TEXT NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
     created_at timestamp without time zone NOT NULL DEFAULT now(),
     valid_until timestamp without time zone NOT NULL DEFAULT now() + INTERVAL '30 days',
-    CONSTRAINT user_id_or_guest_id_given CHECK( user_id IS NULL != guest_id IS NULL )
+    CONSTRAINT user_id_or_guest_id_given CHECK( (user_id IS NULL) != (guest_id IS NULL) )
 );
 
 -- INSERT INTO users (name, pw_hash) VALUES ('marekventur', crypt('test', gen_salt('bf')));

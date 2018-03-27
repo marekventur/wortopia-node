@@ -22,6 +22,9 @@ module.exports = function(config, logger) {
                 if (error) {
                     deferred.reject(new Error(error));
                 }
+                if (!response) {
+                    deferred.reject(new Error("no response"));
+                }
                 deferred.resolve([response.statusCode, body]);
             });
             return deferred.promise;
