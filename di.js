@@ -26,7 +26,7 @@ module.exports = function() {
     di.load('MessageAuthenticationCodeManager');
     di.load('RecoverLinkManager');
     di.load('UserOptions');
-    di.load('SimplerSesClient');
+    di.load('SesClient');
     di.load('game/GameServer')
     di.load('game/GuessHandler')
     di.load('handler/SignupHandler');

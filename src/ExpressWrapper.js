@@ -13,7 +13,7 @@ module.exports = function(config, logger) {
         	res.redirect('/4');
         });
         that.app.get(/\/[45]/, function(req, res) {
-        	res.sendfile(path.normalize(__dirname + '/../static-build/index.html'));
+        	res.sendFile(path.normalize(__dirname + '/../static-build/index.html'));
         });
         that.app.use(serveStatic(__dirname + '/../static-build'));
         that.app.use(bodyParser());

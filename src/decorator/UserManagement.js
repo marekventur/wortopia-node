@@ -5,13 +5,13 @@ module.exports = function(user, db, logger) {
 
     // Returns user, not session token
     that.createSessionToken = function() {
-        return Q.fcall(function() {
+        return Q(function() {
             if (user.guest) {
                 return db.queryOne('INSERT INTO user_sessions (guest_id) VALUES ($1) RETURNING session_token;', [user.guestId]);
             } else {
                 return db.queryOne('INSERT INTO user_sessions (user_id) VALUES ($1) RETURNING session_token;', [user.id]);
             }
-        })
+        }).call()
         .then(function(row) {
             user.sessionToken = row.session_token;
             if (user.guest) {

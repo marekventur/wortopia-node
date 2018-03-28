@@ -60,10 +60,10 @@ module.exports = {
         "started": "Der Server wurde neu gestartet. Wir entschuldigen uns für die Unterbrechung.", // Server has been (re-)started. Sorry for any inconvenience caused.
     },
     "chatPostHook": "http://xyz.com/internal-http-post-endpoint",
-    "simplerSes": {
-        "authToken": 'abc',
-        "from": "mail@wortopia.de",
-        "templatePrefix":"wortopia_en_"
+    "email": {
+        "key": "awskey",
+        "secret": "awssecret",
+        "from": "mail@wortopia.de"
     },
     "tokenSalt": "cde",
     "rootUrl": "http://wortopia.de"

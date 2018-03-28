@@ -23,7 +23,7 @@ module.exports = function(config, logger, userDao) {
         var size = null;
 
         connection.once('data', function(payload) {
-            Q.fcall(function() {
+            Q(function() {
                 payload = JSON.parse(payload);
                 var sessionToken = payload.sessionToken;
                 size = payload.size;
@@ -32,7 +32,7 @@ module.exports = function(config, logger, userDao) {
                     throw new Error("Payload invalid");
                 }
                 return sessionToken;
-            })
+            }).call()
             .then(function(sessionToken) {
                 return userDao.getBySessionToken(sessionToken);
             })

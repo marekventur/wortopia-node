@@ -41,6 +41,7 @@
     "iz": "~0.7.1",
     "line-reader": "~0.4.0",
     "no-configuration-di": "~0.3.3",
+    "node-ses": "^2.1.0",
     "pg": "~6.1.0",
     "q": "~2.0.3",
     "request": "^2.40.0",

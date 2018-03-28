@@ -1,7 +1,8 @@
 var _ = require('underscore');
 var Q = require('q');
+var recoveryTemplate = require('../../email/recover');
 
-module.exports = function(expressWrapper, userDao, recoverLinkManager, simplerSesClient, logger, config) {
+module.exports = function(expressWrapper, userDao, recoverLinkManager, sesClient, logger, config) {
     var that = this;
 
     that.start = function() {
@@ -11,22 +12,22 @@ module.exports = function(expressWrapper, userDao, recoverLinkManager, simplerSe
             userDao.getByEmail(email)
             .then(function(user) {
                 var resetLink = recoverLinkManager.createUrl(user);
-                return simplerSesClient.send('recover', user, {resetLink: resetLink, })
+                return sesClient.send(recoveryTemplate, user, {resetLink: resetLink, })
                 .then(function() {
                     res.send({});
                 })
                 .catch(function(err) {
                     logger.error('Error caught while trying to send password reset link:', err.stack);
-                    res.send(500, {error: 'unknown'});
+                    res.status(500).send({error: 'unknown'});
                 });
             })
             .catch(function(err) {
                 if (err.userNotFound) {
                     logger.error('User for email not found:', email);
-                    res.send(400, {error: 'invalid_email'});
+                    res.status(400).send({error: 'invalid_email'});
                 } else {
                     logger.error('Error caught while trying to fetch user for email:', err);
-                    res.send(500, {error: 'unknown'});
+                    res.status(500).send({error: 'unknown'});
                 }
 
             });
@@ -45,7 +46,7 @@ module.exports = function(expressWrapper, userDao, recoverLinkManager, simplerSe
             })
             .catch(function(err) {
                 logger.error('Error caught while trying to reset password:', err.stack);
-                res.send(500, 'Error while trying to send password reset link');
+                res.status(500).send('Error while trying to send password reset link');
             });
         });
     }
