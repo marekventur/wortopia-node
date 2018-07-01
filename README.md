@@ -1,4 +1,4 @@
-# Wortopia implementation in node.js
+# Wortopia implementation in node.jsx
 
 [![Build Status](https://travis-ci.org/marekventur/wortopia-node.svg?branch=master)](https://travis-ci.org/marekventur/wortopia-node)
 
