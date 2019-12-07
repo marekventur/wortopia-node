@@ -33,7 +33,7 @@
   "dependencies": {
     "async": "~2.0.0-rc.3",
     "body-parser": "~1.15.0",
-    "bower": "~1.7.2",
+    "bower": "~1.8.8",
     "bunyan": "~1.8.0",
     "chai": "~3.5.0",
     "db-migrate": "~0.9.23",
