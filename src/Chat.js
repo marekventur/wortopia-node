@@ -20,7 +20,7 @@ module.exports = function(socket, logger, config, clock) {
     }
 
     that.addMessage = function(user, size, text) {
-        user.isMuted().then(function(isMuted) {
+        return user.isMuted().then(function(isMuted) {
             addMessage({
                 text: text,
                 user: user.getExternalPublicRepresentation(),

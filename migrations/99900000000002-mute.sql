@@ -1,1 +1,4 @@
-ALTER TABLE users ADD muted boolean NOT NULL DEFAULT FALSE;
+CREATE TABLE muted_users
+(
+    user_id INTEGER NOT NULL
+);
