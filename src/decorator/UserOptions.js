@@ -13,4 +13,11 @@ module.exports = function(user, db) {
             return row.options;
         });
     }
+
+    that.isMuted = function() {
+        return db.query('SELECT user_id FROM muted_users WHERE user_id = $1', [user.id])
+        .then(function(rows) {
+            return rows.length > 0;
+        })
+    }
 }

@@ -11,7 +11,7 @@ module.exports = function(socket, logger, config, clock) {
         that.addGlobalSystemMessage('started');
 
         socket.on('connected', function(user, size, send) {
-            send('chatBacklog', that.getMessages(size));
+            send('chatBacklog', that.getMessages(size, user));
         });
 
         socket.on('extern_chat', function(text, user, size) {
@@ -20,22 +20,26 @@ module.exports = function(socket, logger, config, clock) {
     }
 
     that.addMessage = function(user, size, text) {
-        addMessage({
-            text: text,
-            user: user.getExternalPublicRepresentation(),
-            time: clock.now()
-        }, size);
+        user.isMuted().then(function(isMuted) {
+            addMessage({
+                text: text,
+                user: user.getExternalPublicRepresentation(),
+                time: clock.now(),
+                isMuted: isMuted
+            }, size, user, isMuted);
 
         if (config.chatPostHook) {
             var name = user.getExternalPublicRepresentation().guest ? "Guest " + user.getExternalPublicRepresentation().guestId : user.getExternalPublicRepresentation().name
             request({
                 uri: config.chatPostHook,
                 method: 'POST',
-                body: "<" + name + "> " + text
+                body: "<" + name + "> " + (isMuted ? "[MUTED] " : "") + text
             }, function (error, response, body) {
                 // Silent
             });
         }
+        }, console.log);
+
     }
 
     that.addSystemMessage = function(size, key, args) {
@@ -53,8 +57,10 @@ module.exports = function(socket, logger, config, clock) {
         });
     }
 
-    that.getMessages = function(size) {
-        return messages[size];
+    that.getMessages = function(size, user) {
+        return messages[size].filter(function(message) {
+            return (!message.isMuted) || (user.id === message.user.id);
+        });
     }
 
     that.cleanUp = function() {
@@ -66,9 +72,13 @@ module.exports = function(socket, logger, config, clock) {
         });
     }
 
-    function addMessage(message, size) {
+    function addMessage(message, size, user, isMuted) {
         messages[size].push(message);
-        socket.broadcast('chat', size, message);
+        if (isMuted) {
+            socket.sendToUser('chat', user, message);
+        } else {
+            socket.broadcast('chat', size, message);
+        }
     }
 
     function format(format, args) {

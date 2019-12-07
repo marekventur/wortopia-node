@@ -88,6 +88,7 @@ module.exports = function(config, logger, userDao) {
             that.emit()
         });
         internalEventEmitter.on('broadcast_' + size, send);
+        internalEventEmitter.on('sendToUser_' + user.id, send);
 
         sendUserOptions(user, send);
 
@@ -104,6 +105,10 @@ module.exports = function(config, logger, userDao) {
 
     that.broadcast = function(type, size, data) {
         internalEventEmitter.emit('broadcast_' + size, type, data);
+    }
+
+    that.sendToUser = function(type, user, data) {
+        internalEventEmitter.emit('sendToUser_' + user.id, type, data);
     }
 
     function sendUserOptions(user, send) {

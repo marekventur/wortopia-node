@@ -1,0 +1,1 @@
+ALTER TABLE users ADD muted boolean NOT NULL DEFAULT FALSE;
