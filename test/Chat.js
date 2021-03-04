@@ -1,6 +1,6 @@
 require('./setup');
 
-describe('Chat', function() {
+describe.skip('Chat', function() {
     var chat, user, socket, now;
 
     beforeEach(function() {
