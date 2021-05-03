@@ -7,6 +7,7 @@ sudo cp ./wortopia.de.service /etc/systemd/system
 sudo systemctl daemon-reload
 
 npm install
+git checkout package-lock.json
 
 ./migrate.sh prod
 
