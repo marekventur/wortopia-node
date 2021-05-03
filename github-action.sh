@@ -11,6 +11,6 @@ git checkout package-lock.json
 
 ./migrate.sh prod
 
-sudo service wortopia restart
+sudo service wortopia.de restart
 
 echo "DONE GITHUB ACTION"
