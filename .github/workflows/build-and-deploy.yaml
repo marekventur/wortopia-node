@@ -13,6 +13,7 @@ jobs:
          host: wortopia.de
          username: wortopia
          key: ${{ secrets.SSH_KEY }}
+         script_stop: true
          script: |
           cd wortopia-node
           git pull --rebase
