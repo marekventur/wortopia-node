@@ -16,5 +16,6 @@ jobs:
          script_stop: true
          script: |
           cd wortopia-node
+          git checkout .
           git pull --rebase
           ./github-action.sh

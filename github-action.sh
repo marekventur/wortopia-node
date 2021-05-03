@@ -7,7 +7,7 @@ sudo cp ./wortopia.de.service /etc/systemd/system
 sudo systemctl daemon-reload
 
 npm install
-git checkout package-lock.json
+./node_modules/grunt-cli/bin/grunt
 
 ./migrate.sh prod
 
