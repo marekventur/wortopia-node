@@ -4,7 +4,7 @@ on:
   schedule:
     - cron: '0 1 * * *' # at 1am every night
 jobs:
-  fetch:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: run ./github-action.sh on host
@@ -14,4 +14,6 @@ jobs:
          username: wortopia
          key: ${{ secrets.SSH_KEY }}
          script: |
+          cd wortopia-node
+          git pull --rebase
           ./github-action.sh
