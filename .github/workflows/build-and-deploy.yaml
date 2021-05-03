@@ -1,0 +1,17 @@
+name: build-and-deploy-wortopia
+on:
+  push:
+  schedule:
+    - cron: '0 1 * * *' # at 1am every night
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: run ./github-action.sh on host
+        uses: appleboy/ssh-action@master
+        with:
+         host: wortopia.de
+         username: wortopia
+         key: ${{ secrets.SSH_KEY }}
+         script: |
+          ./github-action.sh
