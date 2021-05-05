@@ -1,61 +1,51 @@
-var sockjs = require('sockjs');
-var Q = require('q');
-var EventEmitter = require('events').EventEmitter;
-module.exports = function(config, logger, userDao) {
-    var that = this;
+import sockjs from 'sockjs';
+import { EventEmitter } from "events";
 
-    var socket;
-    var internalEventEmitter;
-
-    that.start = function() {
-        socket = sockjs.createServer({log:log});
-        socket.on('connection', handleConnection);
-        internalEventEmitter = new EventEmitter();
-        internalEventEmitter.setMaxListeners(0);
+export default class Socket extends EventEmitter {
+    constructor (config, logger, userDao) {
+        super();
+        this.config = config;
+        this.logger = logger;
+        this.userDao = userDao;
     }
 
-    function log(severity, message) {
-        // nop
-    }
+    start = () => {
+        this.socket = sockjs.createServer({log: () => {} });
+        this.socket.on('connection', this.handleConnection.bind(this));
+        this.internalEventEmitter = new EventEmitter();
+        this.internalEventEmitter.setMaxListeners(0);
+    };
 
-    function handleConnection(connection) {
-        var user = null;
-        var size = null;
-
-        connection.once('data', function(payload) {
-            Q(function() {
+    handleConnection = (connection) => {
+        let user = null;
+        let size = null;
+        connection.once('data', async (payload) => {
+            try {
                 payload = JSON.parse(payload);
                 var sessionToken = payload.sessionToken;
                 size = payload.size;
                 if (!sessionToken || (size !== 4 && size !== 5)) {
-                    logger.error('Invalid payload: %j', payload);
+                    this.logger.error('Invalid payload: %j', payload);
                     throw new Error("Payload invalid");
                 }
-                return sessionToken;
-            }).call()
-            .then(function(sessionToken) {
-                return userDao.getBySessionToken(sessionToken);
-            })
-            .then(function(setUser) {
-                user = setUser;
-                afterLogin(connection, user, size);
-            })
-            .catch(function(err) {
-                logger.error('Could not connect user due to error: %s', err);
-                logger.info('Closing connection');
+                user = await this.userDao.getBySessionToken(sessionToken);
+                this.afterLogin(connection, user, size);
+            } catch (err) {
+                this.logger.error('Could not connect user due to error: %s', err);
+                this.logger.info('Closing connection');
                 connection.close(101);
-            });
+            }
         });
 
-        connection.once('close', function() {
+        connection.once('close', () => {
             if (user) {
-                logger.info("Connection for user %s closed", user);
+                this.logger.info("Connection for user %s closed", user);
             }
             connection.removeAllListeners();
         });
     }
 
-    function afterLogin(connection, user, size) {
+    afterLogin = (connection, user, size) => {
         function send(type, data) {
             var payload = {
                 type: type,
@@ -64,7 +54,7 @@ module.exports = function(config, logger, userDao) {
             connection.write(JSON.stringify(payload));
         }
 
-        connection.on('data', function(payloadString) {
+        connection.on('data', (payloadString) => {
             try {
                 var payload = JSON.parse(payloadString);
                 if (!payload.type) {
@@ -72,55 +62,53 @@ module.exports = function(config, logger, userDao) {
                 }
                 if (payload.type === 'changeSessionToken') {
                     var sessionToken = payload.data;
-                    userDao.getBySessionToken(sessionToken)
+                    this.userDao.getBySessionToken(sessionToken)
                     .then(function(newUser) {
                         user = newUser;
-                        sendUserOptions(user, send);
+                        this.sendUserOptions(user, send);
                     }, function(error) {
                         connection.close();
                     });
                 } else {
-                    that.emit('extern_' + payload.type, payload.data, user, size, send);
+                    this.emit('extern_' + payload.type, payload.data, user, size, send);
                 }
             } catch (err) {
-                logger.error('Error caught when trying to handle incoming data from websocket:', err, err.stack, payloadString);
+                this.logger.error('Error caught when trying to handle incoming data from websocket:', err, err.stack, payloadString);
             }
-            that.emit()
+            this.emit()
         });
-        internalEventEmitter.on('broadcast_' + size, send);
-        internalEventEmitter.on('sendToUser_' + user.id, send);
+        this.internalEventEmitter.on('broadcast_' + size, send);
+        this.internalEventEmitter.on('sendToUser_' + user.id, send);
 
-        sendUserOptions(user, send);
+        this.sendUserOptions(user, send);
 
-        connection.once('close', function() {
-            internalEventEmitter.removeListener('broadcast_' + size, send)
+        connection.once('close', () => {
+            this.internalEventEmitter.removeListener('broadcast_' + size, send)
         })
 
-        that.emit('connected', user, size, send);
+        this.emit('connected', user, size, send);
     }
 
-    that.getSocket = function() {
-        return socket;
+    getSocket = () => {
+        return this.socket;
     }
 
-    that.broadcast = function(type, size, data) {
-        internalEventEmitter.emit('broadcast_' + size, type, data);
+    broadcast = (type, size, data) => {
+        this.internalEventEmitter.emit('broadcast_' + size, type, data);
     }
 
-    that.sendToUser = function(type, user, data) {
-        internalEventEmitter.emit('sendToUser_' + user.id, type, data);
+    sendToUser = (type, user, data) => {
+        this.internalEventEmitter.emit('sendToUser_' + user.id, type, data);
     }
 
-    function sendUserOptions(user, send) {
+    sendUserOptions = (user, send) => {
         if (!user.guest) {
             user.getOptions()
             .then(function(options) {
                 send('userOptions', options);
             }, function(error) {
-                logger.error('Could not retrieve options for user', user.id, error);
+                this.logger.error('Could not retrieve options for user', user.id, error);
             });
         }
     }
 }
-
-require('util').inherits(module.exports, require('events').EventEmitter);

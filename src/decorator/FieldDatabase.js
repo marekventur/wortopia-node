@@ -1,12 +1,12 @@
-var Q = require('q');
-var _ = require('underscore');
 
-module.exports = function(field, db, logger, config) {
+import _ from "underscore";
+
+export default function(field, db, logger, config) {
     var that = field;
     var words = null;
     var size = field.length;
 
-    that.getWords = function() {
+    that.getWords = async function() {
         if (words === null) {
             var startingCombinations = field.getAllStartingCombinations();
             var inStatement = _.map(startingCombinations, function(letter) { return "'" + letter.toLowerCase() + "'"}).join(',');
@@ -14,20 +14,14 @@ module.exports = function(field, db, logger, config) {
             var start = new Date().getTime();
             var afterQuery = null;
             var afterCheck = null;
-            return db.query(sql, [config.language.minimumWordLengthPerFieldSize[size]])
-            .then(function(rows) {
-                afterQuery = new Date().getTime();
-                words = _.chain(rows).pluck('word').filter(field.allowed).filter(field.contains).value();
-                words = wrapWords(words);
-                afterCheck = new Date().getTime();
-                logger.info('Timing: Database %d ms; Node %d ms', afterQuery - start, afterCheck - afterQuery);
-                return words;
-            })
-
-
-        } else {
-            return Q(words);
-        }
+            const rows = await db.query(sql, [config.language.minimumWordLengthPerFieldSize[size]])
+            afterQuery = new Date().getTime();
+            words = _.chain(rows).pluck('word').filter(field.allowed).filter(field.contains).value();
+            words = wrapWords(words);
+            afterCheck = new Date().getTime();
+            logger.info('Timing: Database %d ms; Node %d ms', afterQuery - start, afterCheck - afterQuery);
+        } 
+        return words;
     }
 
     that.getWordsSync = function() {
@@ -40,7 +34,6 @@ module.exports = function(field, db, logger, config) {
     function wrapWords(words) {
         return _.map(words, function(word) {
             var length = word.replace('qu', 'q').length;
-            var points = config.language.scores
             return {
                 word: word,
                 length: length,

@@ -1,4 +1,4 @@
-module.exports = function(config, messageAuthenticationCodeManager, userDao) {
+export default function(config, messageAuthenticationCodeManager, userDao) {
     var that = this;
 
     this.createUrl = function(user) {

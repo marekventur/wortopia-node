@@ -1,9 +1,9 @@
-var crypto = require("crypto");
+import crypto from "crypto";
 
 // This class creates and validates tokens for arbitrary "values" that can
 // be safely passed to the user. Any tinkering can be detected during
 // verify.
-module.exports = function(config) {
+export default function(config) {
     var that = this;
 
     this.create = function(value) {

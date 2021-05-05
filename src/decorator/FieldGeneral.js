@@ -1,7 +1,7 @@
-var Q = require('q');
-var _ = require('underscore');
 
-module.exports = function(field) {
+import _ from "underscore";
+
+export default function(field) {
     var that = field;
     var size = field.length;
 

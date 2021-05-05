@@ -1,38 +1,32 @@
-var Q = require('q');
+import e from "express";
 
-module.exports = function(user, db, logger) {
+
+export default function(user, db, logger) {
     var that = user;
 
     // Returns user, not session token
-    that.createSessionToken = function() {
-        return Q(function() {
-            if (user.guest) {
-                return db.queryOne('INSERT INTO user_sessions (guest_id) VALUES ($1) RETURNING session_token;', [user.guestId]);
-            } else {
-                return db.queryOne('INSERT INTO user_sessions (user_id) VALUES ($1) RETURNING session_token;', [user.id]);
-            }
-        }).call()
-        .then(function(row) {
-            user.sessionToken = row.session_token;
-            if (user.guest) {
-                logger.info('Session token for guest %d created: %s', user.guestId, user.sessionToken);
-            } else {
-                logger.info('Session token for %s created: %s', user.name, user.sessionToken);
-            }
-            return user;
-        });
+    that.createSessionToken = async function() {
+        const result = user.guest
+            ? await db.queryOne('INSERT INTO user_sessions (guest_id) VALUES ($1) RETURNING session_token;', [user.guestId])
+            : await db.queryOne('INSERT INTO user_sessions (user_id) VALUES ($1) RETURNING session_token;', [user.id]);
+
+        user.sessionToken = result.session_token;
+        if (user.guest) {
+            logger.info('Session token for guest %d created: %s', user.guestId, user.sessionToken);
+        } else {
+            logger.info('Session token for %s created: %s', user.name, user.sessionToken);
+        }
+        return user;
     }
 
     // Returns user
-    that.resetSessionToken = function() {
+    that.resetSessionToken = async function() {
         if (!user.sessionToken) {
-            return Q.reject(new Error('no session token set'));
+            throw new Error('no session token set');
         }
-        return db.query("UPDATE user_sessions SET valid_until = now() + INTERVAL '30 days' WHERE session_token = $1",
+        await db.query("UPDATE user_sessions SET valid_until = now() + INTERVAL '30 days' WHERE session_token = $1",
             [user.sessionToken])
-        .then(function(){
-            return user;
-        })
+        return user;
     }
 
     // What a users see about themselves
@@ -40,24 +34,23 @@ module.exports = function(user, db, logger) {
         return user.loadEmail()
     }
 
-    that.loadEmail = function() {
+    that.loadEmail = async function() {
         if (user.email) {
-            return Q(user);
+            return user;
         }
 
         // Guests have no email address
         if (user.id < 0) {
-            return Q(user);
+            return user;
         }
 
-        return db.queryOne('SELECT email FROM user_emails WHERE user_id = $1', [user.id])
-        .then(function(row) {
-            if (!row) {
-                throw new Error('No email address for user ' + user.id + ' found');
-            }
-            user.email = row.email;
-            return user;
-        });
+        const row = await db.queryOne('SELECT email FROM user_emails WHERE user_id = $1', [user.id])
+    
+        if (!row) {
+            throw new Error('No email address for user ' + user.id + ' found');
+        }
+        user.email = row.email;
+        return user;
     }
 
     // What users see about each other

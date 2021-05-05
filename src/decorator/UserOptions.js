@@ -1,6 +1,6 @@
-var _ = require('underscore');
+import _  from 'underscore';
 
-module.exports = function(user, db) {
+export default function(user, db) {
     var that = user;
 
     that.setOptions = function(options) {

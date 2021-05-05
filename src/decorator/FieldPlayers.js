@@ -1,7 +1,7 @@
-var _ = require('underscore');
-var Q = require('q');
+import _ from "underscore";
 
-module.exports = function(field, db) {
+
+export default function(field, db) {
     var that = field;
     var players = {};
     var teams = {};

@@ -1,14 +1,13 @@
-var iz = require('iz');
-var _ = require('underscore');
-var Q = require('q');
+import iz from "iz";
+import _ from "underscore";
 
-module.exports = function(expressWrapper, userDao, logger) {
+
+export default function(expressWrapper, userDao, logger) {
     var that = this;
 
     that.start = function() {
         expressWrapper.app.post('/account', function(req, res) {
             var sessionToken = req.body.sessionToken;
-
             userDao.getBySessionToken(sessionToken)
             .then(function(user) {
                 return user.loadEmail()
@@ -72,11 +71,11 @@ module.exports = function(expressWrapper, userDao, logger) {
 
                 return [user, newUser];
             })
-            .spread(function(user, newUser) {
+            .then(function([user, newUser]) {
                 // No error? Try updating the user object then
 
                 // Special promise: Throws special error object in case of a problem
-                Q.fcall(function() {
+                return Promise.resolve().then(function() {
                     if (user.name != newUser.name) {
                         // Check if new name is available first
                         return userDao.getByName(newUser.name)

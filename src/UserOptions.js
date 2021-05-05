@@ -1,4 +1,4 @@
-module.exports = function(socket, logger) {
+export default function(socket, logger) {
     var that = this;
 
     that.start = function() {

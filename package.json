@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "./migrate.sh test && NODE_ENV=test ./node_modules/mocha/bin/mocha test --check-leaks --reporter tap --colors --recursive test/"
+    "test": "./migrate.sh test && NODE_ENV=test ./node_modules/mocha/bin/mocha test --check-leaks --reporter tap --colors --recursive test/",
+    "start:backend": "npx babel-node app.js",
+    "start:frontend": "./node_modules/grunt/bin/grunt watch"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,9 @@
     "stylus": "~0.54.2"
   },
   "dependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.14.1",
     "async": "~2.0.0-rc.3",
     "body-parser": "^1.19.0",
     "bower": "~1.8.8",
@@ -42,9 +47,8 @@
     "iz": "~0.7.1",
     "line-reader": "~0.4.0",
     "no-configuration-di": "~0.3.3",
-    "node-ses": "^2.1.0",
+    "node-ses": "^3.0.3",
     "pg": "~6.1.0",
-    "q": "~2.0.3",
     "request": "^2.40.0",
     "serve-static": "^1.14.1",
     "sinon": "~1.17.2",

@@ -1,7 +1,7 @@
-var _ = require('underscore');
-var Q = require('q');
+import _ from "underscore";
 
-module.exports = function(config, fieldGenerator, logger, socket) {
+
+export default function(config, fieldGenerator, logger, socket) {
     var that = this;
     var currentFields, nextFields, lastFields;
     var nextEventTimestamp;
@@ -67,17 +67,15 @@ module.exports = function(config, fieldGenerator, logger, socket) {
         });
     }
 
-    function calculateNextFields() {
+    async function calculateNextFields() {
         nextFields = {4: null, 5: null};
         var start = new Date().getTime();
-        var promises = _.map(nextFields, function(currentField, size) {
+        await Promise.all(_.map(nextFields, function(currentField, size) {
             nextFields[size] = fieldGenerator.createField(size);
             return nextFields[size].getWords();
-        });
+        }));
 
-        return Q.all(promises).then(function() {
-            logger.info('Finding words took %d ms', new Date().getTime() - start);
-        });
+        logger.info('Finding words took %d ms', new Date().getTime() - start);
     }
 
     function startRound() {
@@ -91,7 +89,7 @@ module.exports = function(config, fieldGenerator, logger, socket) {
             currentFields[5], currentFields[5].getWordsSync().length);
     }
 
-    function startPause() {
+    async function startPause() {
         lastFields = currentFields;
         currentFields = null;
         nextEventTimestamp = now() + config.pauseTime;
@@ -107,23 +105,21 @@ module.exports = function(config, fieldGenerator, logger, socket) {
         }
         broadcastFields();
 
-        // Onlys start next round when both 30 seconds have passed
-        // and the next field has been calculated
-        Q.all([
-            calculateNextFields(),
-            Q.delay(config.pauseTime)
-        ])
-        .then(function() {
+        try {
+            // Onlys start next round when both 30 seconds have passed
+            // and the next field has been calculated
+            await Promise.all([
+                calculateNextFields(),
+                new Promise(resolve => setTimeout(resolve, config.pauseTime))
+            ])
             startRound();
-        })
-        .catch(function(err) {
+        } catch (err) {
             logger.error('Error while trying to calculate next fields:', err);
             // ToDo Try again?
-        });
+        }
     }
 
     function now() {
         return Date.now();
     }
-
 }

@@ -1,7 +1,7 @@
-var _ = require('underscore');
-var Q = require('q');
+import _ from "underscore";
 
-module.exports = function(gameServer, logger, socket) {
+
+export default function(gameServer, logger, socket) {
     var that = this;
 
     that.start = function() {

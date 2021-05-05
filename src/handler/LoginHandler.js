@@ -1,7 +1,7 @@
-var _ = require('underscore');
-var Q = require('q');
+import _ from "underscore";
 
-module.exports = function(expressWrapper, userDao, logger) {
+
+export default function(expressWrapper, userDao, logger) {
     var that = this;
 
     that.start = function() {
@@ -28,34 +28,29 @@ module.exports = function(expressWrapper, userDao, logger) {
             })
             .catch(function(err) {
                 logger.error('Error caught while trying to login in via session token:', err.stack);
-                res.send(500, 'Error while trying to log in');
+                res.status(500).send('Error while trying to log in');
             });
         });
 
-        expressWrapper.app.post('/loginWithCredentials', function(req, res) {
+        expressWrapper.app.post('/loginWithCredentials', async function(req, res) {
             var username = req.body.username;
             var password = req.body.password;
 
-            userDao.getViaLogin(username, password)
-            .then(function(user) {
-                return user.createSessionToken();
-            })
-            .then(function(user) {
+            try {
+                const user = await userDao.getViaLogin(username, password);
+                await user.createSessionToken();
                 logger.info("Logged in user name: %s, id: %d", user.name, user.id);
-                return user.getExternalPrivateRepresentation();
-            })
-            .then(function(externalPrivateRepresentation) {
+                const externalPrivateRepresentation = await user.getExternalPrivateRepresentation();
                 res.send({ user: externalPrivateRepresentation });
-            })
-            .catch(function(err) {
+            } catch (err) {
                 if (err.invalidUsernameOrPassword) {
                     logger.info('Can not log in user due to incorrect credentials: %s', username);
                     res.send({error: 'invalid_credentials'});
                 } else {
                     logger.error('Error caught while trying to login in with credentials:', err.stack);
-                    res.send(500, 'Error while trying to log in');
+                    res.status(500).send('Error while trying to log in');
                 }
-            });
+            }
         });
     }
 

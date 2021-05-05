@@ -1,8 +1,6 @@
-if (typeof require === 'function') {
-    var _ = require('underscore');
-}
+import _ from "underscore";
 
-function fieldContainsFactoryMethod(field) {
+export default function fieldContainsFactoryMethod(field) {
     if (!field) {
         return;
     }
@@ -53,17 +51,4 @@ function fieldContainsFactoryMethod(field) {
     }
 
     return field;
-}
-
-// Make sure this class can be used in the browser as well as in node
-if (typeof module === 'object') {
-    module.exports = fieldContainsFactoryMethod;
-} else {
-    function FieldFactory() {
-        var that = this;
-        that.create = function(field) {
-            fieldContainsFactoryMethod(field);
-            return field;
-        }
-    }
 }

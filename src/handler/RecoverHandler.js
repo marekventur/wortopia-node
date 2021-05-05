@@ -1,8 +1,8 @@
-var _ = require('underscore');
-var Q = require('q');
-var recoveryTemplate = require('../../email/recover');
+import _ from "underscore";
 
-module.exports = function(expressWrapper, userDao, recoverLinkManager, sesClient, logger, config) {
+import recoveryTemplate from '../email/recover.js';
+
+export default function(expressWrapper, userDao, recoverLinkManager, sesClient, logger, config) {
     var that = this;
 
     that.start = function() {

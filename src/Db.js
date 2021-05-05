@@ -1,32 +1,20 @@
-var Q = require('q');
-var pg = require('pg');
-module.exports = function(config, logger) {
+import pg from 'pg';
+
+export default function(config, logger) {
     var that = this;
 
     function getConnectionString() {
         return config.dbConnectionString;
     }
 
-    that.query = function(sql, params) {
-        var deferred = Q.defer();
-        pg.connect(getConnectionString(), function(err, client, done) {
-            if (err) {
-                return deferred.reject(new Error(err));
-            }
-            client.query(sql, params, function(err, result) {
-                done();
-
-                if (err) {
-                    var error = new Error(err);
-                    error.message = error.message + '(Query: ' + sql + ')';
-                    return deferred.reject(error);
-                }
-
-                deferred.resolve(result.rows);
-            });
-        });
-
-        return deferred.promise;
+    that.query = async function(sql, params) {
+        const client = new pg.Client(getConnectionString());
+        await client.connect()
+        try {
+            return (await client.query(sql, params)).rows;
+        } catch (e) {
+            throw new Error(`${e.message} (Query ${sql})`);
+        }
     }
 
     that.queryOne = function(sql, params) {

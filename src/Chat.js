@@ -1,7 +1,8 @@
-var _ = require('underscore');
-var util = require('util');
-var request = require('request');
-module.exports = function(socket, logger, config, clock) {
+import _  from 'underscore';
+import util from 'util';
+import request from 'request';
+
+export default function(socket, logger, config, clock) {
     var that = this;
 
     var messages = {4: [], 5: []};

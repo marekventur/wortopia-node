@@ -1,6 +1,6 @@
-var Q = require('q');
 
-module.exports = function(user) {
+
+export default function(user) {
     var pwHash = user.pw_hash;
     delete user.pw_hash; // Don't let that field be public on the object
 

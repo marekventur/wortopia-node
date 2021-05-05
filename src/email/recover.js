@@ -1,4 +1,4 @@
-module.exports = function (c) {
+export default function (c) {
     var text = "Hallo " + c.username + ", \n\n" +
         "es sieht so aus als hättest du dich aus Wortopia.de ausgesperrt. Kein Problem, dieser Link erlaubt dir dich wieder als \"" + c.username + "\" einzuloggen sodass du deinen Benutzernamen oder Passwort ändern kannst: " + c.resetLink + "\n" +
         "\n" +

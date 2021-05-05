@@ -1,4 +1,4 @@
-module.exports = function(expressWrapper, highscoreQuery, logger) {
+export default function(expressWrapper, highscoreQuery, logger) {
     var that = this;
 
     that.start = function() {

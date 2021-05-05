@@ -1,6 +1,6 @@
-var _ = require('underscore');
+import _ from "underscore";
 
-module.exports = function(config, fieldDecorator) {
+export default function(config, fieldDecorator) {
     var that = this;
 
     that.createField = function(size) {
@@ -38,7 +38,7 @@ module.exports = function(config, fieldDecorator) {
         }
         field.size = size;
 
-        return fieldDecorator.decorate(field);
+        return fieldDecorator(field);
     }
 
 }

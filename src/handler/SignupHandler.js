@@ -1,7 +1,7 @@
-var iz = require('iz');
-var _ = require('underscore');
+import iz from "iz";
+import _ from "underscore";
 
-module.exports = function(expressWrapper, userDao, logger) {
+export default function(expressWrapper, userDao, logger) {
     var that = this;
 
     that.start = function() {

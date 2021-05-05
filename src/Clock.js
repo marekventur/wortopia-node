@@ -1,4 +1,4 @@
-module.exports = function() {
+export default function() {
     var that = this;
 
     that.now = function(chat) {

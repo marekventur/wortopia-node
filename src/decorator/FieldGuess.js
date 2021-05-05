@@ -1,30 +1,25 @@
-var _ = require('underscore');
-var Q = require('q');
-module.exports = function(field) {
-    var checkedWords = {};
+import _ from "underscore";
 
-    field.guessWord = function(user, word) {
-        return field.getWords()
-        .then(function(words) {
-            var foundWord = _.findWhere(words, {word: word});
-            if (foundWord) {
-                if (field.scoreForPlayer(user, foundWord)) {
-                    return Q(foundWord);
-                } else {
-                    return Q.reject(newErrorWithCode('dublicated'));
-                }
+export default function(field) {
+    field.guessWord = async function(user, word) {
+        const words = await field.getWords();
+        const foundWord = _.findWhere(words, {word: word});
+        if (foundWord) {
+            if (field.scoreForPlayer(user, foundWord)) {
+                return foundWord;
             } else {
-                if (field.isFinished()) {
-                    return Q.reject(newErrorWithCode('tooLate'));
-                } else if (!field.allowed(word)) {
-                    return Q.reject(newErrorWithCode('tooShort'));
-                } else if (!field.contains(word)) {
-                    return Q.reject(newErrorWithCode('notOnField'));
-                } else {
-                    return Q.reject(newErrorWithCode('notInDictionary'));
-                }
+                throw newErrorWithCode('dublicated');
             }
-        });
+        } 
+        if (field.isFinished()) {
+            throw newErrorWithCode('tooLate');
+        } else if (!field.allowed(word)) {
+            throw newErrorWithCode('tooShort');
+        } else if (!field.contains(word)) {
+            throw newErrorWithCode('notOnField');
+        } else {
+            throw newErrorWithCode('notInDictionary');
+        }
     }
 
     function newErrorWithCode (code) {
