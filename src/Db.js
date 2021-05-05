@@ -3,15 +3,17 @@ import pg from 'pg';
 export default function(config, logger) {
     var that = this;
 
-    function getConnectionString() {
-        return config.dbConnectionString;
-    }
+    const pool = new pg.Pool({
+        connectionString: config.dbConnectionString
+    });
+    pool.on('error', (err, client) => {
+        console.error('Unexpected error on idle client', err)
+        process.exit(-1)
+    });
 
     that.query = async function(sql, params) {
-        const client = new pg.Client(getConnectionString());
-        await client.connect()
         try {
-            return (await client.query(sql, params)).rows;
+            return (await pool.query(sql, params)).rows;
         } catch (e) {
             throw new Error(`${e.message} (Query ${sql})`);
         }
