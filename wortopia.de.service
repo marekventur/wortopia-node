@@ -9,7 +9,8 @@ User=wortopia
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=wortopia-de
-ExecStart=/usr/bin/node /home/wortopia/wortopia-node/app.js /etc/wortopia/config.js
+WorkingDirectory=/home/wortopia/wortopia-node
+ExecStart=npm run start:backend /etc/wortopia/config.js
 Restart=on-failure
 
 [Install]

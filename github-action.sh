@@ -11,6 +11,8 @@ npm install
 
 ./migrate.sh prod
 
+sudo cp wortopia.de.service /etc/systemd/system/wortopia.de.service
+sudo systemctl daemon-reload
 sudo service wortopia.de restart
 
 echo "DONE GITHUB ACTION"
