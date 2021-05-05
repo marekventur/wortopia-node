@@ -10,7 +10,7 @@ StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=wortopia-de
 WorkingDirectory=/home/wortopia/wortopia-node
-ExecStart=npm run start:backend /etc/wortopia/config.js
+ExecStart=npm run start:backend /etc/wortopia/config.json
 Restart=on-failure
 
 [Install]
