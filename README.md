@@ -8,7 +8,7 @@ sudo -u postgres createuser wortopia -P
 sudo -u postgres createdb wortopia -O wortopia
 sudo -u postgres createdb wortopia_test -O wortopia
 ```
-
+ 
 ```
 sudo -u postgres psql wortopia
 CREATE EXTENSION IF NOT EXISTS citext;
