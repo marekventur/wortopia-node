@@ -36,7 +36,7 @@
     "@babel/core": "^7.14.0",
     "@babel/node": "^7.13.13",
     "@babel/preset-env": "^7.14.1",
-    "async": "~2.0.0-rc.3",
+    "async": "~2.6.4",
     "body-parser": "^1.19.0",
     "bower": "~1.8.8",
     "bunyan": "~1.8.0",
