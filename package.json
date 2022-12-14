@@ -43,7 +43,7 @@
     "chai": "~3.5.0",
     "db-migrate": "^0.11.12",
     "db-migrate-pg": "^1.2.2",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "iz": "~0.7.1",
     "line-reader": "~0.4.0",
     "no-configuration-di": "~0.3.3",
