@@ -32,7 +32,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 ./migrate.sh production
 ```
 
-Run grunt
+Run grunt 
 
 ```
 grunt
