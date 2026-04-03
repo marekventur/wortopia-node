@@ -123,5 +123,5 @@
     "options.boardScale.label": "Brettgröße (in %):",
     "messages.browserUpdate": "Vielleicht solltest du <a target=\"_blank\" href=\"http://browsehappy.com/\">deinen Browser updaten</a>?",
     "messages.highLatency": "Ein Problem mit deiner Internetverbindung oder deinem Browser hindert Wortopia daran, eine Websocket Verbindung aufzubauen. Dies kann zu Verzögerungen im Spiel führen und zu inkorrekten Spielzeiten.",
-    "main.notice": "Hilf mit, Wortopia besser zu machen! Teile deine Meinung in unserer kurzen <a href=\"https://docs.google.com/forms/d/e/1FAIpQLSfrFher4Bhkt1CqKd9s6FlA1JAowEmE9JUbmeRPppbk0C3yUw/viewform?usp=header" target=\"_blank\">Umfrage</a> zur Neugestaltung"
+    "main.notice": "Bitte hilf, die <a href=\"https://v2.wortopia.de\" target=\"_blank\">neue Version von Wortopia</a> zu testen!"
 }
