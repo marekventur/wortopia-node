@@ -63,10 +63,10 @@ export default class Socket extends EventEmitter {
                 if (payload.type === 'changeSessionToken') {
                     var sessionToken = payload.data;
                     this.userDao.getBySessionToken(sessionToken)
-                    .then(function(newUser) {
+                    .then((newUser) => {
                         user = newUser;
                         this.sendUserOptions(user, send);
-                    }, function(error) {
+                    }, (error) => {
                         connection.close();
                     });
                 } else {
@@ -104,9 +104,9 @@ export default class Socket extends EventEmitter {
     sendUserOptions = (user, send) => {
         if (!user.guest) {
             user.getOptions()
-            .then(function(options) {
+            .then((options) => {
                 send('userOptions', options);
-            }, function(error) {
+            }, (error) => {
                 this.logger.error('Could not retrieve options for user', user.id, error);
             });
         }
